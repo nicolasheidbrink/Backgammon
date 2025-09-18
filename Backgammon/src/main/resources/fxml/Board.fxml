@@ -7,56 +7,56 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="backgammon.controller.BoardController">
    <children>
       <Rectangle fill="#86471d" height="450.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
       <Rectangle fill="#86471d" height="450.0" layoutX="700.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" />
       <Rectangle fill="#86471d" height="50.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
       <Rectangle fill="#86471d" height="101.0" layoutY="350.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
       <Rectangle fill="#c08552" height="300.0" layoutX="50.0" layoutY="50.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="650.0" />
-      <Circle fx:id="diceRoller" fill="RED" layoutX="750.0" layoutY="400.0" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fill="RED" layoutX="750.0" layoutY="400.0" onMouseClicked="#diceRolled" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Rectangle fill="#f3e1b9" height="50.0" layoutX="50.0" layoutY="375.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
       <Rectangle fill="#3e2514" height="50.0" layoutX="400.0" layoutY="375.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
-      <Rectangle fill="#86471d" height="450.0" layoutX="350.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
-      <Polygon fill="#3e2514" layoutX="50.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="100.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="150.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="200.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="250.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="300.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="400.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="450.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="500.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="550.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="600.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="650.0" layoutY="350.0" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="50.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="100.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="150.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="200.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="250.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="300.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="400.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="450.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="500.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="550.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="600.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="650.0" layoutY="50.0" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Rectangle fill="#86471d" height="300.0" layoutX="350.0" layoutY="50.0" onMouseClicked="#barClicked" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
+      <Polygon fill="#f3e1b9" layoutX="650.0" layoutY="350.0" onMouseClicked="#point1Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="600.0" layoutY="350.0" onMouseClicked="#point2Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="550.0" layoutY="350.0" onMouseClicked="#point3Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="500.0" layoutY="350.0" onMouseClicked="#point4Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="450.0" layoutY="350.0" onMouseClicked="#point5Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="400.0" layoutY="350.0" onMouseClicked="#point6Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="300.0" layoutY="350.0" onMouseClicked="#point7Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="250.0" layoutY="350.0" onMouseClicked="#point8Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="200.0" layoutY="350.0" onMouseClicked="#point9Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="150.0" layoutY="350.0" onMouseClicked="#point10Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="100.0" layoutY="350.0" onMouseClicked="#point11Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="50.0" layoutY="350.0" onMouseClicked="#point12Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="50.0" layoutY="50.0" onMouseClicked="#point13Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="100.0" layoutY="50.0" onMouseClicked="#point14Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="150.0" layoutY="50.0" onMouseClicked="#point15Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="200.0" layoutY="50.0" onMouseClicked="#point16Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="250.0" layoutY="50.0" onMouseClicked="#point17Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="300.0" layoutY="50.0" onMouseClicked="#point18Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="400.0" layoutY="50.0" onMouseClicked="#point19Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="450.0" layoutY="50.0" onMouseClicked="#point20Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="500.0" layoutY="50.0" onMouseClicked="#point21Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="550.0" layoutY="50.0" onMouseClicked="#point22Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="600.0" layoutY="50.0" onMouseClicked="#point23Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#3e2514" layoutX="650.0" layoutY="50.0" onMouseClicked="#point24Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="50.0" layoutX="725.0" layoutY="175.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
-      <Label alignment="CENTER" layoutX="725.0" layoutY="175.0" prefHeight="50.0" prefWidth="50.0" text="1" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="725.0" layoutY="175.0" onMouseClicked="#doubleOffered" prefHeight="50.0" prefWidth="50.0" text="1" textFill="WHITE">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="713.0" layoutY="381.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="36.0" />
-       <Label alignment="CENTER" layoutX="713.0" layoutY="381.0" prefHeight="35.0" prefWidth="35.0" text="5" textFill="BLACK">
+       <Label fx:id="leftDie" alignment="CENTER" layoutX="713.0" layoutY="381.0" onMouseClicked="#diceRolled" prefHeight="35.0" prefWidth="35.0" text="5" textFill="BLACK">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
  
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="751.0" layoutY="381.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="36.0" />
-       <Label alignment="CENTER" layoutX="751.0" layoutY="381.0" prefHeight="35.0" prefWidth="35.0" text="6" textFill="BLACK">
+       <Label fx:id="rightDie" alignment="CENTER" layoutX="751.0" layoutY="381.0" onMouseClicked="#diceRolled" prefHeight="35.0" prefWidth="35.0" text="6" textFill="BLACK">
          <font>
             <Font size="16.0" />
          </font>
