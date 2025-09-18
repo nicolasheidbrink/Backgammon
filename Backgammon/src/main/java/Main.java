@@ -1,17 +1,18 @@
 package main.java;
 	
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Pane root = new Pane();
-			Scene scene = new Scene(root,400,400);
+			Parent root = FXMLLoader.load(getClass().getResource("/main/resources/fxml/Board.fxml"));
+			Scene scene = new Scene(root);
 			primaryStage.setTitle("Backgammon");
 			primaryStage.setScene(scene);
 			Image icon = new Image(getClass().getResource("/main/resources/images/backgammonIcon.png").toExternalForm());
