@@ -1,15 +1,14 @@
 package backgammon.controller;
 
 
+import backgammon.model.GameMaster;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 public class BoardController {
 
-	public BoardController(){
-		
-	}
+	private GameMaster gameMaster = new GameMaster(this);
 	
 	@FXML
 	private Label leftDie;
@@ -17,14 +16,20 @@ public class BoardController {
 	@FXML
 	private Label rightDie;
 	
+	public void showDiceRoll(int leftDieRoll, int rightDieRoll){
+		this.leftDie.setText(""+leftDieRoll);
+		this.rightDie.setText(""+rightDieRoll);
+	}
+	
 	@FXML
 	private void diceRolled(MouseEvent e){
-		System.out.println("dice rolled");
+		gameMaster.rollDice();
 	}
 
 	@FXML
 	private void doubleOffered(MouseEvent e){
-		System.out.println("double offered");
+		gameMaster = new GameMaster(this);
+		gameMaster.startGame();
 	}
 
 	@FXML
