@@ -47,4 +47,17 @@ public class Board {
 		points[22] = new Point('-', 0);
 		points[23] = new Point('O', 2);
 	}
+	
+	public Board clone(){
+		Board clone = new Board();
+		clone.barO = this.barO;
+		clone.barX = this.barX;
+		clone.trayO = this.trayO;
+		clone.trayX = this.trayX;
+		for(int i = 0; i < 24; i++){
+			clone.points[i].amtCheckers = this.points[i].amtCheckers;
+			clone.points[i].occupiedBy = this.points[i].occupiedBy;
+		}
+		return clone;
+	}
 }
