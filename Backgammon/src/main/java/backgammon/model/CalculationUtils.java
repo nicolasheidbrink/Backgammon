@@ -29,52 +29,34 @@ public class CalculationUtils {
 				if(alreadyChecked.contains(moveSequence)) continue;
 				alreadyChecked.add(moveSequence);
 				if(moveSequence.remainingRolls().size() == 0) continue;
-			
 				result.addAll(possibleMoves(moveSequence));
-			
 			}
 			if(!toBeAdded.isEmpty()){
 				result.addAll(toBeAdded);
 				toBeAdded.clear();
 			} else nothingNew = true;
 		}
+		if(result.equals(Set.of(exposition))) return new HashSet<MoveSequence>();
 		
-		removeMoveSequencesWithNotEnoughMoves
+		int minimumRemainingRolls = result.stream()
+			.mapToInt(ms -> ms.remainingRolls().size())
+			.min()
+			.orElseThrow();
 		
-		if(board.barO > 0){
-			if(board.points[24-leftDie].occupiedBy != 'X'){
-				List<Move> temp = new ArrayList<Move>();
-				temp.add(new Move('O', leftDie, 24, 24-leftDie, false));
-				result.add(temp);
-			}
-			if(leftDie != rightDie && board.points[24-rightDie].occupiedBy != 'X'){
-				List<Move> temp = new ArrayList<Move>();
-				temp.add(new Move('O', rightDie, 24, 24-rightDie, false));
-				result.add(temp);
-			}
-			if(board.points[24-leftDie].occupiedBy == 'X' && board.points[24-leftDie].amtCheckers == 1){
-				List<Move> temp = new ArrayList<Move>();
-				temp.add(new Move('O', leftDie, 24, 24-leftDie, true));
-				result.add(temp);
-			}
-			if(leftDie != rightDie && board.points[24-rightDie].occupiedBy == 'X' && board.points[24-rightDie].amtCheckers == 1){
-				List<Move> temp = new ArrayList<Move>();
-				temp.add(new Move('O', rightDie, 24, 24-rightDie, true));
-				result.add(temp);
-			}
+		Set<MoveSequence> resultWithoutUnusedRolls = result.stream()
+			.filter(ms -> ms.remainingRolls().size() == minimumRemainingRolls)
+			.collect(Collectors.toSet());
+		
+		if(minimumRemainingRolls == 1){
+			int minimumUnusedRoll = resultWithoutUnusedRolls.stream()
+					.map(ms -> ms.remainingRolls().get(0))
+					.min(Integer::compareTo)
+					.orElseThrow();
+			return resultWithoutUnusedRolls.stream()
+					.filter(ms -> ms.remainingRolls().get(0).equals(minimumUnusedRoll))
+					.collect(Collectors.toSet());
 		}
-		else {
-			boolean endgameForO = checkIfEndgameForO(board);
-			for(int i = 0; i < 24; i++){
-				if(board.points[i].occupiedBy == 'O' && i + 1 >= leftDie){
-					if(board.points[i-leftDie].occupiedBy != 'X'){
-						
-					}
-				}
-			}
-		}
-		
-		return result;
+		return resultWithoutUnusedRolls;
 	}
 	
 	public static Set<MoveSequence> possibleMoves(MoveSequence moveSequence){
@@ -94,13 +76,51 @@ public class CalculationUtils {
 		}
 		else if(checkIfEndgameForO(moveSequence.board())){
 			for(Integer roll : moveSequence.remainingRolls().stream().distinct().collect(Collectors.toList())){
-				for(int i = 0; i < 6; i++){
+				for(int i = 5; i >= 0; i++){
+					boolean noMovePossible = true;
 					if(moveSequence.board().points[i].occupiedBy == 'O'){
-						///////////////////////////
+						if(i-roll >= 0 && (moveSequence.board().points[i-roll].occupiedBy != 'X' || moveSequence.board().points[i-roll].amtCheckers == 1)){
+							List<Move> tempMoves = new ArrayList<>();
+							tempMoves.addAll(moveSequence.moves());
+							tempMoves.add(new Move('O', roll, i, i-roll));
+							List<Integer> remainingRolls = new ArrayList<>();
+							remainingRolls.addAll(moveSequence.remainingRolls());
+							remainingRolls.remove(Integer.valueOf(roll));
+							possibleNextMove.add(new MoveSequence(tempMoves, doMoveForO(moveSequence.board(), i, i-roll), remainingRolls));
+							noMovePossible = false;
+						}
+						if(i-roll == 0 || noMovePossible){
+							List<Move> tempMoves = new ArrayList<>();
+							tempMoves.addAll(moveSequence.moves());
+							tempMoves.add(new Move('O', roll, i, -1));
+							List<Integer> remainingRolls = new ArrayList<>();
+							remainingRolls.addAll(moveSequence.remainingRolls());
+							remainingRolls.remove(Integer.valueOf(roll));
+							possibleNextMove.add(new MoveSequence(tempMoves, doMoveForO(moveSequence.board(), i, -1), remainingRolls));
+							noMovePossible = false;
+						}
 					}
 				}
 			}
 		}
+		else{
+			for(Integer roll : moveSequence.remainingRolls().stream().distinct().collect(Collectors.toList())){
+				for(int i = 0; i < 24; i++){
+					if(moveSequence.board().points[i].occupiedBy == 'O'){
+						if(i-roll >= 0 && (moveSequence.board().points[i-roll].occupiedBy != 'X' || moveSequence.board().points[i-roll].amtCheckers == 1)){
+							List<Move> tempMoves = new ArrayList<>();
+							tempMoves.addAll(moveSequence.moves());
+							tempMoves.add(new Move('O', roll, i, i-roll));
+							List<Integer> remainingRolls = new ArrayList<>();
+							remainingRolls.addAll(moveSequence.remainingRolls());
+							remainingRolls.remove(Integer.valueOf(roll));
+							possibleNextMove.add(new MoveSequence(tempMoves, doMoveForO(moveSequence.board(), i, i-roll), remainingRolls));
+						}
+					}
+				}
+			}
+		}
+		return possibleNextMove;
 	}
 	
 	public static boolean checkIfEndgameForO(Board board){

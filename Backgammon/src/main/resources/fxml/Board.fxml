@@ -15,33 +15,45 @@
       <Rectangle fill="#86471d" height="101.0" layoutY="350.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
       <Rectangle fill="#c08552" height="300.0" layoutX="50.0" layoutY="50.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="650.0" />
       <Circle fill="RED" layoutX="750.0" layoutY="400.0" onMouseClicked="#diceRolled" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Rectangle fill="#f3e1b9" height="50.0" layoutX="50.0" layoutY="375.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
-      <Rectangle fill="#3e2514" height="50.0" layoutX="400.0" layoutY="375.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#f3e1b9" height="50.0" layoutX="50.0" layoutY="375.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3e2514" height="50.0" layoutX="400.0" layoutY="375.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
       <Rectangle fill="#86471d" height="300.0" layoutX="350.0" layoutY="50.0" onMouseClicked="#barClicked" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
-      <Polygon fill="#f3e1b9" layoutX="650.0" layoutY="350.0" onMouseClicked="#point1Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="600.0" layoutY="350.0" onMouseClicked="#point2Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="550.0" layoutY="350.0" onMouseClicked="#point3Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="500.0" layoutY="350.0" onMouseClicked="#point4Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="450.0" layoutY="350.0" onMouseClicked="#point5Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="400.0" layoutY="350.0" onMouseClicked="#point6Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="300.0" layoutY="350.0" onMouseClicked="#point7Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="250.0" layoutY="350.0" onMouseClicked="#point8Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="200.0" layoutY="350.0" onMouseClicked="#point9Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="150.0" layoutY="350.0" onMouseClicked="#point10Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="100.0" layoutY="350.0" onMouseClicked="#point11Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="50.0" layoutY="350.0" onMouseClicked="#point12Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="50.0" layoutY="50.0" onMouseClicked="#point13Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="100.0" layoutY="50.0" onMouseClicked="#point14Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="150.0" layoutY="50.0" onMouseClicked="#point15Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="200.0" layoutY="50.0" onMouseClicked="#point16Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="250.0" layoutY="50.0" onMouseClicked="#point17Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="300.0" layoutY="50.0" onMouseClicked="#point18Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="400.0" layoutY="50.0" onMouseClicked="#point19Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="450.0" layoutY="50.0" onMouseClicked="#point20Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="500.0" layoutY="50.0" onMouseClicked="#point21Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="550.0" layoutY="50.0" onMouseClicked="#point22Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#f3e1b9" layoutX="600.0" layoutY="50.0" onMouseClicked="#point23Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Polygon fill="#3e2514" layoutX="650.0" layoutY="50.0" onMouseClicked="#point24Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Polygon fill="#f3e1b9" layoutX="650.0" layoutY="350.0" onMouseClicked="#point1Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="600.0" layoutY="350.0" onMouseClicked="#point2Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#f3e1b9" layoutX="550.0" layoutY="350.0" onMouseClicked="#point3Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="500.0" layoutY="350.0" onMouseClicked="#point4Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#f3e1b9" layoutX="450.0" layoutY="350.0" onMouseClicked="#point5Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="400.0" layoutY="350.0" onMouseClicked="#point6Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#f3e1b9" layoutX="300.0" layoutY="350.0" onMouseClicked="#point7Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="250.0" layoutY="350.0" onMouseClicked="#point8Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#f3e1b9" layoutX="200.0" layoutY="350.0" onMouseClicked="#point9Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="150.0" layoutY="350.0" onMouseClicked="#point10Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#f3e1b9" layoutX="100.0" layoutY="350.0" onMouseClicked="#point11Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="50.0" layoutY="350.0" onMouseClicked="#point12Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#f3e1b9" layoutX="50.0" layoutY="50.0" onMouseClicked="#point13Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="100.0" layoutY="50.0" onMouseClicked="#point14Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#f3e1b9" layoutX="150.0" layoutY="50.0" onMouseClicked="#point15Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="200.0" layoutY="50.0" onMouseClicked="#point16Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#f3e1b9" layoutX="250.0" layoutY="50.0" onMouseClicked="#point17Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="300.0" layoutY="50.0" onMouseClicked="#point18Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#f3e1b9" layoutX="400.0" layoutY="50.0" onMouseClicked="#point19Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="450.0" layoutY="50.0" onMouseClicked="#point20Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#f3e1b9" layoutX="500.0" layoutY="50.0" onMouseClicked="#point21Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="550.0" layoutY="50.0" onMouseClicked="#point22Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#f3e1b9" layoutX="600.0" layoutY="50.0" onMouseClicked="#point23Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fill="#3e2514" layoutX="650.0" layoutY="50.0" onMouseClicked="#point24Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Rectangle fx:id="trayX" arcHeight="10.0" arcWidth="10.0" fill="#f3e1b9" height="115.0" layoutX="725.0" layoutY="235.0" onMouseClicked="#trayOClicked" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" width="50.0" />
+      <Label fx:id="trayXLabel" alignment="CENTER" layoutX="725.0" layoutY="235.0" onMouseClicked="#trayXClicked" prefHeight="115.0" prefWidth="50.0" text="0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="trayO" arcHeight="10.0" arcWidth="10.0" fill="#3e2514" height="115.0" layoutX="725.0" layoutY="50.0" onMouseClicked="#trayXClicked" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" width="50.0" />
+      <Label fx:id="trayOLabel" alignment="CENTER" layoutX="725.0" layoutY="50.0" onMouseClicked="#trayOClicked" prefHeight="115.0" prefWidth="50.0" text="0" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="50.0" layoutX="725.0" layoutY="175.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
       <Label alignment="CENTER" layoutX="725.0" layoutY="175.0" onMouseClicked="#doubleOffered" prefHeight="50.0" prefWidth="50.0" text="1" textFill="WHITE">
          <font>
@@ -49,16 +61,175 @@
          </font>
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="713.0" layoutY="381.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="36.0" />
-       <Label fx:id="leftDie" alignment="CENTER" layoutX="713.0" layoutY="381.0" onMouseClicked="#diceRolled" prefHeight="35.0" prefWidth="35.0" text="5" textFill="BLACK">
+       <Label fx:id="leftDie" alignment="CENTER" layoutX="713.0" layoutY="381.0" onMouseClicked="#diceRolled" prefHeight="35.0" prefWidth="35.0" text="6" textFill="BLACK">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
  
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="751.0" layoutY="381.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="36.0" />
-       <Label fx:id="rightDie" alignment="CENTER" layoutX="751.0" layoutY="381.0" onMouseClicked="#diceRolled" prefHeight="35.0" prefWidth="35.0" text="6" textFill="BLACK">
+       <Label fx:id="rightDie" alignment="CENTER" layoutX="751.0" layoutY="381.0" onMouseClicked="#diceRolled" prefHeight="35.0" prefWidth="35.0" text="5" textFill="BLACK">
          <font>
             <Font size="16.0" />
+         </font>
+      </Label>
+      
+
+      
+      <Circle fx:id="checker1" layoutX="675.0" layoutY="330.0" onMouseClicked="#checker1Clicked" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+      <Label fx:id="checkerLabel1" alignment="CENTER" layoutX="655.0" layoutY="310.0" onMouseClicked="#checker1Clicked" prefHeight="40.0" prefWidth="40.0" text="2" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker2" fill="WHITE" layoutX="625.0" layoutY="330.0" onMouseClicked="#checker2Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel2" alignment="CENTER" layoutX="605.0" layoutY="310.0" onMouseClicked="#checker2Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker3" fill="WHITE" layoutX="575.0" layoutY="330.0" onMouseClicked="#checker3Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel3" alignment="CENTER" layoutX="555.0" layoutY="310.0" onMouseClicked="#checker3Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker4" fill="WHITE" layoutX="525.0" layoutY="330.0" onMouseClicked="#checker4Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel4" alignment="CENTER" layoutX="505.0" layoutY="310.0" onMouseClicked="#checker4Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker5" fill="WHITE" layoutX="475.0" layoutY="330.0" onMouseClicked="#checker5Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel5" alignment="CENTER" layoutX="455.0" layoutY="310.0" onMouseClicked="#checker5Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker6" fill="WHITE" layoutX="425.0" layoutY="330.0" onMouseClicked="#checker6Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <Label fx:id="checkerLabel6" alignment="CENTER" layoutX="405.0" layoutY="310.0" onMouseClicked="#checker6Clicked" prefHeight="40.0" prefWidth="40.0" text="5">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker7" fill="WHITE" layoutX="325.0" layoutY="330.0" onMouseClicked="#checker7Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel7" alignment="CENTER" layoutX="305.0" layoutY="310.0" onMouseClicked="#checker7Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker8" fill="WHITE" layoutX="275.0" layoutY="330.0" onMouseClicked="#checker8Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <Label fx:id="checkerLabel8" alignment="CENTER" layoutX="255.0" layoutY="310.0" onMouseClicked="#checker8Clicked" prefHeight="40.0" prefWidth="40.0" text="3">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker9" fill="WHITE" layoutX="225.0" layoutY="330.0" onMouseClicked="#checker9Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel9" alignment="CENTER" layoutX="205.0" layoutY="310.0" onMouseClicked="#checker9Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker10" fill="WHITE" layoutX="175.0" layoutY="330.0" onMouseClicked="#checker10Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel10" alignment="CENTER" layoutX="155.0" layoutY="310.0" onMouseClicked="#checker10Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker11" fill="WHITE" layoutX="125.0" layoutY="330.0" onMouseClicked="#checker11Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel11" alignment="CENTER" layoutX="105.0" layoutY="310.0" onMouseClicked="#checker11Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker12" layoutX="75.0" layoutY="330.0" onMouseClicked="#checker12Clicked" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+      <Label fx:id="checkerLabel12" alignment="CENTER" layoutX="55.0" layoutY="310.0" onMouseClicked="#checker12Clicked" prefHeight="40.0" prefWidth="40.0" text="5" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker13" fill="WHITE" layoutX="75.0" layoutY="70.0" onMouseClicked="#checker13Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <Label fx:id="checkerLabel13" alignment="CENTER" layoutX="55.0" layoutY="50.0" onMouseClicked="#checker13Clicked" prefHeight="40.0" prefWidth="40.0" text="5">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker14" fill="WHITE" layoutX="125.0" layoutY="70.0" onMouseClicked="#checker14Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel14" alignment="CENTER" layoutX="105.0" layoutY="50.0" onMouseClicked="#checker14Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker15" fill="WHITE" layoutX="175.0" layoutY="70.0" onMouseClicked="#checker15Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel15" alignment="CENTER" layoutX="155.0" layoutY="50.0" onMouseClicked="#checker15Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker16" fill="WHITE" layoutX="225.0" layoutY="70.0" onMouseClicked="#checker16Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel16" alignment="CENTER" layoutX="205.0" layoutY="50.0" onMouseClicked="#checker16Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker17" layoutX="275.0" layoutY="70.0" onMouseClicked="#checker17Clicked" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+      <Label fx:id="checkerLabel17" alignment="CENTER" layoutX="255.0" layoutY="50.0" onMouseClicked="#checker17Clicked" prefHeight="40.0" prefWidth="40.0" text="3" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker18" fill="WHITE" layoutX="325.0" layoutY="70.0" onMouseClicked="#checker18Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel18" alignment="CENTER" layoutX="305.0" layoutY="50.0" onMouseClicked="#checker18Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker19" layoutX="425.0" layoutY="70.0" onMouseClicked="#checker19Clicked" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+      <Label fx:id="checkerLabel19" alignment="CENTER" layoutX="405.0" layoutY="50.0" onMouseClicked="#checker19Clicked" prefHeight="40.0" prefWidth="40.0" text="5" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker20" fill="WHITE" layoutX="475.0" layoutY="70.0" onMouseClicked="#checker20Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel20" alignment="CENTER" layoutX="455.0" layoutY="50.0" onMouseClicked="#checker20Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker21" fill="WHITE" layoutX="525.0" layoutY="70.0" onMouseClicked="#checker21Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel21" alignment="CENTER" layoutX="505.0" layoutY="50.0" onMouseClicked="#checker21Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker22" fill="WHITE" layoutX="575.0" layoutY="70.0" onMouseClicked="#checker22Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel22" alignment="CENTER" layoutX="555.0" layoutY="50.0" onMouseClicked="#checker22Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker23" fill="WHITE" layoutX="625.0" layoutY="70.0" onMouseClicked="#checker23Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabel23" alignment="CENTER" layoutX="605.0" layoutY="50.0" onMouseClicked="#checker23Clicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checker24" fill="WHITE" layoutX="675.0" layoutY="70.0" onMouseClicked="#checker24Clicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <Label fx:id="checkerLabel24" alignment="CENTER" layoutX="655.0" layoutY="50.0" onMouseClicked="#checker24Clicked" prefHeight="40.0" prefWidth="40.0" text="2">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checkerOBar" fill="WHITE" layoutX="375.0" layoutY="245.0" onMouseClicked="#checkerOBarClicked" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabelOBar" alignment="CENTER" layoutX="355.0" layoutY="225.0" onMouseClicked="#checkerOBarClicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="checkerXBar" layoutX="375.0" layoutY="155.0" onMouseClicked="#checkerXBarClicked" radius="20.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabelXBar" alignment="CENTER" layoutX="355.0" layoutY="135.0" onMouseClicked="#checkerXBarClicked" prefHeight="40.0" prefWidth="40.0" text="0" textFill="WHITE" visible="false">
+         <font>
+            <Font size="18.0" />
          </font>
       </Label>
  
