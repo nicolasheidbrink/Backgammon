@@ -32,20 +32,23 @@ public class GameMaster {
 		currentTurn = new Turn(this);
 		turns.add(currentTurn);
 		gameState = GameStates.awaitingCheckerSelection;
+		System.out.println("rollDice done");
 	}
 	
 	public void checkerClicked(int i){
 		if(gameState != GameStates.awaitingCheckerSelection && gameState != GameStates.awaitingDestinationSelection) return;
 		if(0 <= i && i < 24 &&
 				currentTurn.possibleMoves.stream()
-					.map(ms -> ms.moves().get(moveWithinTurn))
-					.map(move -> move.from)
-					.findFirst()
-					.orElse(-2) 
-					== i){
+					.map(ms -> ms.moves().get(moveWithinTurn).from)
+					.collect(Collectors.toSet())
+					.contains(Integer.valueOf(i))){
 			selectedChecker = i;
+			boardController.updateBoard(board, selectedChecker, currentTurn.possibleMoves, moveWithinTurn);
 			gameState = GameStates.awaitingDestinationSelection;
-		}
+			System.out.println("selected checker: "+i);
+		} else System.out.println(currentTurn.possibleMoves.stream()
+					.map(ms -> ms.moves().get(moveWithinTurn).from)
+					.collect(Collectors.toSet()));
 	}
 
 	public void pointClicked(int i){
@@ -57,16 +60,16 @@ public class GameMaster {
 					.filter(move -> move.to == i)
 					.collect(Collectors.toList())
 					.size() > 0){
-		board = CalculationUtils.doMoveForO(board, selectedChecker, i);
-		boardController.updateBoard(board, selectedChecker, currentTurn.possibleMoves, moveWithinTurn);
-		
-		currentTurn.possibleMoves = currentTurn.possibleMoves.stream()
-			.filter(ms -> ms.moves().get(moveWithinTurn).from == selectedChecker)
-			.filter(ms -> ms.moves().get(moveWithinTurn).to == i)
-			.collect(Collectors.toSet());
-		selectedChecker = Integer.MIN_VALUE;
-	}
-
+			board = CalculationUtils.doMoveForO(board, selectedChecker, i);
+			
+			currentTurn.possibleMoves = currentTurn.possibleMoves.stream()
+				.filter(ms -> ms.moves().get(moveWithinTurn).from == selectedChecker)
+				.filter(ms -> ms.moves().get(moveWithinTurn).to == i)
+				.collect(Collectors.toSet());
+			selectedChecker = Integer.MIN_VALUE;
+			boardController.updateBoard(board, selectedChecker, currentTurn.possibleMoves, moveWithinTurn);
+			moveWithinTurn++;
+		}
 		
 	}
 

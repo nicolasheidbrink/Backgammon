@@ -29,7 +29,7 @@ public class CalculationUtils {
 				if(alreadyChecked.contains(moveSequence)) continue;
 				alreadyChecked.add(moveSequence);
 				if(moveSequence.remainingRolls().size() == 0) continue;
-				result.addAll(possibleMoves(moveSequence));
+				toBeAdded.addAll(possibleMoves(moveSequence));
 			}
 			if(!toBeAdded.isEmpty()){
 				result.addAll(toBeAdded);
