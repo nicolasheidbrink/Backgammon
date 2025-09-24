@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 
 public class CalculationUtils {
 	
-	
-	//Create a move with each roll being used on each occupied point. do it again
 	public static Set<MoveSequence> calculatePossibleMovesForO(Board board, int leftDie, int rightDie){
 		List<Integer> remainingMoves;
 		if(leftDie != rightDie) remainingMoves = List.of(leftDie, rightDie);

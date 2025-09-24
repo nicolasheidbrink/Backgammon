@@ -25,6 +25,7 @@ public class GameMaster {
 		gameState = GameStates.awaitingRoll;
 		board = new Board();
 		turns = new ArrayList<Turn>();
+		boardController.updateBoard(board);
 	}
 	
 	public void rollDice(){

@@ -1,6 +1,7 @@
 package backgammon.controller;
 
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 public class BoardController {
@@ -32,10 +34,16 @@ public class BoardController {
 				checkerLabelXBar, checkerLabelOBar, leftDie, rightDie, trayXLabel, trayOLabel;
 	
 	@FXML
+	private Polygon point1, point2, point3, point4, point5, point6, point7, point8,
+				point9, point10, point11, point12, point13, point14, point15, point16,
+				point17, point18, point19, point20, point21, point22, point23, point24;
+	
+	@FXML
 	private Rectangle trayO, trayX;
 	
 	private Circle[] checkers;
 	private Label[] checkerLabels;
+	private Polygon[] points;
 	
 	@FXML
 	public void initialize(){
@@ -46,6 +54,9 @@ public class BoardController {
 				checkerLabel7, checkerLabel8, checkerLabel9, checkerLabel10, checkerLabel11, checkerLabel12, 
 				checkerLabel13, checkerLabel14, checkerLabel15, checkerLabel16, checkerLabel17, checkerLabel18, 
 				checkerLabel19, checkerLabel20, checkerLabel21, checkerLabel22, checkerLabel23, checkerLabel24};
+		points = new Polygon[]{point1, point2, point3, point4, point5, point6, point7, point8,
+				point9, point10, point11, point12, point13, point14, point15, point16,
+				point17, point18, point19, point20, point21, point22, point23, point24};
 	}
 	
 	public void showDiceRoll(int leftDieRoll, int rightDieRoll){
@@ -94,26 +105,16 @@ public class BoardController {
 			checkerXBar.setVisible(true);
 			checkerLabelXBar.setText("" + board.barX);
 		}
-		if(board.trayO == 0){
-			trayOLabel.setVisible(false);
-		}
-		else{
-			trayOLabel.setVisible(true);
-			trayOLabel.setText("" + board.trayO);
-		}
-		if(board.trayX == 0){
-			trayXLabel.setVisible(false);
-		}
-		else{
-			trayXLabel.setVisible(true);
-			trayXLabel.setText("" + board.trayX);
-		}
+		
+		trayOLabel.setText("" + board.trayO);
+		trayXLabel.setText("" + board.trayX);
 		
 		checkerOBar.setStroke(Color.BLACK);
 		trayO.setStroke(trayO.getFill());
 		for(int i = 0; i < 24; i++){
 			if(checkers[i].getFill() == Color.BLACK) checkers[i].setStroke(Color.WHITE);
 			if(checkers[i].getFill() == Color.WHITE) checkers[i].setStroke(Color.BLACK);
+			points[i].setStroke(points[i].getFill());
 		}
 		
 		if(selectedChecker == 24) checkerOBar.setStroke(Color.LIME);
@@ -127,8 +128,12 @@ public class BoardController {
 				.collect(Collectors.toSet());
 		for(int to : toBeHighlighted){
 			if(to == -1) trayO.setStroke(Color.LIME);
-			else checkers[to].setStroke(Color.LIME);
+			else points[to].setStroke(Color.LIME);
 		}
+	}
+	
+	public void updateBoard(Board board){
+		updateBoard(board, Integer.MIN_VALUE, new HashSet<MoveSequence>(), Integer.MIN_VALUE);
 	}
 	
 	@FXML
