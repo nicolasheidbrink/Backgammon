@@ -15,9 +15,11 @@ public class GameMaster {
 	private int selectedChecker = Integer.MIN_VALUE;
 	private int moveWithinTurn;
 	private Turn currentTurn;
+	private Engine engine;
 	
 	public GameMaster(BoardController boardController){
 		this.boardController = boardController;
+		this.engine = new Engine();
 		
 	}
 	
@@ -62,7 +64,6 @@ public class GameMaster {
 					.collect(Collectors.toList())
 					.size() > 0){
 			board = CalculationUtils.doMoveForO(board, selectedChecker, i);
-			
 			currentTurn.possibleMoves = currentTurn.possibleMoves.stream()
 				.filter(ms -> ms.moves().get(moveWithinTurn).from == selectedChecker)
 				.filter(ms -> ms.moves().get(moveWithinTurn).to == i)
@@ -70,10 +71,20 @@ public class GameMaster {
 			selectedChecker = Integer.MIN_VALUE;
 			boardController.updateBoard(board, selectedChecker, currentTurn.possibleMoves, moveWithinTurn);
 			moveWithinTurn++;
+			for(MoveSequence ms : currentTurn.possibleMoves){
+				if(ms.moves().size() == moveWithinTurn){
+					turnFinished();
+				}
+			}
 		}
-		
 	}
 
+	public void turnFinished(){
+		gameState = GameStates.awaitingComputer;
+		board = engine.doComputedMove(board);
+		boardController.updateBoard(board);
+		gameState = GameStates.awaitingRoll;
+	}
 	
 	public Board getBoard(){
 		return board;

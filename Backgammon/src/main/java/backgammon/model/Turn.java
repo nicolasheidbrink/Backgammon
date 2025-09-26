@@ -10,7 +10,6 @@ public class Turn {
 	public int rightDie;
 	private Board board;
 	public Set<MoveSequence> possibleMoves;
-	private MoveSequence chosenMove;
 	
 	public Turn(GameMaster gameMaster){
 		this.board = gameMaster.getBoard();
@@ -18,9 +17,5 @@ public class Turn {
 		this.rightDie = (int) (6*Math.random() + 1);
 		gameMaster.getBoardController().showDiceRoll(leftDie, rightDie);
 		possibleMoves = CalculationUtils.calculatePossibleMovesForO(board, leftDie, rightDie);
-	}
-	
-	public void setChosenMove(MoveSequence moveSequence){
-		this.chosenMove = moveSequence;
 	}
 }

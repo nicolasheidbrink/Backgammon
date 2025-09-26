@@ -1,7 +1,5 @@
 package backgammon.model;
 
-import java.util.List;
-
 public class Move {
 
 	public char color;
