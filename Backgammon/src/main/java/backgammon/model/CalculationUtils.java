@@ -138,7 +138,7 @@ public class CalculationUtils {
 			return after;
 		}
 		if(from == 24 && after.barO > 0 && after.points[to].occupiedBy == 'X'){
-			if(after.points[to].occupiedBy > 1) return null;
+			if(after.points[to].amtCheckers > 1) return null;
 			after.barO--;
 			after.points[to].occupiedBy = 'O';
 			after.barX++;

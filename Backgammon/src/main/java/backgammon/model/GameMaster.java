@@ -36,11 +36,12 @@ public class GameMaster {
 		turns.add(currentTurn);
 		gameState = GameStates.awaitingCheckerSelection;
 		System.out.println("rollDice done");
+		if(currentTurn.possibleMoves.size() == 0) turnFinished();
 	}
 	
 	public void checkerClicked(int i){
 		if(gameState != GameStates.awaitingCheckerSelection && gameState != GameStates.awaitingDestinationSelection) return;
-		if(0 <= i && i < 24 &&
+		if(0 <= i && i <= 24 &&
 				currentTurn.possibleMoves.stream()
 					.map(ms -> ms.moves().get(moveWithinTurn).from)
 					.collect(Collectors.toSet())
@@ -84,6 +85,7 @@ public class GameMaster {
 		board = engine.doComputedMove(board);
 		boardController.updateBoard(board);
 		gameState = GameStates.awaitingRoll;
+		moveWithinTurn = 0;
 	}
 	
 	public Board getBoard(){

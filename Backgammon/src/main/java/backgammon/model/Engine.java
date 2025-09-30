@@ -11,14 +11,16 @@ public class Engine {
 	public Board doComputedMove(Board board){
 		int leftDie = (int) (6*Math.random() + 1);
 		int rightDie = (int) (6*Math.random() + 1);
+		board.leftDie = leftDie;
+		board.rightDie = rightDie;
 		System.out.println(leftDie + "; " + rightDie);
 		Set<MoveSequence> possibleMoves = calculatePossibleMovesForX(board, leftDie, rightDie);
 		MoveSequence chosenMove = calculateMove(board, possibleMoves);
 		Board result = board;
+		if(chosenMove == null) return result;
 		for(Move move : chosenMove.moves()){
-			result = doMoveForX(board, move.from, move.to);
+			result = doMoveForX(result, move.from, move.to);
 		}
-				
 		return result;
 	}
 	
@@ -144,7 +146,8 @@ public class Engine {
 	}
 
 	public MoveSequence calculateMove(Board board, Set<MoveSequence> possibleMoves){
-		int index = (int) (Math.random() * (possibleMoves.size() + 1));
+		if(possibleMoves.size() == 0) return null;
+		int index = (int) (Math.random() * (possibleMoves.size()));
 		int i = 0;
 		for(MoveSequence moveSequence : possibleMoves){
 			if(i++ ==index) return moveSequence;
@@ -161,7 +164,7 @@ public class Engine {
 			return after;
 		}
 		if(from == -1 && after.barX > 0 && after.points[to].occupiedBy == 'O'){
-			if(after.points[to].occupiedBy > 1) return null;
+			if(after.points[to].amtCheckers > 1) return null;
 			after.barX--;
 			after.points[to].occupiedBy = 'X';
 			after.barO++;

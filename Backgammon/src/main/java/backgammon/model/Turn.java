@@ -15,7 +15,10 @@ public class Turn {
 		this.board = gameMaster.getBoard();
 		this.leftDie = (int) (6*Math.random() + 1);
 		this.rightDie = (int) (6*Math.random() + 1);
-		gameMaster.getBoardController().showDiceRoll(leftDie, rightDie);
+		board.leftDie = leftDie;
+		board.rightDie = rightDie;
+		System.out.println("i roll a "+leftDie+" and a "+rightDie);
+		gameMaster.getBoardController().updateBoard(gameMaster.getBoard());
 		possibleMoves = CalculationUtils.calculatePossibleMovesForO(board, leftDie, rightDie);
 	}
 }

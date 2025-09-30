@@ -42,14 +42,14 @@
       <Polygon fx:id="point22" fill="#3e2514" layoutX="550.0" layoutY="50.0" onMouseClicked="#point22Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point23" fill="#f3e1b9" layoutX="600.0" layoutY="50.0" onMouseClicked="#point23Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point24" fill="#3e2514" layoutX="650.0" layoutY="50.0" onMouseClicked="#point24Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 135.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
-      <Rectangle fx:id="trayX" arcHeight="10.0" arcWidth="10.0" fill="#f3e1b9" height="115.0" layoutX="725.0" layoutY="235.0" onMouseClicked="#trayOClicked" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" width="50.0" />
-      <Label fx:id="trayXLabel" alignment="CENTER" layoutX="725.0" layoutY="235.0" onMouseClicked="#trayXClicked" prefHeight="115.0" prefWidth="50.0" text="0">
+      <Rectangle fx:id="trayO" arcHeight="10.0" arcWidth="10.0" fill="#f3e1b9" height="115.0" layoutX="725.0" layoutY="235.0" onMouseClicked="#trayOClicked" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" width="50.0" />
+      <Label fx:id="trayOLabel" alignment="CENTER" layoutX="725.0" layoutY="235.0" onMouseClicked="#trayOClicked" prefHeight="115.0" prefWidth="50.0" text="0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Rectangle fx:id="trayO" arcHeight="10.0" arcWidth="10.0" fill="#3e2514" height="115.0" layoutX="725.0" layoutY="50.0" onMouseClicked="#trayXClicked" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" width="50.0" />
-      <Label fx:id="trayOLabel" alignment="CENTER" layoutX="725.0" layoutY="50.0" onMouseClicked="#trayOClicked" prefHeight="115.0" prefWidth="50.0" text="0" textFill="WHITE">
+      <Rectangle fx:id="trayX" arcHeight="10.0" arcWidth="10.0" fill="#3e2514" height="115.0" layoutX="725.0" layoutY="50.0" onMouseClicked="#trayXClicked" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" width="50.0" />
+      <Label fx:id="trayXLabel" alignment="CENTER" layoutX="725.0" layoutY="50.0" onMouseClicked="#trayXClicked" prefHeight="115.0" prefWidth="50.0" text="0" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>

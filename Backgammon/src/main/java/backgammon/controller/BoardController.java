@@ -130,6 +130,8 @@ public class BoardController {
 			if(to == -1) trayO.setStroke(Color.LIME);
 			else points[to].setStroke(Color.LIME);
 		}
+		leftDie.setText(""+board.leftDie);
+		rightDie.setText(""+board.rightDie);
 	}
 	
 	public void updateBoard(Board board){
@@ -443,6 +445,7 @@ public class BoardController {
 	@FXML
 	private void checkerOBarClicked(MouseEvent e){
 		System.out.println("checker O bar clicked");
+		gameMaster.checkerClicked(24);
 	}
 
 	@FXML
