@@ -456,6 +456,7 @@ public class BoardController {
 	@FXML
 	private void trayOClicked(MouseEvent e){
 		System.out.println("tray O clicked");
+		gameMaster.pointClicked(-1);
 	}
 
 	@FXML

@@ -77,13 +77,14 @@ public class Engine {
 		Set<MoveSequence> possibleNextMove = new HashSet<>();
 		if(moveSequence.board().barX > 0){
 			for(Integer roll : moveSequence.remainingRolls().stream().distinct().collect(Collectors.toList())){
-				if(moveSequence.board().points[roll].occupiedBy != 'O' || moveSequence.board().points[roll].amtCheckers == 1){
+				if(moveSequence.board().points[roll-1].occupiedBy != 'O' || moveSequence.board().points[roll-1].amtCheckers == 1){
 					List<Move> tempMoves = new ArrayList<>();
 					tempMoves.addAll(moveSequence.moves());
 					tempMoves.add(new Move('X', roll, -1, roll-1));
 					List<Integer> remainingRolls = new ArrayList<>();
 					remainingRolls.addAll(moveSequence.remainingRolls());
 					remainingRolls.remove(Integer.valueOf(roll));
+					if(null == doMoveForX(moveSequence.board(), -1, roll-1)) System.out.println(moveSequence.board());
 					possibleNextMove.add(new MoveSequence(tempMoves, doMoveForX(moveSequence.board(), -1, roll-1), remainingRolls));
 				}
 			}
