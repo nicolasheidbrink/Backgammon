@@ -14,7 +14,7 @@
       <Rectangle fill="#86471d" height="50.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
       <Rectangle fill="#86471d" height="101.0" layoutY="350.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
       <Rectangle fill="#c08552" height="300.0" layoutX="50.0" layoutY="50.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="650.0" />
-      <Circle fill="RED" layoutX="750.0" layoutY="400.0" onMouseClicked="#diceRolled" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fx:id="diceCircle" fill="RED" layoutX="750.0" layoutY="400.0" onMouseClicked="#diceRolled" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#f3e1b9" height="50.0" layoutX="50.0" layoutY="375.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3e2514" height="50.0" layoutX="400.0" layoutY="375.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
       <Rectangle fill="#86471d" height="300.0" layoutX="350.0" layoutY="50.0" onMouseClicked="#barClicked" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />

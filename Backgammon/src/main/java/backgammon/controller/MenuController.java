@@ -19,6 +19,18 @@ public class MenuController {
 		scoreText.setText("YOU " + scoreO + " - " + scoreX + " COMPUTER");
 	}
 	
+	public void showWinner(char winner){
+		if(winner == 'O'){
+			endGameMessage.setText("YOU WIN");
+			endGameMessage.setX(296.0);
+		}
+		if(winner == 'X'){
+			endGameMessage.setText("YOU LOSE");
+			endGameMessage.setX(282.0);
+		}
+		endGameMessage.setVisible(true);
+	}
+	
 	@FXML
 	private void startGameClicked(){
 		programMaster.gameStarted();

@@ -26,7 +26,7 @@ public class BoardController {
 	private Circle checker1, checker2, checker3, checker4, checker5, checker6, checker7, checker8, 
 				checker9, checker10, checker11, checker12, checker13, checker14, checker15, checker16, 
 				checker17, checker18, checker19, checker20, checker21, checker22, checker23, checker24,
-				checkerXBar, checkerOBar;
+				checkerXBar, checkerOBar, diceCircle;
 	
 	@FXML
 	private Label checkerLabel1, checkerLabel2, checkerLabel3, checkerLabel4, checkerLabel5, checkerLabel6, 
@@ -72,6 +72,11 @@ public class BoardController {
 	public void showDiceRoll(int leftDieRoll, int rightDieRoll){
 		this.leftDie.setText(""+leftDieRoll);
 		this.rightDie.setText(""+rightDieRoll);
+	}
+	
+	public void setDiceColor(boolean green){
+		if(green) diceCircle.setFill(Color.GREEN);
+		else diceCircle.setFill(Color.RED);
 	}
 	
 	public void updateBoard(Board board, int selectedChecker, Set<MoveSequence> nextMoves, int moveWithinTurn){

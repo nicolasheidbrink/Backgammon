@@ -28,6 +28,7 @@ public class GameMaster {
 	
 	public void startGame(){
 		gameState = GameStates.awaitingRoll;
+		boardController.setDiceColor(true);
 		board = new Board();
 		turns = new ArrayList<Turn>();
 		boardController.updateBoard(board);
@@ -38,6 +39,7 @@ public class GameMaster {
 		currentTurn = new Turn(this);
 		turns.add(currentTurn);
 		gameState = GameStates.awaitingCheckerSelection;
+		boardController.setDiceColor(false);
 		if(currentTurn.possibleMoves.size() == 0) turnFinished();
 	}
 	
@@ -86,6 +88,7 @@ public class GameMaster {
 		boardController.updateBoard(board);
 		if(checkIfWon(board)) return;
 		gameState = GameStates.awaitingRoll;
+		boardController.setDiceColor(true);
 		moveWithinTurn = 0;
 	}
 	

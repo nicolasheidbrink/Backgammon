@@ -52,6 +52,7 @@ public class ProgramMaster {
 		if(winner == 'O') scoreO += multiplier;
 		if(winner == 'X') scoreX += multiplier;
 		menuController.updateScore(scoreO, scoreX);
+		menuController.showWinner(winner);
 		stage.setScene(menuScene);
 	}
 	
