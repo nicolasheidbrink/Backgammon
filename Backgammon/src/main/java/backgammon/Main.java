@@ -1,5 +1,6 @@
 package backgammon;
 
+import backgammon.model.ProgramMaster;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -11,13 +12,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/fxml/Board.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setTitle("Backgammon");
-			primaryStage.setScene(scene);
-			Image icon = new Image(getClass().getResource("/images/backgammonIcon.png").toExternalForm());
-			primaryStage.getIcons().add(icon);
-			primaryStage.show();
+			new ProgramMaster(primaryStage);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

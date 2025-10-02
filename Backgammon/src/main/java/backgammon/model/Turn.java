@@ -17,7 +17,6 @@ public class Turn {
 		this.rightDie = (int) (6*Math.random() + 1);
 		board.leftDie = leftDie;
 		board.rightDie = rightDie;
-		System.out.println("i roll a "+leftDie+" and a "+rightDie);
 		gameMaster.getBoardController().updateBoard(gameMaster.getBoard());
 		possibleMoves = CalculationUtils.calculatePossibleMovesForO(board, leftDie, rightDie);
 	}

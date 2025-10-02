@@ -3,11 +3,13 @@ package backgammon.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import backgammon.controller.BoardController;
 
 public class GameMaster {
 
+	private ProgramMaster programMaster;
 	private BoardController boardController;
 	public GameStates gameState;
 	private Board board;
@@ -17,10 +19,11 @@ public class GameMaster {
 	private Turn currentTurn;
 	private Engine engine;
 	
-	public GameMaster(BoardController boardController){
+	public GameMaster(ProgramMaster programMaster, BoardController boardController){
+		this.programMaster = programMaster;
+		boardController.setGameMaster(this);
 		this.boardController = boardController;
 		this.engine = new Engine();
-		
 	}
 	
 	public void startGame(){
@@ -35,7 +38,6 @@ public class GameMaster {
 		currentTurn = new Turn(this);
 		turns.add(currentTurn);
 		gameState = GameStates.awaitingCheckerSelection;
-		System.out.println("rollDice done");
 		if(currentTurn.possibleMoves.size() == 0) turnFinished();
 	}
 	
@@ -49,10 +51,7 @@ public class GameMaster {
 			selectedChecker = i;
 			boardController.updateBoard(board, selectedChecker, currentTurn.possibleMoves, moveWithinTurn);
 			gameState = GameStates.awaitingDestinationSelection;
-			System.out.println("selected checker: "+i);
-		} else System.out.println(currentTurn.possibleMoves.stream()
-					.map(ms -> ms.moves().get(moveWithinTurn).from)
-					.collect(Collectors.toSet()));
+		}
 	}
 
 	public void pointClicked(int i){
@@ -81,11 +80,61 @@ public class GameMaster {
 	}
 
 	public void turnFinished(){
+		if(checkIfWon(board)) return;
 		gameState = GameStates.awaitingComputer;
 		board = engine.doComputedMove(board);
 		boardController.updateBoard(board);
+		if(checkIfWon(board)) return;
 		gameState = GameStates.awaitingRoll;
 		moveWithinTurn = 0;
+	}
+	
+	public boolean checkIfWon(Board board){
+		if(board.trayO == 15){
+			int factor = calculateWinFactor(board, 'O');
+			programMaster.gameDone('O', factor);
+			return true;
+		}
+		if(board.trayX == 15){
+			int factor = calculateWinFactor(board, 'X');
+			programMaster.gameDone('X', factor);
+			return true;
+		}
+		return false;
+	}
+	
+	public int calculateWinFactor(Board board, char winner){
+		if(winner == 'O'){
+			if(board.barX > 0
+					|| IntStream.range(0, 6)
+						.mapToObj(i -> board.points[i].occupiedBy)
+						.collect(Collectors.toSet())
+						.contains('X'))
+				return 3;
+			if(IntStream.range(6, 18)
+						.mapToObj(i -> board.points[i].occupiedBy)
+						.collect(Collectors.toSet())
+						.contains('X'))
+				return 2;
+			return 1;
+					
+		}
+		if(winner == 'X'){
+			if(board.barO > 0
+					|| IntStream.range(18, 24)
+						.mapToObj(i -> board.points[i].occupiedBy)
+						.collect(Collectors.toSet())
+						.contains('O'))
+				return 3;
+			if(IntStream.range(6, 18)
+						.mapToObj(i -> board.points[i].occupiedBy)
+						.collect(Collectors.toSet())
+						.contains('O'))
+				return 2;
+			return 1;
+					
+		}
+		return 0;
 	}
 	
 	public Board getBoard(){

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="backgammon.controller.MenuController">
+   <children>
+      <Rectangle fill="#86471d" height="451.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#c08552" height="400.0" layoutX="25.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="750.0" />
+      <Text fill="#3e2514" layoutX="78.0" layoutY="121.0" stroke="#f3e1b9" strokeType="OUTSIDE" strokeWidth="3.0" text="BACKGAMMON">
+         <font>
+            <Font name="AcmeFont Regular" size="90.0" />
+         </font>
+      </Text>
+      <Text fx:id="endGameMessage" fill="#f3e1b9" layoutX="296.0" layoutY="179.0" stroke="#3e2514" strokeType="OUTSIDE" strokeWidth="2.0" text="YOU WIN" visible="false">
+         <font>
+            <Font name="AcmeFont Regular" size="48.0" />
+         </font>
+      </Text>
+      <Text fx:id="scoreText" fill="#f3e1b9" layoutX="216.0" layoutY="226.0" stroke="#3e2514" strokeType="OUTSIDE" strokeWidth="1.5" text="YOU 0 - 0 COMPUTER">
+         <font>
+            <Font name="AcmeFont Regular" size="36.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3e2514" height="50.0" layoutX="50.0" layoutY="275.0" onMouseClicked="#tbdClicked" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="700.0" />
+      <Label layoutX="375.0" layoutY="284.0" text="TBD" textFill="#f3e1b9">
+         <font>
+            <Font name="AcmeFont Regular" size="24.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3e2514" height="50.0" layoutX="50.0" layoutY="350.0" onMouseClicked="#startGameClicked" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="700.0" />
+      <Label layoutX="320.0" layoutY="359.0" text="START GAME" textFill="#f3e1b9">
+         <font>
+            <Font name="AcmeFont Regular" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
