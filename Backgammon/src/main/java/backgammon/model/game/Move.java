@@ -1,13 +1,13 @@
-package backgammon.model;
+package backgammon.model.game;
 
 public class Move {
 
-	public char color;
+	public CheckerColors color;
 	public int roll;
 	public int from;
 	public int to;
 	
-	public Move(char color, int roll, int from, int to){
+	public Move(CheckerColors color, int roll, int from, int to){
 		this.color = color;
 		this.roll = roll;
 		this.from = from;

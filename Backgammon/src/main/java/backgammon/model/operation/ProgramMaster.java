@@ -1,9 +1,10 @@
-package backgammon.model;
+package backgammon.model.operation;
 
 import java.io.IOException;
 
 import backgammon.controller.BoardController;
 import backgammon.controller.MenuController;
+import backgammon.model.game.CheckerColors;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -48,9 +49,9 @@ public class ProgramMaster {
 		gameMaster.startGame();
 	}
 
-	public void gameDone(char winner, int multiplier){
-		if(winner == 'O') scoreO += multiplier;
-		if(winner == 'X') scoreX += multiplier;
+	public void gameDone(CheckerColors winner, int multiplier){
+		if(winner == CheckerColors.O) scoreO += multiplier;
+		if(winner == CheckerColors.X) scoreX += multiplier;
 		menuController.updateScore(scoreO, scoreX);
 		menuController.showWinner(winner);
 		stage.setScene(menuScene);

@@ -1,11 +1,11 @@
-package backgammon.model;
+package backgammon.model.game;
 
 public class Point {
 
-	public char occupiedBy;
+	public CheckerColors occupiedBy;
 	public int amtCheckers;
 	
-	public Point(char occupiedBy, int amtCheckers){
+	public Point(CheckerColors occupiedBy, int amtCheckers){
 		this.occupiedBy = occupiedBy;
 		this.amtCheckers = amtCheckers;
 	}

@@ -1,6 +1,7 @@
 package backgammon.controller;
 
-import backgammon.model.ProgramMaster;
+import backgammon.model.game.CheckerColors;
+import backgammon.model.operation.ProgramMaster;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
@@ -19,14 +20,14 @@ public class MenuController {
 		scoreText.setText("YOU " + scoreO + " - " + scoreX + " COMPUTER");
 	}
 	
-	public void showWinner(char winner){
-		if(winner == 'O'){
+	public void showWinner(CheckerColors winner){
+		if(winner == CheckerColors.O){
 			endGameMessage.setText("YOU WIN");
-			endGameMessage.setX(296.0);
+			endGameMessage.setLayoutX(296.0);
 		}
-		if(winner == 'X'){
+		if(winner == CheckerColors.X){
 			endGameMessage.setText("YOU LOSE");
-			endGameMessage.setX(282.0);
+			endGameMessage.setLayoutX(282.0);
 		}
 		endGameMessage.setVisible(true);
 	}

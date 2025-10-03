@@ -1,4 +1,4 @@
-package backgammon.model;
+package backgammon.model.game;
 
 import java.util.List;
 

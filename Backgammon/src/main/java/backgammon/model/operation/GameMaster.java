@@ -1,4 +1,4 @@
-package backgammon.model;
+package backgammon.model.operation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import backgammon.controller.BoardController;
+import backgammon.model.engine.Engine;
+import backgammon.model.game.Board;
+import backgammon.model.game.CheckerColors;
+import backgammon.model.game.MoveSequence;
+import backgammon.model.game.Turn;
+import backgammon.model.gameCalculations.CalculationUtils;
 
 public class GameMaster {
 
@@ -74,7 +80,7 @@ public class GameMaster {
 			boardController.updateBoard(board, selectedChecker, currentTurn.possibleMoves, moveWithinTurn);
 			moveWithinTurn++;
 			for(MoveSequence ms : currentTurn.possibleMoves){
-				if(ms.moves().size() == moveWithinTurn){
+				if(ms.moves().size() == moveWithinTurn || board.trayO == 15){
 					turnFinished();
 				}
 			}
@@ -94,45 +100,45 @@ public class GameMaster {
 	
 	public boolean checkIfWon(Board board){
 		if(board.trayO == 15){
-			int factor = calculateWinFactor(board, 'O');
-			programMaster.gameDone('O', factor);
+			int factor = calculateWinFactor(board, CheckerColors.O);
+			programMaster.gameDone(CheckerColors.O, factor);
 			return true;
 		}
 		if(board.trayX == 15){
-			int factor = calculateWinFactor(board, 'X');
-			programMaster.gameDone('X', factor);
+			int factor = calculateWinFactor(board, CheckerColors.X);
+			programMaster.gameDone(CheckerColors.X, factor);
 			return true;
 		}
 		return false;
 	}
 	
-	public int calculateWinFactor(Board board, char winner){
-		if(winner == 'O'){
+	public int calculateWinFactor(Board board, CheckerColors winner){
+		if(winner == CheckerColors.O){
 			if(board.barX > 0
 					|| IntStream.range(0, 6)
 						.mapToObj(i -> board.points[i].occupiedBy)
 						.collect(Collectors.toSet())
-						.contains('X'))
+						.contains(CheckerColors.X))
 				return 3;
 			if(IntStream.range(6, 18)
 						.mapToObj(i -> board.points[i].occupiedBy)
 						.collect(Collectors.toSet())
-						.contains('X'))
+						.contains(CheckerColors.X))
 				return 2;
 			return 1;
 					
 		}
-		if(winner == 'X'){
+		if(winner == CheckerColors.X){
 			if(board.barO > 0
 					|| IntStream.range(18, 24)
 						.mapToObj(i -> board.points[i].occupiedBy)
 						.collect(Collectors.toSet())
-						.contains('O'))
+						.contains(CheckerColors.O))
 				return 3;
 			if(IntStream.range(6, 18)
 						.mapToObj(i -> board.points[i].occupiedBy)
 						.collect(Collectors.toSet())
-						.contains('O'))
+						.contains(CheckerColors.O))
 				return 2;
 			return 1;
 					

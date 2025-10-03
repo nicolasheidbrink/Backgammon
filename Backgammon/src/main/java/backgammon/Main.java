@@ -1,6 +1,6 @@
 package backgammon;
 
-import backgammon.model.ProgramMaster;
+import backgammon.model.operation.ProgramMaster;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;

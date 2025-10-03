@@ -5,10 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import backgammon.model.Board;
-import backgammon.model.GameMaster;
-import backgammon.model.MoveSequence;
-import backgammon.model.ProgramMaster;
+import backgammon.model.game.Board;
+import backgammon.model.game.CheckerColors;
+import backgammon.model.game.MoveSequence;
+import backgammon.model.operation.GameMaster;
+import backgammon.model.operation.ProgramMaster;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -81,11 +82,11 @@ public class BoardController {
 	
 	public void updateBoard(Board board, int selectedChecker, Set<MoveSequence> nextMoves, int moveWithinTurn){
 		for(int i = 0; i < 24; i++){
-			if(board.points[i].occupiedBy == '-'){
+			if(board.points[i].occupiedBy == CheckerColors.NA){
 				checkers[i].setVisible(false);
 				checkerLabels[i].setVisible(false);
 			}
-			else if(board.points[i].occupiedBy == 'X'){
+			else if(board.points[i].occupiedBy == CheckerColors.X){
 				checkers[i].setVisible(true);
 				checkerLabels[i].setVisible(true);
 				checkerLabels[i].setText("" + board.points[i].amtCheckers);
@@ -93,7 +94,7 @@ public class BoardController {
 				checkers[i].setStroke(Color.WHITE);
 				checkerLabels[i].setTextFill(Color.WHITE);
 			}
-			else if(board.points[i].occupiedBy == 'O'){
+			else if(board.points[i].occupiedBy == CheckerColors.O){
 				checkers[i].setVisible(true);
 				checkerLabels[i].setVisible(true);
 				checkerLabels[i].setText("" + board.points[i].amtCheckers);
