@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import backgammon.model.game.Board;
 import backgammon.model.game.CheckerColors;
@@ -13,7 +14,7 @@ import backgammon.model.game.MoveSequence;
 
 public class CalculationUtils {
 	
-	public static Set<MoveSequence> calculatePossibleMovesForO(Board board, int leftDie, int rightDie){
+	public static Set<MoveSequence> calculateAllPossibleMoveSequences(Board board, CheckerColors color, int leftDie, int rightDie){
 		List<Integer> remainingMoves;
 		if(leftDie != rightDie) remainingMoves = List.of(leftDie, rightDie);
 		else remainingMoves = List.of(leftDie, leftDie, leftDie, leftDie);
@@ -32,7 +33,7 @@ public class CalculationUtils {
 				if(alreadyChecked.contains(moveSequence)) continue;
 				alreadyChecked.add(moveSequence);
 				if(moveSequence.remainingRolls().size() == 0) continue;
-				toBeAdded.addAll(possibleMoves(moveSequence));
+				toBeAdded.addAll(calculatePossibleNextMoves(color, moveSequence));
 			}
 			if(!toBeAdded.isEmpty()){
 				result.addAll(toBeAdded);
@@ -62,48 +63,54 @@ public class CalculationUtils {
 		return resultWithoutUnusedRolls;
 	}
 	
-	public static Set<MoveSequence> possibleMoves(MoveSequence moveSequence){
+	public static Set<MoveSequence> calculatePossibleNextMoves(CheckerColors color, MoveSequence moveSequence){
 		Set<MoveSequence> possibleNextMove = new HashSet<>();
-		if(moveSequence.board().barO > 0){
+		if(moveSequence.board().getBar(color) > 0){
 			for(Integer roll : moveSequence.remainingRolls().stream().distinct().collect(Collectors.toList())){
-				if(moveSequence.board().points[24-roll].occupiedBy != CheckerColors.X || moveSequence.board().points[24-roll].amtCheckers == 1){
+				if(moveSequence.board().points[color.barInt + color.direction * roll].occupiedBy != color.opposite
+						|| moveSequence.board().points[color.barInt + color.direction * roll].amtCheckers == 1){
 					List<Move> tempMoves = new ArrayList<>();
 					tempMoves.addAll(moveSequence.moves());
-					tempMoves.add(new Move(CheckerColors.O, roll, 24, 24-roll));
+					tempMoves.add(new Move(color, roll, color.barInt, color.barInt + color.direction * roll));
 					List<Integer> remainingRolls = new ArrayList<>();
 					remainingRolls.addAll(moveSequence.remainingRolls());
 					remainingRolls.remove(Integer.valueOf(roll));
-					possibleNextMove.add(new MoveSequence(tempMoves, doMoveForO(moveSequence.board(), 24, 24-roll), remainingRolls));
+					possibleNextMove.add(new MoveSequence(tempMoves, moveSequence.board().doMove(color, color.barInt, color.barInt + color.direction * roll), remainingRolls));
 				}
 			}
 		}
-		else if(checkIfEndgameForO(moveSequence.board())){
+		else if(checkIfEndgame(moveSequence.board(), color)){
 			for(Integer roll : moveSequence.remainingRolls().stream().distinct().collect(Collectors.toList())){
 				boolean moveAlreadyUsed = false;
-				for(int i = 5; i >= 0; i--){
-					boolean rollTooBig = (i + 1 < roll);
-					if(moveSequence.board().points[i].occupiedBy == CheckerColors.O){
-						if(i-roll >= 0 && (moveSequence.board().points[i-roll].occupiedBy != CheckerColors.X || moveSequence.board().points[i-roll].amtCheckers == 1)){
+				for(int i = color.trayInt - color.direction * 6; -color.direction * i > -color.direction * color.trayInt; i += color.direction){
+					boolean rollTooBig = (-color.direction * i - roll < -color.direction * color.trayInt);
+					if(moveSequence.board().points[i].occupiedBy == color){
+						if(-color.direction * i - roll > -color.direction * color.trayInt && 
+								(moveSequence.board().points[i + color.direction * roll].occupiedBy != color.opposite 
+									|| moveSequence.board().points[i + color.direction * roll].amtCheckers == 1)){
 							List<Move> tempMoves = new ArrayList<>();
 							tempMoves.addAll(moveSequence.moves());
-							tempMoves.add(new Move(CheckerColors.O, roll, i, i-roll));
+							tempMoves.add(new Move(color, roll, i, i + color.direction * roll));
 							List<Integer> remainingRolls = new ArrayList<>();
 							remainingRolls.addAll(moveSequence.remainingRolls());
 							remainingRolls.remove(Integer.valueOf(roll));
-							possibleNextMove.add(new MoveSequence(tempMoves, doMoveForO(moveSequence.board(), i, i-roll), remainingRolls));
+							possibleNextMove.add(new MoveSequence(tempMoves, moveSequence.board().doMove(color, i, i + color.direction * roll), remainingRolls));
 							moveAlreadyUsed = true;
 						}
-						if(i-roll == -1 || (rollTooBig && !moveAlreadyUsed)){
+						if(i + color.direction * roll == color.trayInt || (rollTooBig && !moveAlreadyUsed)){
 							List<Move> tempMoves = new ArrayList<>();
 							tempMoves.addAll(moveSequence.moves());
-							tempMoves.add(new Move(CheckerColors.O, roll, i, -1));
+							tempMoves.add(new Move(color, roll, i, color.trayInt));
 							List<Integer> remainingRolls = new ArrayList<>();
 							remainingRolls.addAll(moveSequence.remainingRolls());
 							remainingRolls.remove(Integer.valueOf(roll));
-							possibleNextMove.add(new MoveSequence(tempMoves, doMoveForO(moveSequence.board(), i, -1), remainingRolls));
+							possibleNextMove.add(new MoveSequence(tempMoves, moveSequence.board().doMove(color, i, color.trayInt), remainingRolls));
 							moveAlreadyUsed = true;
 						}
-						if(i-roll >= 0 && moveSequence.board().points[i-roll].occupiedBy == CheckerColors.X && moveSequence.board().points[i-roll].amtCheckers > 1) moveAlreadyUsed = true;
+						if(-color.direction * i - roll > -color.direction * color.trayInt 
+								&& moveSequence.board().points[i + color.direction * roll].occupiedBy == color.opposite 
+								&& moveSequence.board().points[i + color.direction * roll].amtCheckers > 1) 
+							moveAlreadyUsed = true;
 					}
 				}
 			}
@@ -111,15 +118,17 @@ public class CalculationUtils {
 		else{
 			for(Integer roll : moveSequence.remainingRolls().stream().distinct().collect(Collectors.toList())){
 				for(int i = 0; i < 24; i++){
-					if(moveSequence.board().points[i].occupiedBy == CheckerColors.O){
-						if(i-roll >= 0 && (moveSequence.board().points[i-roll].occupiedBy != CheckerColors.X || moveSequence.board().points[i-roll].amtCheckers == 1)){
+					if(moveSequence.board().points[i].occupiedBy == color){
+						if(-color.direction * i - roll > -color.direction * color.trayInt 
+								&& (moveSequence.board().points[i + color.direction * roll].occupiedBy != color.opposite 
+									|| moveSequence.board().points[i + color.direction * roll].amtCheckers == 1)){
 							List<Move> tempMoves = new ArrayList<>();
 							tempMoves.addAll(moveSequence.moves());
-							tempMoves.add(new Move(CheckerColors.O, roll, i, i-roll));
+							tempMoves.add(new Move(color, roll, i, i + color.direction * roll));
 							List<Integer> remainingRolls = new ArrayList<>();
 							remainingRolls.addAll(moveSequence.remainingRolls());
 							remainingRolls.remove(Integer.valueOf(roll));
-							possibleNextMove.add(new MoveSequence(tempMoves, doMoveForO(moveSequence.board(), i, i-roll), remainingRolls));
+							possibleNextMove.add(new MoveSequence(tempMoves, moveSequence.board().doMove(color, i, i + color.direction * roll), remainingRolls));
 						}
 					}
 				}
@@ -128,46 +137,33 @@ public class CalculationUtils {
 		return possibleNextMove;
 	}
 	
-	public static boolean checkIfEndgameForO(Board board){
-		for(int i = 6; i < 24; i++){
-			if(board.points[i].occupiedBy == CheckerColors.O) return false;
+	public static boolean checkIfEndgame(Board board, CheckerColors checkerColor){
+		if(checkerColor == CheckerColors.O){
+			for(int i = 6; i < 24; i++){
+				if(board.points[i].occupiedBy == CheckerColors.O) return false;
+			}
+			if(board.barO > 0) return false;
 		}
-		if(board.barO > 0) return false;
+		else if(checkerColor == CheckerColors.X){
+			for(int i = 0; i < 18; i++){
+				if(board.points[i].occupiedBy == CheckerColors.X) return false;
+			}
+			if(board.barX > 0) return false;			
+		}
 		return true;
 	}
 	
-	public static Board doMoveForO(Board before, int from, int to){
-		Board after = before.clone();
-		if(from == 24 && after.barO > 0 && after.points[to].occupiedBy != CheckerColors.X){
-			after.barO--;
-			after.points[to].amtCheckers++;
-			after.points[to].occupiedBy = CheckerColors.O;
-			return after;
-		}
-		if(from == 24 && after.barO > 0 && after.points[to].occupiedBy == CheckerColors.X){
-			if(after.points[to].amtCheckers > 1) return null;
-			after.barO--;
-			after.points[to].occupiedBy = CheckerColors.O;
-			after.barX++;
-			return after;
-		}
-		if(after.points[from].occupiedBy != CheckerColors.O || after.points[from].amtCheckers == 0) return null;
-		if(to == -1){
-			if(--(after.points[from].amtCheckers) == 0) after.points[from].occupiedBy = CheckerColors.NA;
-			after.trayO++;
-			return after;
-		}
-		if(after.points[to].occupiedBy == CheckerColors.X && after.points[to].amtCheckers > 1) return null;
-		if(--(after.points[from].amtCheckers) == 0) after.points[from].occupiedBy = CheckerColors.NA;
-		if(after.points[to].occupiedBy == CheckerColors.X){
-			after.points[to].occupiedBy = CheckerColors.O;
-			after.barX++;
-			return after;
-		}
-		else{
-			after.points[to].occupiedBy = CheckerColors.O;
-			after.points[to].amtCheckers++;
-			return after;
-		}
+	public static int calculateWinFactor(Board board, CheckerColors winner){
+		if(board.getTray(winner.opposite) == 0 &&
+				(board.getBar(winner.opposite) > 0
+					|| winner.homePoints.stream()
+						.map(i -> board.points[i].occupiedBy)
+						.collect(Collectors.toSet())
+						.contains(CheckerColors.X)))
+			return 3;
+		if(board.getTray(winner.opposite) == 0)
+			return 2;
+		return 1;
 	}
+
 }

@@ -75,7 +75,7 @@ public class BoardController {
 		this.rightDie.setText(""+rightDieRoll);
 	}
 	
-	public void setDiceColor(boolean green){
+	public void setDiceColorGreen(boolean green){
 		if(green) diceCircle.setFill(Color.GREEN);
 		else diceCircle.setFill(Color.RED);
 	}

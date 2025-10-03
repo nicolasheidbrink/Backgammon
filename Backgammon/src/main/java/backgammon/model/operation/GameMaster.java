@@ -34,7 +34,7 @@ public class GameMaster {
 	
 	public void startGame(){
 		gameState = GameStates.awaitingRoll;
-		boardController.setDiceColor(true);
+		boardController.setDiceColorGreen(true);
 		board = new Board();
 		turns = new ArrayList<Turn>();
 		boardController.updateBoard(board);
@@ -42,10 +42,12 @@ public class GameMaster {
 	
 	public void rollDice(){
 		if(gameState != GameStates.awaitingRoll) return;
-		currentTurn = new Turn(this);
+		board.leftDie = (int) (6*Math.random() + 1);
+		board.rightDie = (int) (6*Math.random() + 1);
+		currentTurn = new Turn(this, board.leftDie, board.rightDie);
 		turns.add(currentTurn);
 		gameState = GameStates.awaitingCheckerSelection;
-		boardController.setDiceColor(false);
+		boardController.setDiceColorGreen(false);
 		if(currentTurn.possibleMoves.size() == 0) turnFinished();
 	}
 	
@@ -71,7 +73,7 @@ public class GameMaster {
 					.filter(move -> move.to == i)
 					.collect(Collectors.toList())
 					.size() > 0){
-			board = CalculationUtils.doMoveForO(board, selectedChecker, i);
+			board = board.doMove(CheckerColors.O, selectedChecker, i);
 			currentTurn.possibleMoves = currentTurn.possibleMoves.stream()
 				.filter(ms -> ms.moves().get(moveWithinTurn).from == selectedChecker)
 				.filter(ms -> ms.moves().get(moveWithinTurn).to == i)
@@ -90,62 +92,35 @@ public class GameMaster {
 	public void turnFinished(){
 		if(checkIfWon(board)) return;
 		gameState = GameStates.awaitingComputer;
-		board = engine.doComputedMove(board);
+		moveWithinTurn = 0;
+		engineMove();
+	}
+	
+	public void engineMove(){
+		board.leftDie = (int) (6*Math.random() + 1);
+		board.rightDie = (int) (6*Math.random() + 1);
+		board = engine.doComputedMove(board, board.leftDie, board.rightDie);
 		boardController.updateBoard(board);
 		if(checkIfWon(board)) return;
 		gameState = GameStates.awaitingRoll;
-		boardController.setDiceColor(true);
-		moveWithinTurn = 0;
+		boardController.setDiceColorGreen(true);
+		
 	}
 	
 	public boolean checkIfWon(Board board){
 		if(board.trayO == 15){
-			int factor = calculateWinFactor(board, CheckerColors.O);
+			int factor = CalculationUtils.calculateWinFactor(board, CheckerColors.O);
 			programMaster.gameDone(CheckerColors.O, factor);
 			return true;
 		}
 		if(board.trayX == 15){
-			int factor = calculateWinFactor(board, CheckerColors.X);
+			int factor = CalculationUtils.calculateWinFactor(board, CheckerColors.X);
 			programMaster.gameDone(CheckerColors.X, factor);
 			return true;
 		}
 		return false;
 	}
-	
-	public int calculateWinFactor(Board board, CheckerColors winner){
-		if(winner == CheckerColors.O){
-			if(board.barX > 0
-					|| IntStream.range(0, 6)
-						.mapToObj(i -> board.points[i].occupiedBy)
-						.collect(Collectors.toSet())
-						.contains(CheckerColors.X))
-				return 3;
-			if(IntStream.range(6, 18)
-						.mapToObj(i -> board.points[i].occupiedBy)
-						.collect(Collectors.toSet())
-						.contains(CheckerColors.X))
-				return 2;
-			return 1;
-					
-		}
-		if(winner == CheckerColors.X){
-			if(board.barO > 0
-					|| IntStream.range(18, 24)
-						.mapToObj(i -> board.points[i].occupiedBy)
-						.collect(Collectors.toSet())
-						.contains(CheckerColors.O))
-				return 3;
-			if(IntStream.range(6, 18)
-						.mapToObj(i -> board.points[i].occupiedBy)
-						.collect(Collectors.toSet())
-						.contains(CheckerColors.O))
-				return 2;
-			return 1;
-					
-		}
-		return 0;
-	}
-	
+		
 	public Board getBoard(){
 		return board;
 	}
