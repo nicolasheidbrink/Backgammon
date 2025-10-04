@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import backgammon.model.game.Board;
 import backgammon.model.game.CheckerColors;
@@ -21,46 +20,46 @@ public class CalculationUtils {
 		
 		MoveSequence exposition = new MoveSequence(new ArrayList<Move>(), board,  remainingMoves);
 		
-		Set<MoveSequence> result = new HashSet<>();
+		Set<MoveSequence> allPossibleMoveSequences = new HashSet<>();
 		
-		result.add(exposition);
+		allPossibleMoveSequences.add(exposition);
 		
 		Set<MoveSequence> toBeAdded = new HashSet<>();
 		Set<MoveSequence> alreadyChecked = new HashSet<>();
 		boolean nothingNew = false;
 		while(!nothingNew){
-			for(MoveSequence moveSequence : result){
+			for(MoveSequence moveSequence : allPossibleMoveSequences){
 				if(alreadyChecked.contains(moveSequence)) continue;
 				alreadyChecked.add(moveSequence);
 				if(moveSequence.remainingRolls().size() == 0) continue;
 				toBeAdded.addAll(calculatePossibleNextMoves(color, moveSequence));
 			}
 			if(!toBeAdded.isEmpty()){
-				result.addAll(toBeAdded);
+				allPossibleMoveSequences.addAll(toBeAdded);
 				toBeAdded.clear();
 			} else nothingNew = true;
 		}
-		if(result.equals(Set.of(exposition))) return new HashSet<MoveSequence>();
+		if(allPossibleMoveSequences.equals(Set.of(exposition))) return new HashSet<MoveSequence>();
 		
-		int minimumRemainingRolls = result.stream()
+		int minimumRemainingRolls = allPossibleMoveSequences.stream()
 			.mapToInt(ms -> ms.remainingRolls().size())
 			.min()
 			.orElseThrow();
 		
-		Set<MoveSequence> resultWithoutUnusedRolls = result.stream()
+		Set<MoveSequence> moveSequencesWithoutUnusedRolls = allPossibleMoveSequences.stream()
 			.filter(ms -> ms.remainingRolls().size() == minimumRemainingRolls)
 			.collect(Collectors.toSet());
 		
 		if(minimumRemainingRolls == 1){
-			int minimumUnusedRoll = resultWithoutUnusedRolls.stream()
+			int minimumUnusedRoll = moveSequencesWithoutUnusedRolls.stream()
 					.map(ms -> ms.remainingRolls().get(0))
 					.min(Integer::compareTo)
 					.orElseThrow();
-			return resultWithoutUnusedRolls.stream()
+			return moveSequencesWithoutUnusedRolls.stream()
 					.filter(ms -> ms.remainingRolls().get(0).equals(minimumUnusedRoll))
 					.collect(Collectors.toSet());
 		}
-		return resultWithoutUnusedRolls;
+		return moveSequencesWithoutUnusedRolls;
 	}
 	
 	public static Set<MoveSequence> calculatePossibleNextMoves(CheckerColors color, MoveSequence moveSequence){

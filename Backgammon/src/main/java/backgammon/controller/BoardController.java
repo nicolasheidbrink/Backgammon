@@ -27,6 +27,12 @@ public class BoardController {
 	private Circle checker1, checker2, checker3, checker4, checker5, checker6, checker7, checker8, 
 				checker9, checker10, checker11, checker12, checker13, checker14, checker15, checker16, 
 				checker17, checker18, checker19, checker20, checker21, checker22, checker23, checker24,
+				checker1_2, checker2_2, checker3_2, checker4_2, checker5_2, checker6_2, checker7_2, checker8_2, 
+				checker9_2, checker10_2, checker11_2, checker12_2, checker13_2, checker14_2, checker15_2, checker16_2, 
+				checker17_2, checker18_2, checker19_2, checker20_2, checker21_2, checker22_2, checker23_2, checker24_2,
+				checker1_3, checker2_3, checker3_3, checker4_3, checker5_3, checker6_3, checker7_3, checker8_3, 
+				checker9_3, checker10_3, checker11_3, checker12_3, checker13_3, checker14_3, checker15_3, checker16_3, 
+				checker17_3, checker18_3, checker19_3, checker20_3, checker21_3, checker22_3, checker23_3, checker24_3,
 				checkerXBar, checkerOBar, diceCircle;
 	
 	@FXML
@@ -45,6 +51,8 @@ public class BoardController {
 	private Rectangle trayO, trayX;
 	
 	private Circle[] checkers;
+	private Circle[] checkers_2;
+	private Circle[] checkers_3;
 	private Label[] checkerLabels;
 	private Polygon[] points;
 	
@@ -53,6 +61,12 @@ public class BoardController {
 		checkers = new Circle[]{checker1, checker2, checker3, checker4, checker5, checker6, checker7, checker8, 
 				checker9, checker10, checker11, checker12, checker13, checker14, checker15, checker16, 
 				checker17, checker18, checker19, checker20, checker21, checker22, checker23, checker24};
+		checkers_2 = new Circle[]{checker1_2, checker2_2, checker3_2, checker4_2, checker5_2, checker6_2, checker7_2, checker8_2, 
+				checker9_2, checker10_2, checker11_2, checker12_2, checker13_2, checker14_2, checker15_2, checker16_2, 
+				checker17_2, checker18_2, checker19_2, checker20_2, checker21_2, checker22_2, checker23_2, checker24_2};
+		checkers_3 = new Circle[]{checker1_3, checker2_3, checker3_3, checker4_3, checker5_3, checker6_3, checker7_3, checker8_3, 
+				checker9_3, checker10_3, checker11_3, checker12_3, checker13_3, checker14_3, checker15_3, checker16_3, 
+				checker17_3, checker18_3, checker19_3, checker20_3, checker21_3, checker22_3, checker23_3, checker24_3};
 		checkerLabels = new Label[]{checkerLabel1, checkerLabel2, checkerLabel3, checkerLabel4, checkerLabel5, checkerLabel6, 
 				checkerLabel7, checkerLabel8, checkerLabel9, checkerLabel10, checkerLabel11, checkerLabel12, 
 				checkerLabel13, checkerLabel14, checkerLabel15, checkerLabel16, checkerLabel17, checkerLabel18, 
@@ -84,22 +98,50 @@ public class BoardController {
 		for(int i = 0; i < 24; i++){
 			if(board.points[i].occupiedBy == CheckerColors.NA){
 				checkers[i].setVisible(false);
+				checkers_2[i].setVisible(false);
+				checkers_3[i].setVisible(false);
 				checkerLabels[i].setVisible(false);
 			}
 			else if(board.points[i].occupiedBy == CheckerColors.X){
 				checkers[i].setVisible(true);
-				checkerLabels[i].setVisible(true);
-				checkerLabels[i].setText("" + board.points[i].amtCheckers);
 				checkers[i].setFill(Color.BLACK);
 				checkers[i].setStroke(Color.WHITE);
+				checkers_2[i].setVisible(false);
+				checkers_3[i].setVisible(false);
+				if(board.points[i].amtCheckers >= 2){
+					checkers_2[i].setVisible(true);
+					checkers_2[i].setFill(Color.BLACK);
+					checkers_2[i].setStroke(Color.WHITE);
+				}
+				if(board.points[i].amtCheckers >= 3){
+					checkers_3[i].setVisible(true);
+					checkers_3[i].setFill(Color.BLACK);
+					checkers_3[i].setStroke(Color.WHITE);
+				}
+				
+				checkerLabels[i].setVisible(true);
+				checkerLabels[i].setText("" + board.points[i].amtCheckers);
 				checkerLabels[i].setTextFill(Color.WHITE);
 			}
 			else if(board.points[i].occupiedBy == CheckerColors.O){
 				checkers[i].setVisible(true);
-				checkerLabels[i].setVisible(true);
-				checkerLabels[i].setText("" + board.points[i].amtCheckers);
 				checkers[i].setFill(Color.WHITE);
 				checkers[i].setStroke(Color.BLACK);
+				checkers_2[i].setVisible(false);
+				checkers_3[i].setVisible(false);
+				if(board.points[i].amtCheckers >= 2){
+					checkers_2[i].setVisible(true);
+					checkers_2[i].setFill(Color.WHITE);
+					checkers_2[i].setStroke(Color.BLACK);
+				}
+				if(board.points[i].amtCheckers >= 3){
+					checkers_3[i].setVisible(true);
+					checkers_3[i].setFill(Color.WHITE);
+					checkers_3[i].setStroke(Color.BLACK);
+				}
+
+				checkerLabels[i].setVisible(true);
+				checkerLabels[i].setText("" + board.points[i].amtCheckers);
 				checkerLabels[i].setTextFill(Color.BLACK);
 			}
 		}
@@ -128,14 +170,24 @@ public class BoardController {
 		checkerOBar.setStroke(Color.BLACK);
 		trayO.setStroke(trayO.getFill());
 		for(int i = 0; i < 24; i++){
-			if(checkers[i].getFill() == Color.BLACK) checkers[i].setStroke(Color.WHITE);
-			if(checkers[i].getFill() == Color.WHITE) checkers[i].setStroke(Color.BLACK);
+			if(checkers[i].getFill() == Color.BLACK){
+				checkers[i].setStroke(Color.WHITE);
+				checkers_2[i].setStroke(Color.WHITE);
+				checkers_3[i].setStroke(Color.WHITE);
+			}
+			if(checkers[i].getFill() == Color.WHITE){
+				checkers[i].setStroke(Color.BLACK);
+				checkers_2[i].setStroke(Color.BLACK);
+				checkers_3[i].setStroke(Color.BLACK);
+			}
 			points[i].setStroke(points[i].getFill());
 		}
 		
 		if(selectedChecker == 24) checkerOBar.setStroke(Color.LIME);
 		else try{
 			checkers[selectedChecker].setStroke(Color.LIME);
+			checkers_2[selectedChecker].setStroke(Color.LIME);
+			checkers_3[selectedChecker].setStroke(Color.LIME);
 		} catch (Exception e){}
 		
 		Set<Integer> toBeHighlighted = nextMoves.stream()
@@ -424,5 +476,4 @@ public class BoardController {
 	@FXML
 	private void trayXClicked(MouseEvent e){
 	}
-
 }

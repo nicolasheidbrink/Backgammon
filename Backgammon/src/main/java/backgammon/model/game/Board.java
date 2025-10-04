@@ -50,32 +50,6 @@ public class Board {
 		points[21] = new Point(CheckerColors.NA, 0);
 		points[22] = new Point(CheckerColors.NA, 0);
 		points[23] = new Point(CheckerColors.O, 2);
-		
-		points[0] = new Point(CheckerColors.NA, 0);
-		points[1] = new Point(CheckerColors.NA, 0);
-		points[2] = new Point(CheckerColors.NA, 0);
-		points[3] = new Point(CheckerColors.NA, 0);
-		points[4] = new Point(CheckerColors.NA, 0);
-		points[5] = new Point(CheckerColors.O, 15);
-		points[6] = new Point(CheckerColors.NA, 0);
-		points[7] = new Point(CheckerColors.NA, 3);
-		points[8] = new Point(CheckerColors.NA, 0);
-		points[9] = new Point(CheckerColors.NA, 0);
-		points[10] = new Point(CheckerColors.NA, 0);
-		points[11] = new Point(CheckerColors.X, 5);
-		points[12] = new Point(CheckerColors.NA, 5);
-		points[13] = new Point(CheckerColors.NA, 0);
-		points[14] = new Point(CheckerColors.NA, 0);
-		points[15] = new Point(CheckerColors.NA, 0);
-		points[16] = new Point(CheckerColors.X, 3);
-		points[17] = new Point(CheckerColors.NA, 0);
-		points[18] = new Point(CheckerColors.X, 5);
-		points[19] = new Point(CheckerColors.NA, 0);
-		points[20] = new Point(CheckerColors.NA, 0);
-		points[21] = new Point(CheckerColors.NA, 0);
-		points[22] = new Point(CheckerColors.NA, 0);
-		points[23] = new Point(CheckerColors.NA, 2);
-
 	}
 	
 	public Board clone(){
@@ -149,5 +123,31 @@ public class Board {
 	public void setBar(CheckerColors color, int newValue){
 		if(color == CheckerColors.X) barX = newValue;
 		if(color == CheckerColors.O) barO = newValue;
+	}
+	
+	@Override
+	public String toString(){
+		String output = "barO: " +barO
+					+ "\nbarX: " + barX
+					+ "\ntrayO: " + trayO
+					+ "\ntrayX: " + trayX;
+		for(int i = 0; i < 24; i++){
+			output = output + "\npoint " + (i+1) + ": " + points[i].occupiedBy + "; " + points[i].amtCheckers;
+		}
+		return output;
+	}
+	
+	public boolean customEquals(Board board){
+		if(board.barO != barO
+				|| board.barX != barX
+				|| board.trayO != trayO
+				|| board.trayX != trayX )
+			return false;
+		for(int i = 0; i < 24; i++){
+			if(board.points[i].amtCheckers != points[i].amtCheckers
+					|| board.points[i].occupiedBy != points[i].occupiedBy)
+				return false;
+		}
+		return true;
 	}
 }
