@@ -25,6 +25,7 @@ public class ProgramMaster {
 	
 	int scoreO;
 	int scoreX;
+	CheckerColors lastWinner = CheckerColors.NA;
 	
 	public ProgramMaster(Stage primaryStage) throws IOException{
 		initializeStage(primaryStage);
@@ -50,9 +51,11 @@ public class ProgramMaster {
 	}
 
 	public void gameDone(CheckerColors winner, int multiplier){
+		this.lastWinner = winner;
 		if(winner == CheckerColors.O) scoreO += multiplier;
 		if(winner == CheckerColors.X) scoreX += multiplier;
 		menuController.updateScore(scoreO, scoreX);
+		boardController.updateScore(scoreO, scoreX);
 		menuController.showWinner(winner);
 		stage.setScene(menuScene);
 	}

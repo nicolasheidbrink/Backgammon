@@ -11,7 +11,7 @@ import backgammon.model.game.CheckerColors;
 import backgammon.model.game.Move;
 import backgammon.model.game.MoveSequence;
 
-public class CalculationUtils {
+public class LegalMoveCalculation {
 	
 	public static Set<MoveSequence> calculateAllPossibleMoveSequences(Board board, CheckerColors color, int leftDie, int rightDie){
 		List<Integer> remainingMoves;
@@ -78,7 +78,7 @@ public class CalculationUtils {
 				}
 			}
 		}
-		else if(checkIfEndgame(moveSequence.board(), color)){
+		else if(GameCalculation.checkIfEndgame(moveSequence.board(), color)){
 			for(Integer roll : moveSequence.remainingRolls().stream().distinct().collect(Collectors.toList())){
 				boolean moveAlreadyUsed = false;
 				for(int i = color.trayInt - color.direction * 6; -color.direction * i > -color.direction * color.trayInt; i += color.direction){
@@ -135,34 +135,4 @@ public class CalculationUtils {
 		}
 		return possibleNextMove;
 	}
-	
-	public static boolean checkIfEndgame(Board board, CheckerColors checkerColor){
-		if(checkerColor == CheckerColors.O){
-			for(int i = 6; i < 24; i++){
-				if(board.points[i].occupiedBy == CheckerColors.O) return false;
-			}
-			if(board.barO > 0) return false;
-		}
-		else if(checkerColor == CheckerColors.X){
-			for(int i = 0; i < 18; i++){
-				if(board.points[i].occupiedBy == CheckerColors.X) return false;
-			}
-			if(board.barX > 0) return false;			
-		}
-		return true;
-	}
-	
-	public static int calculateWinFactor(Board board, CheckerColors winner){
-		if(board.getTray(winner.opposite) == 0 &&
-				(board.getBar(winner.opposite) > 0
-					|| winner.homePoints.stream()
-						.map(i -> board.points[i].occupiedBy)
-						.collect(Collectors.toSet())
-						.contains(CheckerColors.X)))
-			return 3;
-		if(board.getTray(winner.opposite) == 0)
-			return 2;
-		return 1;
-	}
-
 }

@@ -2,14 +2,18 @@ package backgammon.controller;
 
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import backgammon.model.game.Board;
 import backgammon.model.game.CheckerColors;
 import backgammon.model.game.MoveSequence;
+import backgammon.model.gameCalculations.GameCalculation;
 import backgammon.model.operation.GameMaster;
 import backgammon.model.operation.ProgramMaster;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class BoardController {
 
@@ -40,7 +45,7 @@ public class BoardController {
 				checkerLabel7, checkerLabel8, checkerLabel9, checkerLabel10, checkerLabel11, checkerLabel12, 
 				checkerLabel13, checkerLabel14, checkerLabel15, checkerLabel16, checkerLabel17, checkerLabel18, 
 				checkerLabel19, checkerLabel20, checkerLabel21, checkerLabel22, checkerLabel23, checkerLabel24,
-				checkerLabelXBar, checkerLabelOBar, leftDie, rightDie, trayXLabel, trayOLabel;
+				checkerLabelXBar, checkerLabelOBar, leftDie, rightDie, trayXLabel, trayOLabel, pipO, pipX, scoreO, scoreX;
 	
 	@FXML
 	private Polygon point1, point2, point3, point4, point5, point6, point7, point8,
@@ -95,6 +100,7 @@ public class BoardController {
 	}
 	
 	public void updateBoard(Board board, int selectedChecker, Set<MoveSequence> nextMoves, int moveWithinTurn){
+		showDiceRoll(board.leftDie, board.rightDie);
 		for(int i = 0; i < 24; i++){
 			if(board.points[i].occupiedBy == CheckerColors.NA){
 				checkers[i].setVisible(false);
@@ -183,11 +189,11 @@ public class BoardController {
 			points[i].setStroke(points[i].getFill());
 		}
 		
-		if(selectedChecker == 24) checkerOBar.setStroke(Color.LIME);
+		if(selectedChecker == 24) checkerOBar.setStroke(Color.GREEN);
 		else try{
-			checkers[selectedChecker].setStroke(Color.LIME);
-			checkers_2[selectedChecker].setStroke(Color.LIME);
-			checkers_3[selectedChecker].setStroke(Color.LIME);
+			checkers[selectedChecker].setStroke(Color.GREEN);
+			checkers_2[selectedChecker].setStroke(Color.GREEN);
+			checkers_3[selectedChecker].setStroke(Color.GREEN);
 		} catch (Exception e){}
 		
 		Set<Integer> toBeHighlighted = nextMoves.stream()
@@ -195,8 +201,8 @@ public class BoardController {
 				.map(ms -> ms.moves().get(moveWithinTurn).to)
 				.collect(Collectors.toSet());
 		for(int to : toBeHighlighted){
-			if(to == -1) trayO.setStroke(Color.LIME);
-			else points[to].setStroke(Color.LIME);
+			if(to == -1) trayO.setStroke(Color.GREEN);
+			else points[to].setStroke(Color.GREEN);
 		}
 		leftDie.setText(""+board.leftDie);
 		rightDie.setText(""+board.rightDie);
@@ -204,6 +210,31 @@ public class BoardController {
 	
 	public void updateBoard(Board board){
 		updateBoard(board, Integer.MIN_VALUE, new HashSet<MoveSequence>(), Integer.MIN_VALUE);
+	}
+	
+	public void showEngineMove(List<Board> betweenBoards){
+		Timeline timeline = new Timeline();
+		int waitInSeconds = 2;
+		for(Board betweenBoard : betweenBoards){
+			waitInSeconds += 2;
+			timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(waitInSeconds), e -> {
+				updateBoard(betweenBoard);
+				updatePips(GameCalculation.calculatePips(betweenBoard, CheckerColors.O), GameCalculation.calculatePips(betweenBoard, CheckerColors.X));
+			}));
+		}
+
+		timeline.play();
+	}
+	
+	public void updateScore(int scoreO, int scoreX){
+		this.scoreO.setText("Score: " + scoreO);
+		this.scoreX.setText("Score: " + scoreX);
+	}
+	
+	public void updatePips(int pipO, int pipX){
+		this.pipO.setText("PIP: " + pipO);
+		this.pipX.setText("PIP: " + pipX);
+
 	}
 	
 	@FXML

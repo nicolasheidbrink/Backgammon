@@ -137,7 +137,10 @@ public class Board {
 		return output;
 	}
 	
-	public boolean customEquals(Board board){
+	@Override
+	public boolean equals(Object inputBoard){
+		if(inputBoard.getClass() != getClass()) return false;
+		Board board = (Board) inputBoard;
 		if(board.barO != barO
 				|| board.barX != barX
 				|| board.trayO != trayO

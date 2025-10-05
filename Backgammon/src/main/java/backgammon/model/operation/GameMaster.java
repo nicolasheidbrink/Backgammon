@@ -3,15 +3,17 @@ package backgammon.model.operation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import backgammon.controller.BoardController;
-import backgammon.model.engine.Engine;
+import backgammon.model.engines.randomMove.RandomMoveEngine;
 import backgammon.model.game.Board;
 import backgammon.model.game.CheckerColors;
 import backgammon.model.game.MoveSequence;
 import backgammon.model.game.Turn;
-import backgammon.model.gameCalculations.CalculationUtils;
+import backgammon.model.gameCalculations.GameCalculation;
+import backgammon.model.gameCalculations.LegalMoveCalculation;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 public class GameMaster {
 
@@ -23,32 +25,60 @@ public class GameMaster {
 	private int selectedChecker = Integer.MIN_VALUE;
 	private int moveWithinTurn;
 	private Turn currentTurn;
-	private Engine engine;
+	private RandomMoveEngine engine;
+	PauseTransition pause = new PauseTransition(Duration.seconds(2));
+
 	
 	public GameMaster(ProgramMaster programMaster, BoardController boardController){
 		this.programMaster = programMaster;
 		boardController.setGameMaster(this);
 		this.boardController = boardController;
-		this.engine = new Engine();
+		this.engine = new RandomMoveEngine();
+		pause.setOnFinished(e -> boardController.updateBoard(board));
 	}
 	
 	public void startGame(){
-		gameState = GameStates.awaitingRoll;
 		boardController.setDiceColorGreen(true);
 		board = new Board();
 		turns = new ArrayList<Turn>();
+		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
 		boardController.updateBoard(board);
+		if(programMaster.lastWinner == CheckerColors.NA) gameState = GameStates.awaitingFirstRoll;
+		else if(programMaster.lastWinner == CheckerColors.O) gameState = GameStates.awaitingRoll;
+		else if(programMaster.lastWinner == CheckerColors.X){
+			turnFinished();
+		}
 	}
 	
 	public void rollDice(){
-		if(gameState != GameStates.awaitingRoll) return;
-		board.leftDie = (int) (6*Math.random() + 1);
-		board.rightDie = (int) (6*Math.random() + 1);
-		currentTurn = new Turn(this, board.leftDie, board.rightDie);
-		turns.add(currentTurn);
-		gameState = GameStates.awaitingCheckerSelection;
-		boardController.setDiceColorGreen(false);
-		if(currentTurn.possibleMoves.size() == 0) turnFinished();
+		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
+		if(gameState == GameStates.awaitingRoll){
+			board.leftDie = (int) (6*Math.random() + 1);
+			board.rightDie = (int) (6*Math.random() + 1);
+			currentTurn = new Turn(this, board.leftDie, board.rightDie);
+			turns.add(currentTurn);
+			gameState = GameStates.awaitingCheckerSelection;
+			boardController.setDiceColorGreen(false);
+			if(currentTurn.possibleMoves.size() == 0) turnFinished();
+		}
+		else if(gameState == GameStates.awaitingFirstRoll){
+			board.leftDie = 0;
+			board.rightDie = 0;
+			while(board.leftDie == board.rightDie){
+				board.leftDie = (int) (6*Math.random() + 1);
+				board.rightDie = (int) (6*Math.random() + 1);
+			}
+			if(board.leftDie > board.rightDie){
+				currentTurn = new Turn(this, board.leftDie, board.rightDie);
+				turns.add(currentTurn);
+				gameState = GameStates.awaitingCheckerSelection;
+				boardController.setDiceColorGreen(false);
+				if(currentTurn.possibleMoves.size() == 0) turnFinished();
+			}
+			else{
+				engineMove(board.leftDie, board.rightDie);
+			}
+		}
 	}
 	
 	public void checkerClicked(int i){
@@ -93,28 +123,36 @@ public class GameMaster {
 		if(checkIfWon(board)) return;
 		gameState = GameStates.awaitingComputer;
 		moveWithinTurn = 0;
+		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
 		engineMove();
 	}
 	
 	public void engineMove(){
-		board.leftDie = (int) (6*Math.random() + 1);
-		board.rightDie = (int) (6*Math.random() + 1);
-		board = engine.doComputedMove(board, board.leftDie, board.rightDie);
+		int leftDie = (int) (6*Math.random() + 1);
+		int rightDie = (int) (6*Math.random() + 1);
+		engineMove(leftDie, rightDie);
+	}
+	
+	public void engineMove(int leftDie, int rightDie){
+		board.leftDie = leftDie;
+		board.rightDie = rightDie;
 		boardController.updateBoard(board);
+		List<Board> betweenBoards = engine.doComputedMoveWithSteps(board, leftDie, rightDie);
+		boardController.showEngineMove(betweenBoards);
+		board = betweenBoards.getLast();
 		if(checkIfWon(board)) return;
 		gameState = GameStates.awaitingRoll;
 		boardController.setDiceColorGreen(true);
-		
 	}
 	
 	public boolean checkIfWon(Board board){
 		if(board.trayO == 15){
-			int factor = CalculationUtils.calculateWinFactor(board, CheckerColors.O);
+			int factor = GameCalculation.calculateWinFactor(board, CheckerColors.O);
 			programMaster.gameDone(CheckerColors.O, factor);
 			return true;
 		}
 		if(board.trayX == 15){
-			int factor = CalculationUtils.calculateWinFactor(board, CheckerColors.X);
+			int factor = GameCalculation.calculateWinFactor(board, CheckerColors.X);
 			programMaster.gameDone(CheckerColors.X, factor);
 			return true;
 		}

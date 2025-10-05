@@ -3,7 +3,7 @@ package backgammon.model.game;
 import java.util.List;
 import java.util.Set;
 
-import backgammon.model.gameCalculations.CalculationUtils;
+import backgammon.model.gameCalculations.LegalMoveCalculation;
 import backgammon.model.operation.GameMaster;
 
 public class Turn {
@@ -15,6 +15,6 @@ public class Turn {
 	public Turn(GameMaster gameMaster, int leftDie, int rightDie){
 		this.board = gameMaster.getBoard();
 		gameMaster.getBoardController().updateBoard(gameMaster.getBoard());
-		possibleMoves = CalculationUtils.calculateAllPossibleMoveSequences(board, CheckerColors.O, leftDie, rightDie);
+		possibleMoves = LegalMoveCalculation.calculateAllPossibleMoveSequences(board, CheckerColors.O, leftDie, rightDie);
 	}
 }
