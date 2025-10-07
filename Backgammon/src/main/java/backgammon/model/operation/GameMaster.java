@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import backgammon.controller.BoardController;
 import backgammon.model.engines.randomMove.RandomMoveEngine;
+import backgammon.model.engines.ruleBased.RuleBasedEngine;
 import backgammon.model.game.Board;
 import backgammon.model.game.CheckerColors;
 import backgammon.model.game.MoveSequence;
@@ -25,7 +26,7 @@ public class GameMaster {
 	private int selectedChecker = Integer.MIN_VALUE;
 	private int moveWithinTurn;
 	private Turn currentTurn;
-	private RandomMoveEngine engine;
+	private RuleBasedEngine engine; //////////////////////////////////////////////////////////////////////////////
 	PauseTransition pause = new PauseTransition(Duration.seconds(2));
 
 	
@@ -33,7 +34,7 @@ public class GameMaster {
 		this.programMaster = programMaster;
 		boardController.setGameMaster(this);
 		this.boardController = boardController;
-		this.engine = new RandomMoveEngine();
+		this.engine = new RuleBasedEngine();
 		pause.setOnFinished(e -> boardController.updateBoard(board));
 	}
 	

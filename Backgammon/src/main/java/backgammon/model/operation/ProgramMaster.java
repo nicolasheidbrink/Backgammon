@@ -62,6 +62,8 @@ public class ProgramMaster {
 	
 	private void initializeStage(Stage primaryStage){
 		stage = primaryStage;
+		stage.setX(50);
+		stage.setY(50);
 		primaryStage.setTitle("Backgammon");
 		Image icon = new Image(getClass().getResource("/images/backgammonIcon.png").toExternalForm());
 		primaryStage.getIcons().add(icon);

@@ -61,8 +61,6 @@ public class BoardController {
 	@FXML
 	private Rectangle trayO, trayX;
 	
-	private Circle[] checkers_2;
-	private Circle[] checkers_3;
 	private Circle[][] checkers;
 	private Label[] checkerLabels;
 	private Polygon[] points;
