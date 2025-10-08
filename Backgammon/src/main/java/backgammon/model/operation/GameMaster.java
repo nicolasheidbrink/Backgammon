@@ -27,7 +27,7 @@ public class GameMaster {
 	private int moveWithinTurn;
 	private Turn currentTurn;
 	private RuleBasedEngine engine; //////////////////////////////////////////////////////////////////////////////
-	PauseTransition pause = new PauseTransition(Duration.seconds(2));
+	private List<Board> betweenBoards;
 
 	
 	public GameMaster(ProgramMaster programMaster, BoardController boardController){
@@ -35,7 +35,6 @@ public class GameMaster {
 		boardController.setGameMaster(this);
 		this.boardController = boardController;
 		this.engine = new RuleBasedEngine();
-		pause.setOnFinished(e -> boardController.updateBoard(board));
 	}
 	
 	public void startGame(){
@@ -51,35 +50,56 @@ public class GameMaster {
 		}
 	}
 	
+	public void diceButtonClicked(){
+		if(gameState == GameStates.awaitingRoll) rollDice();
+		else if(gameState == GameStates.awaitingFirstRoll) rollFirstDice();
+		else if(gameState == GameStates.awaitingNext) nextClicked();
+	}
+	
+	public void nextClicked(){
+		if(betweenBoards.isEmpty() || betweenBoards == null){
+			gameState = GameStates.awaitingRoll;
+			boardController.setDiceColorGreen(true);
+		}
+		else {
+			board = betweenBoards.getFirst();
+			boardController.updateBoard(board);
+			betweenBoards.remove(0);
+			if(betweenBoards.isEmpty()){
+				gameState = GameStates.awaitingRoll;
+			}
+		}
+	}
+	
 	public void rollDice(){
 		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
-		if(gameState == GameStates.awaitingRoll){
+		boardController.setDiceColorGreen(true);
+		board.leftDie = (int) (6*Math.random() + 1);
+		board.rightDie = (int) (6*Math.random() + 1);
+		currentTurn = new Turn(this, board.leftDie, board.rightDie);
+		turns.add(currentTurn);
+		gameState = GameStates.awaitingCheckerSelection;
+		if(currentTurn.possibleMoves.size() == 0) turnFinished();
+	}
+	
+	public void rollFirstDice(){
+		board.leftDie = 0;
+		board.rightDie = 0;
+		while(board.leftDie == board.rightDie){
 			board.leftDie = (int) (6*Math.random() + 1);
 			board.rightDie = (int) (6*Math.random() + 1);
+		}
+		if(board.leftDie > board.rightDie){
 			currentTurn = new Turn(this, board.leftDie, board.rightDie);
 			turns.add(currentTurn);
 			gameState = GameStates.awaitingCheckerSelection;
-			boardController.setDiceColorGreen(false);
 			if(currentTurn.possibleMoves.size() == 0) turnFinished();
 		}
-		else if(gameState == GameStates.awaitingFirstRoll){
-			board.leftDie = 0;
-			board.rightDie = 0;
-			while(board.leftDie == board.rightDie){
-				board.leftDie = (int) (6*Math.random() + 1);
-				board.rightDie = (int) (6*Math.random() + 1);
-			}
-			if(board.leftDie > board.rightDie){
-				currentTurn = new Turn(this, board.leftDie, board.rightDie);
-				turns.add(currentTurn);
-				gameState = GameStates.awaitingCheckerSelection;
-				boardController.setDiceColorGreen(false);
-				if(currentTurn.possibleMoves.size() == 0) turnFinished();
-			}
-			else{
-				engineMove(board.leftDie, board.rightDie);
-			}
+		else{
+			boardController.setDiceColorGreen(false);
+			engineMove(board.leftDie, board.rightDie);
 		}
+
 	}
 	
 	public void checkerClicked(int i){
@@ -122,6 +142,7 @@ public class GameMaster {
 
 	public void turnFinished(){
 		if(checkIfWon(board)) return;
+		boardController.setDiceColorGreen(false);
 		gameState = GameStates.awaitingComputer;
 		moveWithinTurn = 0;
 		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
@@ -138,12 +159,9 @@ public class GameMaster {
 		board.leftDie = leftDie;
 		board.rightDie = rightDie;
 		boardController.updateBoard(board);
-		List<Board> betweenBoards = engine.doComputedMoveWithSteps(board, leftDie, rightDie);
-		boardController.showEngineMove(betweenBoards);
-		board = betweenBoards.getLast();
+		betweenBoards = engine.doComputedMoveWithSteps(board, leftDie, rightDie);
+		gameState = GameStates.awaitingNext;
 		if(checkIfWon(board)) return;
-		gameState = GameStates.awaitingRoll;
-		boardController.setDiceColorGreen(true);
 	}
 	
 	public boolean checkIfWon(Board board){

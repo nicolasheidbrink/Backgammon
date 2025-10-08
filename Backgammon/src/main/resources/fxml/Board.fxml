@@ -60,14 +60,14 @@
             <Font size="32.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="713.0" layoutY="581.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="36.0" />
+      <Rectangle fx:id="leftDieRect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="713.0" layoutY="581.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="36.0" />
        <Label fx:id="leftDie" alignment="CENTER" layoutX="713.0" layoutY="581.0" onMouseClicked="#diceRolled" prefHeight="35.0" prefWidth="35.0" text="6" textFill="BLACK">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
  
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="751.0" layoutY="581.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="36.0" />
+      <Rectangle fx:id="rightDieRect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="36.0" layoutX="751.0" layoutY="581.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="36.0" />
        <Label fx:id="rightDie" alignment="CENTER" layoutX="751.0" layoutY="581.0" onMouseClicked="#diceRolled" prefHeight="35.0" prefWidth="35.0" text="5" textFill="BLACK">
          <font>
             <Font size="16.0" />
@@ -340,15 +340,15 @@
       <Circle fx:id="checker24_4" fill="WHITE" layoutX="675.0" layoutY="169.0" onMouseClicked="#checker24Clicked" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
       <Circle fx:id="checker24_5" fill="WHITE" layoutX="675.0" layoutY="203.0" onMouseClicked="#checker24Clicked" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
       
-      <Circle fx:id="checkerOBar" fill="WHITE" layoutX="375.0" layoutY="245.0" onMouseClicked="#checkerOBarClicked" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
-      <Label fx:id="checkerLabelOBar" alignment="CENTER" layoutX="355.0" layoutY="225.0" onMouseClicked="#checkerOBarClicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
+      <Circle fx:id="checkerOBar" fill="WHITE" layoutX="375.0" layoutY="345.0" onMouseClicked="#checkerOBarClicked" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabelOBar" alignment="CENTER" layoutX="355.0" layoutY="325.0" onMouseClicked="#checkerOBarClicked" prefHeight="40.0" prefWidth="40.0" text="0" visible="false">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       
-      <Circle fx:id="checkerXBar" layoutX="375.0" layoutY="155.0" onMouseClicked="#checkerXBarClicked" radius="17.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
-      <Label fx:id="checkerLabelXBar" alignment="CENTER" layoutX="355.0" layoutY="135.0" onMouseClicked="#checkerXBarClicked" prefHeight="40.0" prefWidth="40.0" text="0" textFill="WHITE" visible="false">
+      <Circle fx:id="checkerXBar" layoutX="375.0" layoutY="255.0" onMouseClicked="#checkerXBarClicked" radius="17.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" visible="false" />
+      <Label fx:id="checkerLabelXBar" alignment="CENTER" layoutX="355.0" layoutY="235.0" onMouseClicked="#checkerXBarClicked" prefHeight="40.0" prefWidth="40.0" text="0" textFill="WHITE" visible="false">
          <font>
             <Font size="18.0" />
          </font>

@@ -34,7 +34,8 @@ public class RuleBasedEngine implements Engine {
 			double currentEval;
 			for(MoveSequence moveSequence : possibleMoveSequences){
 				currentEval = recursiveEvaluation(moveSequence.board(), depth - 1, mover.opposite);
-				if(currentEval < tempBestEval){
+				if((mover == CheckerColors.X && currentEval < tempBestEval)
+						|| (mover == CheckerColors.O && currentEval > tempBestEval)){
 					tempBestEval = currentEval;
 				}
 			}

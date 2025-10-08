@@ -59,7 +59,7 @@ public class BoardController {
 				point17, point18, point19, point20, point21, point22, point23, point24;
 	
 	@FXML
-	private Rectangle trayO, trayX;
+	private Rectangle trayO, trayX, leftDieRect, rightDieRect;
 	
 	private Circle[][] checkers;
 	private Label[] checkerLabels;
@@ -211,20 +211,6 @@ public class BoardController {
 		updateBoard(board, Integer.MIN_VALUE, new HashSet<MoveSequence>(), Integer.MIN_VALUE);
 	}
 	
-	public void showEngineMove(List<Board> betweenBoards){
-		Timeline timeline = new Timeline();
-		int waitInSeconds = 2;
-		for(Board betweenBoard : betweenBoards){
-			waitInSeconds += 2;
-			timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(waitInSeconds), e -> {
-				updateBoard(betweenBoard);
-				updatePips(GameCalculation.calculatePips(betweenBoard, CheckerColors.O), GameCalculation.calculatePips(betweenBoard, CheckerColors.X));
-			}));
-		}
-
-		timeline.play();
-	}
-	
 	public void updateScore(int scoreO, int scoreX){
 		this.scoreO.setText("Score: " + scoreO);
 		this.scoreX.setText("Score: " + scoreX);
@@ -238,7 +224,7 @@ public class BoardController {
 	
 	@FXML
 	private void diceRolled(MouseEvent e){
-		gameMaster.rollDice();
+		gameMaster.diceButtonClicked();
 	}
 
 	@FXML
