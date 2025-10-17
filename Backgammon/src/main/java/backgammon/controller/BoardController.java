@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import backgammon.model.game.Board;
-import backgammon.model.game.CheckerColors;
-import backgammon.model.game.MoveSequence;
 import backgammon.model.gameCalculations.GameCalculation;
+import backgammon.model.gameModels.Board;
+import backgammon.model.gameModels.CheckerColors;
+import backgammon.model.gameModels.MoveSequence;
 import backgammon.model.operation.GameMaster;
 import backgammon.model.operation.ProgramMaster;
 import javafx.animation.KeyFrame;
@@ -229,6 +229,7 @@ public class BoardController {
 
 	@FXML
 	private void doubleOffered(MouseEvent e){
+		System.out.println(gameMaster.getBoard());
 	}
 
 	@FXML

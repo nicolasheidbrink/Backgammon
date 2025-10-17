@@ -5,14 +5,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import backgammon.controller.BoardController;
+import backgammon.model.engines.Engine;
 import backgammon.model.engines.randomMove.RandomMoveEngine;
 import backgammon.model.engines.ruleBased.RuleBasedEngine;
-import backgammon.model.game.Board;
-import backgammon.model.game.CheckerColors;
-import backgammon.model.game.MoveSequence;
-import backgammon.model.game.Turn;
 import backgammon.model.gameCalculations.GameCalculation;
 import backgammon.model.gameCalculations.LegalMoveCalculation;
+import backgammon.model.gameModels.Board;
+import backgammon.model.gameModels.CheckerColors;
+import backgammon.model.gameModels.MoveSequence;
+import backgammon.model.gameModels.Turn;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
@@ -26,7 +27,7 @@ public class GameMaster {
 	private int selectedChecker = Integer.MIN_VALUE;
 	private int moveWithinTurn;
 	private Turn currentTurn;
-	private RuleBasedEngine engine; //////////////////////////////////////////////////////////////////////////////
+	private Engine engine; //////////////////////////////////////////////////////////////////////////////
 	private List<Board> betweenBoards;
 
 	
@@ -64,7 +65,8 @@ public class GameMaster {
 		else {
 			board = betweenBoards.getFirst();
 			boardController.updateBoard(board);
-			betweenBoards.remove(0);
+			if(checkIfWon(board)) return;
+			betweenBoards.removeFirst();
 			if(betweenBoards.isEmpty()){
 				gameState = GameStates.awaitingRoll;
 			}
@@ -135,6 +137,7 @@ public class GameMaster {
 			for(MoveSequence ms : currentTurn.possibleMoves){
 				if(ms.moves().size() == moveWithinTurn || board.trayO == 15){
 					turnFinished();
+					break;
 				}
 			}
 		}

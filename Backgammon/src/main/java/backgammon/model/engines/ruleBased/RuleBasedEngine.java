@@ -3,10 +3,10 @@ package backgammon.model.engines.ruleBased;
 import java.util.Set;
 
 import backgammon.model.engines.Engine;
-import backgammon.model.game.Board;
-import backgammon.model.game.CheckerColors;
-import backgammon.model.game.MoveSequence;
 import backgammon.model.gameCalculations.LegalMoveCalculation;
+import backgammon.model.gameModels.Board;
+import backgammon.model.gameModels.CheckerColors;
+import backgammon.model.gameModels.MoveSequence;
 
 public class RuleBasedEngine implements Engine {
 
@@ -16,7 +16,7 @@ public class RuleBasedEngine implements Engine {
 		double tempBestEval = Double.MAX_VALUE;
 		double currentEval;
 		for(MoveSequence moveSequence : possibleMoves){
-			currentEval = recursiveEvaluation(moveSequence.board(), 1, CheckerColors.X);
+			currentEval = recursiveEvaluation(moveSequence.board(), 0, CheckerColors.X);
 			if(currentEval < tempBestEval){
 				tempBestEval = currentEval;
 				tempBestMoveSeq = moveSequence;
@@ -25,12 +25,27 @@ public class RuleBasedEngine implements Engine {
 		return tempBestMoveSeq;
 	}
 	
+	public MoveSequence calculateMoveAsO(Board board, Set<MoveSequence> possibleMoves){
+		MoveSequence tempBestMoveSeq = null;
+		double tempBestEval = Double.MIN_VALUE;
+		double currentEval;
+		for(MoveSequence moveSequence : possibleMoves){
+			currentEval = recursiveEvaluation(moveSequence.board(), 0, CheckerColors.O);
+			if(currentEval > tempBestEval){
+				tempBestEval = currentEval;
+				tempBestMoveSeq = moveSequence;
+			}
+		}
+		return tempBestMoveSeq;
+
+	}
+	
 	public double recursiveEvaluation(Board board, int depth, CheckerColors mover){
 		if(depth == 0) return PositionEvaluator.evaluatePosition(board);
 		double evaluation = 0;
 		for(int[] possibleRoll : possibleRolls){
 			Set<MoveSequence> possibleMoveSequences = LegalMoveCalculation.calculateAllPossibleMoveSequences(board, mover, possibleRoll[0], possibleRoll[1]);
-			double tempBestEval = Double.MAX_VALUE;
+			double tempBestEval = Double.MAX_VALUE * mover.direction;
 			double currentEval;
 			for(MoveSequence moveSequence : possibleMoveSequences){
 				currentEval = recursiveEvaluation(moveSequence.board(), depth - 1, mover.opposite);

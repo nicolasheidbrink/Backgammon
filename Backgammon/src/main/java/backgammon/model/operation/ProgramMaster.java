@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import backgammon.controller.BoardController;
 import backgammon.controller.MenuController;
-import backgammon.model.game.CheckerColors;
+import backgammon.model.gameModels.CheckerColors;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

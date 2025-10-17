@@ -1,4 +1,4 @@
-package backgammon.model.game;
+package backgammon.model.gameModels;
 
 public class Move {
 

@@ -1,6 +1,6 @@
 package backgammon.controller;
 
-import backgammon.model.game.CheckerColors;
+import backgammon.model.gameModels.CheckerColors;
 import backgammon.model.operation.ProgramMaster;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;

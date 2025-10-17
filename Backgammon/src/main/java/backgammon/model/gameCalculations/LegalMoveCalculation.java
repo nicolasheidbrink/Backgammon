@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import backgammon.model.game.Board;
-import backgammon.model.game.CheckerColors;
-import backgammon.model.game.Move;
-import backgammon.model.game.MoveSequence;
+import backgammon.model.gameModels.Board;
+import backgammon.model.gameModels.CheckerColors;
+import backgammon.model.gameModels.Move;
+import backgammon.model.gameModels.MoveSequence;
 
 public class LegalMoveCalculation {
 	

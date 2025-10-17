@@ -2,8 +2,8 @@ package backgammon.model.gameCalculations;
 
 import java.util.stream.Collectors;
 
-import backgammon.model.game.Board;
-import backgammon.model.game.CheckerColors;
+import backgammon.model.gameModels.Board;
+import backgammon.model.gameModels.CheckerColors;
 
 public class GameCalculation {
 	public static boolean checkIfEndgame(Board board, CheckerColors checkerColor){
@@ -28,7 +28,7 @@ public class GameCalculation {
 					|| winner.homePoints.stream()
 						.map(i -> board.points[i].occupiedBy)
 						.collect(Collectors.toSet())
-						.contains(CheckerColors.X)))
+						.contains(winner.opposite)))
 			return 3;
 		if(board.getTray(winner.opposite) == 0)
 			return 2;
@@ -43,5 +43,13 @@ public class GameCalculation {
 		if(color == CheckerColors.O) runningTotal += 25 * board.barO;
 		if(color == CheckerColors.X) runningTotal += 25 * board.barX;
 		return runningTotal;
+	}
+	
+	public static int calculateAmountOfTowersInHome(Board board, CheckerColors color){
+		int counter = 0;
+		for(int i = color.trayInt - color.direction; i != color.trayInt - 7*color.direction; i -= color.direction){
+			if(board.points[i].occupiedBy == color && board.points[i].amtCheckers > 1) counter++;
+		}
+		return counter;
 	}
 }

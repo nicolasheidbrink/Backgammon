@@ -3,11 +3,12 @@ package backgammon.model.engines.randomMove;
 import java.util.Set;
 
 import backgammon.model.engines.Engine;
-import backgammon.model.game.Board;
-import backgammon.model.game.MoveSequence;
+import backgammon.model.gameModels.Board;
+import backgammon.model.gameModels.MoveSequence;
 
 public class RandomMoveEngine implements Engine {
 
+	@Override
 	public MoveSequence calculateMove(Board board, Set<MoveSequence> possibleMoves){
 		if(possibleMoves.size() == 0) return null;
 		int index = (int) (Math.random() * (possibleMoves.size()));
@@ -16,5 +17,10 @@ public class RandomMoveEngine implements Engine {
 			if(i++ == index) return moveSequence;
 		}
 		return null;
+	}
+
+	@Override
+	public MoveSequence calculateMoveAsO(Board board, Set<MoveSequence> possibleMoves) {
+		return calculateMove(board, possibleMoves);
 	}
 }
