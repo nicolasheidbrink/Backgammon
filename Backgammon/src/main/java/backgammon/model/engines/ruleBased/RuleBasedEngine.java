@@ -11,33 +11,19 @@ import backgammon.model.gameModels.MoveSequence;
 public class RuleBasedEngine implements Engine {
 
 	@Override
-	public MoveSequence calculateMove(Board board, Set<MoveSequence> possibleMoves) {
+	public MoveSequence calculateMove(CheckerColors color, Board board, Set<MoveSequence> possibleMoves) {
 		MoveSequence tempBestMoveSeq = null;
-		double tempBestEval = Double.MAX_VALUE;
+		double tempBestEval = Double.MAX_VALUE * color.direction;
 		double currentEval;
 		for(MoveSequence moveSequence : possibleMoves){
-			currentEval = recursiveEvaluation(moveSequence.board(), 0, CheckerColors.X);
-			if(currentEval < tempBestEval){
+			currentEval = recursiveEvaluation(moveSequence.board(), 0, color);
+			if((color == CheckerColors.O && currentEval > tempBestEval)
+					|| (color == CheckerColors.X && currentEval < tempBestEval)){
 				tempBestEval = currentEval;
 				tempBestMoveSeq = moveSequence;
 			}
 		}
 		return tempBestMoveSeq;
-	}
-	
-	public MoveSequence calculateMoveAsO(Board board, Set<MoveSequence> possibleMoves){
-		MoveSequence tempBestMoveSeq = null;
-		double tempBestEval = Double.MIN_VALUE;
-		double currentEval;
-		for(MoveSequence moveSequence : possibleMoves){
-			currentEval = recursiveEvaluation(moveSequence.board(), 0, CheckerColors.O);
-			if(currentEval > tempBestEval){
-				tempBestEval = currentEval;
-				tempBestMoveSeq = moveSequence;
-			}
-		}
-		return tempBestMoveSeq;
-
 	}
 	
 	public double recursiveEvaluation(Board board, int depth, CheckerColors mover){

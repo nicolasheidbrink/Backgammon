@@ -21,7 +21,7 @@ public class ProgramMaster {
 	BoardController boardController;
 	MenuController menuController;
 	
-	GameMaster gameMaster;
+	GamemodeMaster gamemodeMaster;
 	
 	int scoreO;
 	int scoreX;
@@ -45,9 +45,15 @@ public class ProgramMaster {
 	}
 	
 	public void gameStarted(){
+//		stage.setScene(boardScene);
+//		gamemodeMaster = new GameMaster(this, boardController);
+//		gamemodeMaster.startGame();
+//	}
+//	
+//	public void simulationStarted(){
 		stage.setScene(boardScene);
-		gameMaster = new GameMaster(this, boardController);
-		gameMaster.startGame();
+		gamemodeMaster = new SpectateMaster(this, boardController);
+		gamemodeMaster.startGame();
 	}
 
 	public void gameDone(CheckerColors winner, int multiplier){

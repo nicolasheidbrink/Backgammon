@@ -2,18 +2,14 @@ package backgammon.controller;
 
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import backgammon.model.gameCalculations.GameCalculation;
 import backgammon.model.gameModels.Board;
 import backgammon.model.gameModels.CheckerColors;
 import backgammon.model.gameModels.MoveSequence;
-import backgammon.model.operation.GameMaster;
+import backgammon.model.operation.GamemodeMaster;
 import backgammon.model.operation.ProgramMaster;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -21,12 +17,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 public class BoardController {
 
 	private ProgramMaster programMaster;
-	private GameMaster gameMaster;
+	private GamemodeMaster gamemodeMaster;
 	
 	@FXML
 	private Circle checker1, checker2, checker3, checker4, checker5, checker6, checker7, checker8, 
@@ -106,8 +101,8 @@ public class BoardController {
 		this.programMaster = programMaster;
 	}
 	
-	public void setGameMaster(GameMaster gameMaster){
-		this.gameMaster = gameMaster;
+	public void setGamemodeMaster(GamemodeMaster gamemodeMaster){
+		this.gamemodeMaster = gamemodeMaster;
 	}
 	
 	public void showDiceRoll(int leftDieRoll, int rightDieRoll){
@@ -224,12 +219,12 @@ public class BoardController {
 	
 	@FXML
 	private void diceRolled(MouseEvent e){
-		gameMaster.diceButtonClicked();
+		gamemodeMaster.diceButtonClicked();
 	}
 
 	@FXML
 	private void doubleOffered(MouseEvent e){
-		System.out.println(gameMaster.getBoard());
+		System.out.println(gamemodeMaster.getBoard());
 	}
 
 	@FXML
@@ -238,247 +233,247 @@ public class BoardController {
 	
 	@FXML
 	private void point1Clicked(MouseEvent e){
-		gameMaster.pointClicked(0);
+		gamemodeMaster.pointClicked(0);
 	}
 	
 	@FXML
 	private void point2Clicked(MouseEvent e){
-		gameMaster.pointClicked(1);
+		gamemodeMaster.pointClicked(1);
 	}
 
 	@FXML
 	private void point3Clicked(MouseEvent e){
-		gameMaster.pointClicked(2);
+		gamemodeMaster.pointClicked(2);
 	}
 
 	@FXML
 	private void point4Clicked(MouseEvent e){
-		gameMaster.pointClicked(3);
+		gamemodeMaster.pointClicked(3);
 	}
 
 	@FXML
 	private void point5Clicked(MouseEvent e){
-		gameMaster.pointClicked(4);
+		gamemodeMaster.pointClicked(4);
 	}
 
 	@FXML
 	private void point6Clicked(MouseEvent e){
-		gameMaster.pointClicked(5);
+		gamemodeMaster.pointClicked(5);
 	}
 
 	@FXML
 	private void point7Clicked(MouseEvent e){
-		gameMaster.pointClicked(6);
+		gamemodeMaster.pointClicked(6);
 	}
 
 	@FXML
 	private void point8Clicked(MouseEvent e){
-		gameMaster.pointClicked(7);
+		gamemodeMaster.pointClicked(7);
 	}
 
 	@FXML
 	private void point9Clicked(MouseEvent e){
-		gameMaster.pointClicked(8);
+		gamemodeMaster.pointClicked(8);
 	}
 
 	@FXML
 	private void point10Clicked(MouseEvent e){
-		gameMaster.pointClicked(9);
+		gamemodeMaster.pointClicked(9);
 	}
 
 	@FXML
 	private void point11Clicked(MouseEvent e){
-		gameMaster.pointClicked(10);
+		gamemodeMaster.pointClicked(10);
 	}
 
 	@FXML
 	private void point12Clicked(MouseEvent e){
-		gameMaster.pointClicked(11);
+		gamemodeMaster.pointClicked(11);
 	}
 
 	@FXML
 	private void point13Clicked(MouseEvent e){
-		gameMaster.pointClicked(12);
+		gamemodeMaster.pointClicked(12);
 	}
 
 	@FXML
 	private void point14Clicked(MouseEvent e){
-		gameMaster.pointClicked(13);
+		gamemodeMaster.pointClicked(13);
 	}
 	
 	@FXML
 	private void point15Clicked(MouseEvent e){
-		gameMaster.pointClicked(14);
+		gamemodeMaster.pointClicked(14);
 	}
 
 	@FXML
 	private void point16Clicked(MouseEvent e){
-		gameMaster.pointClicked(15);
+		gamemodeMaster.pointClicked(15);
 	}
 
 	@FXML
 	private void point17Clicked(MouseEvent e){
-		gameMaster.pointClicked(16);
+		gamemodeMaster.pointClicked(16);
 	}
 
 	@FXML
 	private void point18Clicked(MouseEvent e){
-		gameMaster.pointClicked(17);
+		gamemodeMaster.pointClicked(17);
 	}
 
 	@FXML
 	private void point19Clicked(MouseEvent e){
-		gameMaster.pointClicked(18);
+		gamemodeMaster.pointClicked(18);
 	}
 
 	@FXML
 	private void point20Clicked(MouseEvent e){
-		gameMaster.pointClicked(19);
+		gamemodeMaster.pointClicked(19);
 	}
 
 	@FXML
 	private void point21Clicked(MouseEvent e){
-		gameMaster.pointClicked(20);
+		gamemodeMaster.pointClicked(20);
 	}
 
 	@FXML
 	private void point22Clicked(MouseEvent e){
-		gameMaster.pointClicked(21);
+		gamemodeMaster.pointClicked(21);
 	}
 
 	@FXML
 	private void point23Clicked(MouseEvent e){
-		gameMaster.pointClicked(22);
+		gamemodeMaster.pointClicked(22);
 	}
 
 	@FXML
 	private void point24Clicked(MouseEvent e){
-		gameMaster.pointClicked(23);
+		gamemodeMaster.pointClicked(23);
 	}
 
 	@FXML
 	private void checker1Clicked(MouseEvent e){
-		gameMaster.checkerClicked(0);
+		gamemodeMaster.checkerClicked(0);
 	}
 	
 	@FXML
 	private void checker2Clicked(MouseEvent e){
-		gameMaster.checkerClicked(1);
+		gamemodeMaster.checkerClicked(1);
 	}
 
 	@FXML
 	private void checker3Clicked(MouseEvent e){
-		gameMaster.checkerClicked(2);
+		gamemodeMaster.checkerClicked(2);
 	}
 
 	@FXML
 	private void checker4Clicked(MouseEvent e){
-		gameMaster.checkerClicked(3);
+		gamemodeMaster.checkerClicked(3);
 	}
 
 	@FXML
 	private void checker5Clicked(MouseEvent e){
-		gameMaster.checkerClicked(4);
+		gamemodeMaster.checkerClicked(4);
 	}
 
 	@FXML
 	private void checker6Clicked(MouseEvent e){
-		gameMaster.checkerClicked(5);
+		gamemodeMaster.checkerClicked(5);
 	}
 
 	@FXML
 	private void checker7Clicked(MouseEvent e){
-		gameMaster.checkerClicked(6);
+		gamemodeMaster.checkerClicked(6);
 	}
 
 	@FXML
 	private void checker8Clicked(MouseEvent e){
-		gameMaster.checkerClicked(7);
+		gamemodeMaster.checkerClicked(7);
 	}
 
 	@FXML
 	private void checker9Clicked(MouseEvent e){
-		gameMaster.checkerClicked(8);
+		gamemodeMaster.checkerClicked(8);
 	}
 
 	@FXML
 	private void checker10Clicked(MouseEvent e){
-		gameMaster.checkerClicked(9);
+		gamemodeMaster.checkerClicked(9);
 	}
 
 	@FXML
 	private void checker11Clicked(MouseEvent e){
-		gameMaster.checkerClicked(10);
+		gamemodeMaster.checkerClicked(10);
 	}
 
 	@FXML
 	private void checker12Clicked(MouseEvent e){
-		gameMaster.checkerClicked(11);
+		gamemodeMaster.checkerClicked(11);
 	}
 
 	@FXML
 	private void checker13Clicked(MouseEvent e){
-		gameMaster.checkerClicked(12);
+		gamemodeMaster.checkerClicked(12);
 	}
 
 	@FXML
 	private void checker14Clicked(MouseEvent e){
-		gameMaster.checkerClicked(13);
+		gamemodeMaster.checkerClicked(13);
 	}
 	
 	@FXML
 	private void checker15Clicked(MouseEvent e){
-		gameMaster.checkerClicked(14);
+		gamemodeMaster.checkerClicked(14);
 	}
 
 	@FXML
 	private void checker16Clicked(MouseEvent e){
-		gameMaster.checkerClicked(15);
+		gamemodeMaster.checkerClicked(15);
 	}
 
 	@FXML
 	private void checker17Clicked(MouseEvent e){
-		gameMaster.checkerClicked(16);
+		gamemodeMaster.checkerClicked(16);
 	}
 
 	@FXML
 	private void checker18Clicked(MouseEvent e){
-		gameMaster.checkerClicked(17);
+		gamemodeMaster.checkerClicked(17);
 	}
 
 	@FXML
 	private void checker19Clicked(MouseEvent e){
-		gameMaster.checkerClicked(18);
+		gamemodeMaster.checkerClicked(18);
 	}
 
 	@FXML
 	private void checker20Clicked(MouseEvent e){
-		gameMaster.checkerClicked(19);
+		gamemodeMaster.checkerClicked(19);
 	}
 
 	@FXML
 	private void checker21Clicked(MouseEvent e){
-		gameMaster.checkerClicked(20);
+		gamemodeMaster.checkerClicked(20);
 	}
 
 	@FXML
 	private void checker22Clicked(MouseEvent e){
-		gameMaster.checkerClicked(21);
+		gamemodeMaster.checkerClicked(21);
 	}
 
 	@FXML
 	private void checker23Clicked(MouseEvent e){
-		gameMaster.checkerClicked(22);
+		gamemodeMaster.checkerClicked(22);
 	}
 
 	@FXML
 	private void checker24Clicked(MouseEvent e){
-		gameMaster.checkerClicked(23);
+		gamemodeMaster.checkerClicked(23);
 	}
 	
 	@FXML
 	private void checkerOBarClicked(MouseEvent e){
-		gameMaster.checkerClicked(24);
+		gamemodeMaster.checkerClicked(24);
 	}
 
 	@FXML
@@ -487,7 +482,7 @@ public class BoardController {
 	
 	@FXML
 	private void trayOClicked(MouseEvent e){
-		gameMaster.pointClicked(-1);
+		gamemodeMaster.pointClicked(-1);
 	}
 
 	@FXML

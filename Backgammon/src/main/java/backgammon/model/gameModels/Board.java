@@ -50,6 +50,7 @@ public class Board {
 		points[21] = new Point(CheckerColors.NA, 0);
 		points[22] = new Point(CheckerColors.NA, 0);
 		points[23] = new Point(CheckerColors.O, 2);
+
 	}
 	
 	public Board clone(){

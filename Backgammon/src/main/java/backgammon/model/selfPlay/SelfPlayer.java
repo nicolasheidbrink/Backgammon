@@ -25,7 +25,7 @@ public class SelfPlayer {
 		this.board = new Board();
 		currentTurn = CheckerColors.O;
 		for(int i = 0; i < 1000; i++){
-			System.out.println("i: "+i+"\n\n");
+			System.out.println("\n\n\n\ni: "+i+"\n");
 			playTurn();
 		}
 	}
@@ -35,12 +35,11 @@ public class SelfPlayer {
 		int rightRoll = (int) (Math.random() * 6.0 + 1);
 		
 		if(currentTurn == CheckerColors.O){
-			board = engineO.doComputedMoveAsO(board, leftRoll, rightRoll);
-			System.out.println(board);
+			board = engineO.doComputedMove(CheckerColors.O, board, leftRoll, rightRoll);
 			if(board.getTray(currentTurn) == 15){
 				int winFactor = GameCalculation.calculateWinFactor(board, CheckerColors.O);
 				scoreO += winFactor;
-				System.out.println("\n\n\n\n\n*****O WINS WITH "+winFactor+"*****\n\n\n\n\n");
+				System.out.println("\n*****O WINS WITH "+winFactor+"*****\n");
 				System.out.println("ScoreO: "+scoreO+"\nScoreX: "+scoreX + "\n\n\n");
 				board = new Board();
 				return;
@@ -49,12 +48,11 @@ public class SelfPlayer {
 			playTurn();
 		}
 		else{
-			board = engineX.doComputedMove(board, leftRoll, rightRoll);
-			System.out.println(board);
+			board = engineX.doComputedMove(CheckerColors.X, board, leftRoll, rightRoll);
 			if(board.getTray(currentTurn) == 15){
 				int winFactor = GameCalculation.calculateWinFactor(board, CheckerColors.X);
 				scoreX += winFactor;
-				System.out.println("\n\n\n\n\n*****X WINS WITH "+winFactor+"*****\n\n\n\n\n");
+				System.out.println("\n\n\n\n\n*****X WINS WITH "+winFactor+"*****\n");
 				System.out.println("ScoreO: "+scoreO+"\nScoreX: "+scoreX + "\n\n\n");
 				board = new Board();
 				return;

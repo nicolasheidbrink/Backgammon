@@ -14,10 +14,8 @@ import backgammon.model.gameModels.Board;
 import backgammon.model.gameModels.CheckerColors;
 import backgammon.model.gameModels.MoveSequence;
 import backgammon.model.gameModels.Turn;
-import javafx.animation.PauseTransition;
-import javafx.util.Duration;
 
-public class GameMaster {
+public class GameMaster extends GamemodeMaster {
 
 	private ProgramMaster programMaster;
 	private BoardController boardController;
@@ -33,7 +31,7 @@ public class GameMaster {
 	
 	public GameMaster(ProgramMaster programMaster, BoardController boardController){
 		this.programMaster = programMaster;
-		boardController.setGameMaster(this);
+		boardController.setGamemodeMaster(this);
 		this.boardController = boardController;
 		this.engine = new RuleBasedEngine();
 	}
@@ -51,6 +49,7 @@ public class GameMaster {
 		}
 	}
 	
+	@Override
 	public void diceButtonClicked(){
 		if(gameState == GameStates.awaitingRoll) rollDice();
 		else if(gameState == GameStates.awaitingFirstRoll) rollFirstDice();
@@ -104,6 +103,7 @@ public class GameMaster {
 
 	}
 	
+	@Override
 	public void checkerClicked(int i){
 		if(gameState != GameStates.awaitingCheckerSelection && gameState != GameStates.awaitingDestinationSelection) return;
 		if(0 <= i && i <= 24 &&
@@ -117,6 +117,7 @@ public class GameMaster {
 		}
 	}
 
+	@Override
 	public void pointClicked(int i){
 		if(gameState != GameStates.awaitingDestinationSelection) return;
 		if(-1 <= i && i < 24 && 
@@ -162,7 +163,7 @@ public class GameMaster {
 		board.leftDie = leftDie;
 		board.rightDie = rightDie;
 		boardController.updateBoard(board);
-		betweenBoards = engine.doComputedMoveWithSteps(board, leftDie, rightDie);
+		betweenBoards = engine.doComputedMoveWithSteps(CheckerColors.X, board, leftDie, rightDie);
 		gameState = GameStates.awaitingNext;
 		if(checkIfWon(board)) return;
 	}
@@ -180,7 +181,8 @@ public class GameMaster {
 		}
 		return false;
 	}
-		
+	
+	@Override
 	public Board getBoard(){
 		return board;
 	}
