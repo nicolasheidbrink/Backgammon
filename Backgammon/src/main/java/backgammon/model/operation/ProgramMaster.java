@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import backgammon.controller.BoardController;
 import backgammon.controller.MenuController;
+import backgammon.model.engines.Engine;
+import backgammon.model.engines.EngineTypes;
 import backgammon.model.gameModels.CheckerColors;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +24,9 @@ public class ProgramMaster {
 	MenuController menuController;
 	
 	GamemodeMaster gamemodeMaster;
+	
+	EngineTypes engineOType = EngineTypes.PLAYER;
+	EngineTypes engineXType = EngineTypes.RULE_BASED_ENGINE;
 	
 	int scoreO;
 	int scoreX;
@@ -45,15 +50,15 @@ public class ProgramMaster {
 	}
 	
 	public void gameStarted(){
-//		stage.setScene(boardScene);
-//		gamemodeMaster = new GameMaster(this, boardController);
-//		gamemodeMaster.startGame();
-//	}
-//	
-//	public void simulationStarted(){
 		stage.setScene(boardScene);
-		gamemodeMaster = new SpectateMaster(this, boardController);
-		gamemodeMaster.startGame();
+		if(engineOType == EngineTypes.PLAYER){
+			gamemodeMaster = new GameMaster(this, boardController);
+			gamemodeMaster.startGame();
+		}
+		else{
+			gamemodeMaster = new SpectateMaster(this, boardController);
+			gamemodeMaster.startGame();
+		}
 	}
 
 	public void gameDone(CheckerColors winner, int multiplier){
@@ -74,6 +79,18 @@ public class ProgramMaster {
 		Image icon = new Image(getClass().getResource("/images/backgammonIcon.png").toExternalForm());
 		primaryStage.getIcons().add(icon);
 		primaryStage.show();
+	}
+	
+	public void optionClicked(CheckerColors color, int optionNr){
+		if(color == CheckerColors.O){
+			if(optionNr == 0) engineOType = EngineTypes.PLAYER;
+			if(optionNr == 1) engineOType = EngineTypes.RANDOM_MOVE_ENGINE;
+			if(optionNr == 2) engineOType = EngineTypes.RULE_BASED_ENGINE;
+		}
+		if(color == CheckerColors.X){
+			if(optionNr == 1) engineXType = EngineTypes.RANDOM_MOVE_ENGINE;
+			if(optionNr == 2) engineXType = EngineTypes.RULE_BASED_ENGINE;	
+		}
 	}
 	
 }

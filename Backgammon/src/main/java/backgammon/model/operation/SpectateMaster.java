@@ -30,10 +30,11 @@ public class SpectateMaster extends GamemodeMaster{
 	public SpectateMaster(ProgramMaster programMaster, BoardController boardController){
 		this.programMaster = programMaster;
 		board = new Board();
+		boardController.updateBoard(board);
 		boardController.setGamemodeMaster(this);
 		this.boardController = boardController;
-		this.engineO = new RuleBasedEngine();
-		this.engineX = new RuleBasedEngine();
+		this.engineO = programMaster.engineOType.createEngine();
+		this.engineX = programMaster.engineXType.createEngine();
 		engines.put(CheckerColors.O, engineO);
 		engines.put(CheckerColors.X, engineX);
 	}
@@ -49,15 +50,12 @@ public class SpectateMaster extends GamemodeMaster{
 		if(currentTurn == CheckerColors.O) boardController.setDiceColorGreen(true);
 		else boardController.setDiceColorGreen(false);
 		boardController.showDiceRoll(leftRoll, rightRoll);
-		System.out.println("calculateTurn");
-		System.out.println("size: "+currentMS.size());
 	}
 
 	private void showMove(){
 		board = currentMS.get(0);
 		currentMS.remove(0);
 		boardController.updateBoard(board);
-		System.out.println("showMove");
 	}
 
 	@Override
@@ -68,7 +66,6 @@ public class SpectateMaster extends GamemodeMaster{
 			calculateTurn();
 		}
 		else showMove();
-		System.out.println("current turn: " + currentTurn);
 	}
 	
 	public void startGame(){

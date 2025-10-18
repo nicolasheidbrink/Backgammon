@@ -3,6 +3,8 @@ package backgammon.controller;
 import backgammon.model.gameModels.CheckerColors;
 import backgammon.model.operation.ProgramMaster;
 import javafx.fxml.FXML;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 public class MenuController {
@@ -12,22 +14,23 @@ public class MenuController {
 	@FXML
 	private Text endGameMessage, scoreText;
 	
+	@FXML
+	private Circle option0O, option1O, option2O, option1X, option2X;
+	
 	public void setProgramMaster(ProgramMaster programMaster){
 		this.programMaster = programMaster;
 	}
 	
 	public void updateScore(int scoreO, int scoreX){
-		scoreText.setText("YOU " + scoreO + " - " + scoreX + " COMPUTER");
+		scoreText.setText("WHITE " + scoreO + " - " + scoreX + " BLACK");
 	}
 	
 	public void showWinner(CheckerColors winner){
 		if(winner == CheckerColors.O){
-			endGameMessage.setText("YOU WIN");
-			endGameMessage.setLayoutX(296.0);
+			endGameMessage.setText("WHITE WINS");
 		}
 		if(winner == CheckerColors.X){
-			endGameMessage.setText("YOU LOSE");
-			endGameMessage.setLayoutX(282.0);
+			endGameMessage.setText("BLACK WINS");
 		}
 		endGameMessage.setVisible(true);
 	}
@@ -40,5 +43,56 @@ public class MenuController {
 	@FXML
 	private void tbdClicked(){
 		
+	}
+	
+	@FXML
+	private void option0OClicked(){
+		programMaster.optionClicked(CheckerColors.O, 0);
+		option0O.setStrokeWidth(2);
+		option1O.setStrokeWidth(0);
+		option2O.setStrokeWidth(0);
+		option0O.setFill(Color.web("#F3E1B9"));
+		option1O.setFill(Color.web("#86471D"));
+		option2O.setFill(Color.web("#86471D"));
+	}
+
+	@FXML
+	private void option1OClicked(){
+		programMaster.optionClicked(CheckerColors.O, 1);
+		option0O.setStrokeWidth(0);
+		option1O.setStrokeWidth(2);
+		option2O.setStrokeWidth(0);
+		option0O.setFill(Color.web("#86471D"));
+		option1O.setFill(Color.web("#F3E1B9"));
+		option2O.setFill(Color.web("#86471D"));
+	}
+
+	@FXML
+	private void option2OClicked(){
+		programMaster.optionClicked(CheckerColors.O, 2);
+		option0O.setStrokeWidth(0);
+		option1O.setStrokeWidth(0);
+		option2O.setStrokeWidth(2);
+		option0O.setFill(Color.web("#86471D"));
+		option1O.setFill(Color.web("#86471D"));
+		option2O.setFill(Color.web("#F3E1B9"));
+	}
+
+	@FXML
+	private void option1XClicked(){
+		programMaster.optionClicked(CheckerColors.X, 1);
+		option1X.setStrokeWidth(2);
+		option2X.setStrokeWidth(0);
+		option1X.setFill(Color.web("#3E2514"));
+		option2X.setFill(Color.web("#86471D"));
+	}
+	
+	@FXML
+	private void option2XClicked(){
+		programMaster.optionClicked(CheckerColors.X, 2);
+		option1X.setStrokeWidth(0);
+		option2X.setStrokeWidth(2);
+		option1X.setFill(Color.web("#86471D"));
+		option2X.setFill(Color.web("#3E2514"));
 	}
 }
