@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import backgammon.controller.BoardController;
 import backgammon.model.engines.Engine;
+import backgammon.model.engines.neuralNetwork.NeuralNetworkEngine;
 import backgammon.model.gameCalculations.GameCalculation;
 import backgammon.model.gameCalculations.LegalMoveCalculation;
 import backgammon.model.gameModels.Board;
@@ -20,7 +21,7 @@ public class GameMaster extends GamemodeMaster {
 	private Board board;
 	private int selectedChecker = Integer.MIN_VALUE;
 	private int moveWithinTurn;
-	private Set<MoveSequence> possibleMovesXX;
+	private Set<MoveSequence> possibleMoves;
 	private Engine engine;
 	private List<Board> betweenBoards;
 
@@ -29,7 +30,7 @@ public class GameMaster extends GamemodeMaster {
 		this.programMaster = programMaster;
 		boardController.setGamemodeMaster(this);
 		this.boardController = boardController;
-		this.engine = programMaster.engineXType.createEngine();
+		this.engine = new NeuralNetworkEngine();///////////////////////////////////////////////////programMaster.engineXType.createEngine();
 	}
 	
 	public void startGame(){
@@ -38,8 +39,12 @@ public class GameMaster extends GamemodeMaster {
 		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
 		boardController.updateBoard(board);
 		if(programMaster.lastWinner == CheckerColors.NA) gameState = GameStates.awaitingFirstRoll;
-		else if(programMaster.lastWinner == CheckerColors.O) gameState = GameStates.awaitingRoll;
+		else if(programMaster.lastWinner == CheckerColors.O) {
+			board.turn = CheckerColors.O;
+			gameState = GameStates.awaitingRoll;
+		}
 		else if(programMaster.lastWinner == CheckerColors.X){
+			board.turn = CheckerColors.X;
 			turnFinished();
 		}
 	}
@@ -49,12 +54,13 @@ public class GameMaster extends GamemodeMaster {
 		if(gameState == GameStates.awaitingRoll) rollDice();
 		else if(gameState == GameStates.awaitingFirstRoll) rollFirstDice();
 		else if(gameState == GameStates.awaitingNext) nextClicked();
-		else if(gameState == GameStates.awaitingCheckerSelection && possibleMovesXX.size() == 0) turnFinished();
+		else if(gameState == GameStates.awaitingCheckerSelection && possibleMoves.size() == 0) turnFinished();
 
 	}
 	
 	public void nextClicked(){
 		if(betweenBoards.isEmpty() || betweenBoards == null){
+			board.turn = CheckerColors.O;
 			gameState = GameStates.awaitingRoll;
 			boardController.setDiceColorGreen(true);
 		}
@@ -75,7 +81,7 @@ public class GameMaster extends GamemodeMaster {
 		board.leftDie = (int) (6*Math.random() + 1);
 		board.rightDie = (int) (6*Math.random() + 1);
 		boardController.updateBoard(board);
-		possibleMovesXX = LegalMoveCalculation.calculateAllPossibleMoveSequences(board, CheckerColors.O, board.leftDie, board.rightDie);
+		possibleMoves = LegalMoveCalculation.calculateAllPossibleMoveSequences(board, CheckerColors.O, board.leftDie, board.rightDie);
 		gameState = GameStates.awaitingCheckerSelection;
 	}
 	
@@ -88,10 +94,12 @@ public class GameMaster extends GamemodeMaster {
 		}
 		boardController.updateBoard(board);
 		if(board.leftDie > board.rightDie){
-			possibleMovesXX = LegalMoveCalculation.calculateAllPossibleMoveSequences(board, CheckerColors.O, board.leftDie, board.rightDie);
+			board.turn = CheckerColors.O;
+			possibleMoves = LegalMoveCalculation.calculateAllPossibleMoveSequences(board, CheckerColors.O, board.leftDie, board.rightDie);
 			gameState = GameStates.awaitingCheckerSelection;
 		}
 		else{
+			board.turn = CheckerColors.X;
 			boardController.setDiceColorGreen(false);
 			engineMove(board.leftDie, board.rightDie);
 		}
@@ -102,12 +110,12 @@ public class GameMaster extends GamemodeMaster {
 	public void checkerClicked(int i){
 		if(gameState != GameStates.awaitingCheckerSelection && gameState != GameStates.awaitingDestinationSelection) return;
 		if(0 <= i && i <= 24 &&
-				possibleMovesXX.stream()
+				possibleMoves.stream()
 					.map(ms -> ms.moves().get(moveWithinTurn).from)
 					.collect(Collectors.toSet())
 					.contains(Integer.valueOf(i))){
 			selectedChecker = i;
-			boardController.updateBoard(board, selectedChecker, possibleMovesXX, moveWithinTurn);
+			boardController.updateBoard(board, selectedChecker, possibleMoves, moveWithinTurn);
 			gameState = GameStates.awaitingDestinationSelection;
 		}
 	}
@@ -116,22 +124,22 @@ public class GameMaster extends GamemodeMaster {
 	public void pointClicked(int i){
 		if(gameState != GameStates.awaitingDestinationSelection) return;
 		if(-1 <= i && i < 24 && 
-				possibleMovesXX.stream()
+				possibleMoves.stream()
 					.map(ms -> ms.moves().get(moveWithinTurn))
 					.filter(move -> move.from == selectedChecker)
 					.filter(move -> move.to == i)
 					.collect(Collectors.toList())
 					.size() > 0){
 			board = board.doMove(CheckerColors.O, selectedChecker, i);
-			possibleMovesXX = possibleMovesXX.stream()
+			possibleMoves = possibleMoves.stream()
 				.filter(ms -> ms.moves().get(moveWithinTurn).from == selectedChecker)
 				.filter(ms -> ms.moves().get(moveWithinTurn).to == i)
 				.collect(Collectors.toSet());
 			selectedChecker = Integer.MIN_VALUE;
 			boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
-			boardController.updateBoard(board, selectedChecker, possibleMovesXX, moveWithinTurn);
+			boardController.updateBoard(board, selectedChecker, possibleMoves, moveWithinTurn);
 			moveWithinTurn++;
-			for(MoveSequence ms : possibleMovesXX){
+			for(MoveSequence ms : possibleMoves){
 				if(ms.moves().size() == moveWithinTurn || board.trayO == 15){
 					turnFinished();
 					break;
@@ -142,6 +150,7 @@ public class GameMaster extends GamemodeMaster {
 
 	public void turnFinished(){
 		if(checkIfWon(board)) return;
+		board.turn = CheckerColors.X;
 		boardController.setDiceColorGreen(false);
 		gameState = GameStates.awaitingComputer;
 		moveWithinTurn = 0;

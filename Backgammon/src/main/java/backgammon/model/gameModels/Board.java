@@ -9,6 +9,7 @@ public class Board {
 	public int trayX;
 	public int leftDie;
 	public int rightDie;
+	public CheckerColors turn;
 	
 	public Board(){
 		defaultSetup();
@@ -128,7 +129,8 @@ public class Board {
 	
 	@Override
 	public String toString(){
-		String output = "barO: " +barO
+		String output = "turn: " + turn
+					+ "\nbarO: " + barO
 					+ "\nbarX: " + barX
 					+ "\ntrayO: " + trayO
 					+ "\ntrayX: " + trayX;
@@ -142,7 +144,8 @@ public class Board {
 	public boolean equals(Object inputBoard){
 		if(inputBoard.getClass() != getClass()) return false;
 		Board board = (Board) inputBoard;
-		if(board.barO != barO
+		if(board.turn != turn
+				|| board.barO != barO
 				|| board.barX != barX
 				|| board.trayO != trayO
 				|| board.trayX != trayX )

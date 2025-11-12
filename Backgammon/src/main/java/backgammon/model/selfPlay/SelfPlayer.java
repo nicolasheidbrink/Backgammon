@@ -14,14 +14,14 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 
 public class SelfPlayer {
 
-	Engine engineO;
-	Engine engineX;
+	public Engine engineO;
+	public Engine engineX;
 	
 	int scoreO = 0;
 	int scoreX = 0;
 	
 	int n = 1000;
-	int[] results = new int[1000];
+	int[] results = new int[n];
 	int i = 0;
 	
 	Board board;

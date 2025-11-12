@@ -10,6 +10,12 @@ import backgammon.model.gameModels.MoveSequence;
 
 public class RuleBasedEngineTester implements Engine {
 
+	public PositionEvaluatorTester positionEvaluatorTester;
+	
+	public RuleBasedEngineTester(){
+		positionEvaluatorTester = new PositionEvaluatorTester();
+	}
+	
 	@Override
 	public MoveSequence calculateMove(CheckerColors color, Board board, Set<MoveSequence> possibleMoves) {
 		MoveSequence tempBestMoveSeq = null;
@@ -27,7 +33,7 @@ public class RuleBasedEngineTester implements Engine {
 	}
 	
 	public double recursiveEvaluation(Board board, int depth, CheckerColors mover){
-		if(depth == 0) return PositionEvaluatorTester.evaluatePosition(board);
+		if(depth == 0) return positionEvaluatorTester.evaluatePosition(board);
 		double evaluation = 0;
 		for(int[] possibleRoll : possibleRolls){
 			Set<MoveSequence> possibleMoveSequences = LegalMoveCalculation.calculateAllPossibleMoveSequences(board, mover, possibleRoll[0], possibleRoll[1]);
