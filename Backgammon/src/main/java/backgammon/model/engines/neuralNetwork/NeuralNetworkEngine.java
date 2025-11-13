@@ -1,7 +1,10 @@
 package backgammon.model.engines.neuralNetwork;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Set;
 
 import backgammon.model.engines.Engine;
@@ -11,8 +14,12 @@ import backgammon.model.gameModels.MoveSequence;
 
 public class NeuralNetworkEngine implements Engine {
 
+	private ProcessBuilder pb;
+	private Process process;
+	private BufferedReader br;
+	private BufferedWriter bw;
 	
-	
+
 	@Override
 	public MoveSequence calculateMove(CheckerColors color, Board board, Set<MoveSequence> possibleMoves) {
 
@@ -22,7 +29,6 @@ public class NeuralNetworkEngine implements Engine {
 		for(MoveSequence moveSequence : possibleMoves){
 			try{
 				currentEval = getPythonEvaluation(moveSequence.board());
-				System.out.println(currentEval);
 			} catch(Exception e){
 				System.out.println("python eval didnt work\n"+e.getMessage());
 			}
@@ -37,25 +43,16 @@ public class NeuralNetworkEngine implements Engine {
 	
 	public double getPythonEvaluation(Board board) throws Exception{
 		String pythonInput = createPythonInput(board);
-		ProcessBuilder pb = new ProcessBuilder("python", "src/main/python/neural_network.py", pythonInput);
-       
-		pb.redirectErrorStream(true);
-        Process process = pb.start();
+		bw.write(pythonInput);
+		bw.newLine();
+		bw.flush();
 
-        // Capture Python output
-        BufferedReader reader = new BufferedReader(
-            new InputStreamReader(process.getInputStream())
-        );
-
-        String line = reader.readLine();
-        process.waitFor();
-
+        String line = br.readLine();
         return Double.parseDouble(line);
-
 	}
 	
 	public String createPythonInput(Board board){
-		StringBuilder sb = new StringBuilder(); // python code file location
+		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < 24; i++){
 			if(board.points[i].occupiedBy == CheckerColors.O) appendDoubleToSB(sb, board.points[i].amtCheckers / 15.0);
 			else appendDoubleToSB(sb, 0);
@@ -78,5 +75,20 @@ public class NeuralNetworkEngine implements Engine {
 
 	public void appendDoubleToSB(StringBuilder sb, double d){
 		sb.append(' ').append(d).append(',');
+	}
+	
+	public NeuralNetworkEngine(){
+		pb = new ProcessBuilder("python", "src/main/python/neural_network.py");
+		pb.redirectErrorStream(true);
+		try {
+			process = pb.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		br = new BufferedReader(
+	            new InputStreamReader(process.getInputStream())
+		        );
+		bw = new BufferedWriter(
+	                new OutputStreamWriter(process.getOutputStream()));
 	}
 }

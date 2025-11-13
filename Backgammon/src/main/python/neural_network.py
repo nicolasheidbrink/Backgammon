@@ -4,6 +4,7 @@ import json
 
 rng = np.random.default_rng(1)
 
+
 n_l = [53, 16, 16, 16, 1]
 l = len(n_l) - 1
 
@@ -11,8 +12,7 @@ l = len(n_l) - 1
 #                    2/15,0,0,0,0,0,0,0,0,0,0,5/15,0,0,0,0,3/15,0,5/15,0,0,0,0,0, # black checkers from point 1 to point 24,
 #                    0,0,0,0,1]]).reshape(-1, 1)                                  # barO, barX, trayO, trayX, turn[O=1, X=0]
 
-inputList = json.loads(sys.argv[1])
-input = np.array(inputList).reshape(-1, 1)
+# inputList = json.loads(sys.argv[1])
 
 w = []
 for i in range(l):
@@ -25,10 +25,10 @@ for i in range(l):
 def relu(x):
     return np.maximum(0, x)
 
-a = input
-
-for i in range(l):
-    a = relu(w[i] @ a + b[i])
-
-print(0.57)
-# print(a)
+for line in sys.stdin:
+    inputList = json.loads(line)
+    input = np.array(inputList).reshape(-1, 1)
+    a = input
+    for i in range(l):
+        a = relu(w[i] @ a + b[i])
+    print(a[0][0], flush=True)
