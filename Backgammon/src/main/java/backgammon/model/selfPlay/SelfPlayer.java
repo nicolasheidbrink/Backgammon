@@ -1,6 +1,7 @@
 package backgammon.model.selfPlay;
 
 import backgammon.model.engines.Engine;
+import backgammon.model.engines.neuralNetwork.NeuralNetworkEngine;
 import backgammon.model.engines.randomMove.RandomMoveEngine;
 import backgammon.model.engines.ruleBased.RuleBasedEngine;
 import backgammon.model.engines.tester.RuleBasedEngineTester;
@@ -28,8 +29,8 @@ public class SelfPlayer {
 	CheckerColors currentTurn;
 	
 	public SelfPlayer(){
-		engineO = new RuleBasedEngine();
-		engineX = new RuleBasedEngineTester();
+		engineO = new NeuralNetworkEngine();
+		engineX = new RandomMoveEngine();
 		
 		this.board = new Board();
 		currentTurn = CheckerColors.O;
@@ -87,7 +88,7 @@ public class SelfPlayer {
 				int winFactor = GameCalculation.calculateWinFactor(board, CheckerColors.X);
 				scoreX += winFactor;
 				results[i++] = - winFactor;
-				System.out.println("\n\n*****X WINS WITH "+winFactor+"*****\n");
+				System.out.println("\n*****X WINS WITH "+winFactor+"*****\n");
 				System.out.println("ScoreO: "+scoreO+"\nScoreX: "+scoreX + "\n\n\n");
 				board = new Board();
 				return;

@@ -1,5 +1,6 @@
 package backgammon.model.engines;
 
+import backgammon.model.engines.neuralNetwork.NeuralNetworkEngine;
 import backgammon.model.engines.randomMove.RandomMoveEngine;
 import backgammon.model.engines.ruleBased.RuleBasedEngine;
 
@@ -20,6 +21,12 @@ public enum EngineTypes {
 		@Override
 		public Engine createEngine(){
 			return new RuleBasedEngine();
+		}
+	},
+	NEURAL_NETWORK_ENGINE{
+		@Override
+		public Engine createEngine(){
+			return new NeuralNetworkEngine();
 		}
 	};
 

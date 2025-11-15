@@ -38,25 +38,32 @@
             <Font name="AcmeFont Regular" size="24.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="300.0" layoutY="275.0" prefHeight="17.0" prefWidth="200.0" text="PLAYER" textFill="#3e2514">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="300.0" layoutY="265.0" prefHeight="17.0" prefWidth="200.0" text="PLAYER" textFill="#3e2514">
          <font>
             <Font name="AcmeFont Regular" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="300.0" layoutY="325.0" prefWidth="200.0" text="RandomMoveEngine" textFill="#3e2514">
+      <Label alignment="CENTER" layoutX="300.0" layoutY="315.0" prefWidth="200.0" text="RandomMoveEngine" textFill="#3e2514">
          <font>
             <Font name="AcmeFont Regular" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="300.0" layoutY="375.0" prefWidth="200.0" text="RuleBasedEngine" textFill="#3e2514">
+      <Label alignment="CENTER" layoutX="300.0" layoutY="365.0" prefWidth="200.0" text="RuleBasedEngine" textFill="#3e2514">
          <font>
             <Font name="AcmeFont Regular" size="18.0" />
          </font>
       </Label>
-      <Circle fx:id="option0O" fill="#f3e1b9" layoutX="275.0" layoutY="287.0" onMouseClicked="#option0OClicked" radius="20.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
-      <Circle fx:id="option1O" fill="#86471d" layoutX="275.0" layoutY="337.0" onMouseClicked="#option1OClicked" radius="20.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle fx:id="option2O" fill="#86471d" layoutX="275.0" layoutY="387.0" onMouseClicked="#option2OClicked" radius="20.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle fx:id="option1X" fill="#86471d" layoutX="525.0" layoutY="337.0" onMouseClicked="#option1XClicked" radius="20.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle fx:id="option2X" fill="#3e2514" layoutX="525.0" layoutY="387.0" onMouseClicked="#option2XClicked" radius="20.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Circle fx:id="option0O" fill="#f3e1b9" layoutX="275.0" layoutY="277.0" onMouseClicked="#option0OClicked" radius="20.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Circle fx:id="option1O" fill="#86471d" layoutX="275.0" layoutY="327.0" onMouseClicked="#option1OClicked" radius="20.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fx:id="option2O" fill="#86471d" layoutX="275.0" layoutY="377.0" onMouseClicked="#option2OClicked" radius="20.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fx:id="option1X" fill="#86471d" layoutX="525.0" layoutY="327.0" onMouseClicked="#option1XClicked" radius="20.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fx:id="option2X" fill="#3e2514" layoutX="525.0" layoutY="377.0" onMouseClicked="#option2XClicked" radius="20.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
+      <Label alignment="CENTER" layoutX="300.0" layoutY="415.0" prefWidth="200.0" text="NeuralNetworkEngine" textFill="#3e2514">
+         <font>
+            <Font name="AcmeFont Regular" size="18.0" />
+         </font>
+      </Label>
+      <Circle fx:id="option3O" fill="#86471d" layoutX="275.0" layoutY="427.0" onMouseClicked="#option3OClicked" radius="20.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="0.0" />
+      <Circle fx:id="option3X" fill="#86471d" layoutX="525.0" layoutY="427.0" onMouseClicked="#option3XClicked" radius="20.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="0.0" />
    </children>
 </Pane>

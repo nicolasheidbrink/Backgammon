@@ -30,7 +30,7 @@ public class GameMaster extends GamemodeMaster {
 		this.programMaster = programMaster;
 		boardController.setGamemodeMaster(this);
 		this.boardController = boardController;
-		this.engine = new NeuralNetworkEngine();///////////////////////////////////////////////////programMaster.engineXType.createEngine();
+		this.engine = programMaster.engineXType.createEngine();
 	}
 	
 	public void startGame(){

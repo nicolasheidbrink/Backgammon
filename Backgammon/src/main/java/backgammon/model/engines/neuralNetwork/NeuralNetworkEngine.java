@@ -18,7 +18,6 @@ public class NeuralNetworkEngine implements Engine {
 	private Process process;
 	private BufferedReader br;
 	private BufferedWriter bw;
-	
 
 	@Override
 	public MoveSequence calculateMove(CheckerColors color, Board board, Set<MoveSequence> possibleMoves) {
@@ -30,7 +29,7 @@ public class NeuralNetworkEngine implements Engine {
 			try{
 				currentEval = getPythonEvaluation(moveSequence.board());
 			} catch(Exception e){
-				System.out.println("python eval didnt work\n"+e.getMessage());
+				System.out.println("python eval didnt work\nError message: "+e.getMessage());
 			}
 			if((color == CheckerColors.O && currentEval > tempBestEval)
 					|| (color == CheckerColors.X && currentEval < tempBestEval)){
