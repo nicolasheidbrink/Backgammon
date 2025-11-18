@@ -15,10 +15,14 @@ public interface Engine {
 		Set<MoveSequence> possibleMoves = LegalMoveCalculation.calculateAllPossibleMoveSequences(board, color, leftDie, rightDie);
 		MoveSequence chosenMove = calculateMove(color, board, possibleMoves);
 		Board result = board;
-		if(chosenMove == null) return result;
+		if(chosenMove == null) {
+			board.turn = color.opposite;
+			return result;
+		}
 		for(Move move : chosenMove.moves()){
 			result = result.doMove(color, move.from, move.to);
 		}
+		result.turn = color.opposite;
 		return result;
 	}
 	
@@ -29,9 +33,11 @@ public interface Engine {
 		if(chosenMove == null) {
 			List<Board> listOfOnlyBoard = new ArrayList<>();
 			listOfOnlyBoard.add(board);
+			board.turn = color.opposite;
 			return listOfOnlyBoard;
 		}
 		Board temp = board;
+		temp.turn = color.opposite;
 		for(Move move : chosenMove.moves()){
 			temp = temp.clone().doMove(color, move.from, move.to);
 			inBetweenSteps.add(temp);

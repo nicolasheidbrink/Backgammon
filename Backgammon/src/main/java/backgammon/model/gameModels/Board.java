@@ -127,6 +127,28 @@ public class Board {
 		if(color == CheckerColors.O) barO = newValue;
 	}
 	
+	public double[] parametrize(){
+		double[] paras = new double[53];
+		
+		for(int i = 0; i < 24; i++){
+			if(points[i].occupiedBy == CheckerColors.O) paras[i] = points[i].amtCheckers / 15.0;
+			else paras[i] = 0.0;
+		}
+		for(int i = 24; i < 48; i++){
+			if(points[i-24].occupiedBy == CheckerColors.X) paras[i] = points[i-24].amtCheckers / 15.0;
+			else paras[i] = 0.0;
+		}
+		paras[48] = barO / 15.0;
+		paras[49] = barX / 15.0;
+		paras[50] = trayO / 15.0;
+		paras[51] = trayX / 15.0;
+		if(turn == CheckerColors.O) paras[52] = 1.0;
+		else if(turn == CheckerColors.X) paras[52] = 0.0;
+		else paras[52] = 0.5;
+		
+		return paras;
+	}
+	
 	@Override
 	public String toString(){
 		String output = "turn: " + turn
