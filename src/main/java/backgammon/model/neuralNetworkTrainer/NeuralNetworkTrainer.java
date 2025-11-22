@@ -1,11 +1,9 @@
 package backgammon.model.neuralNetworkTrainer;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +17,6 @@ import backgammon.model.gameCalculations.GameCalculation;
 import backgammon.model.gameModels.Board;
 import backgammon.model.gameModels.CheckerColors;
 
-
-
 public class NeuralNetworkTrainer {
 
 	public static Engine engineO;
@@ -29,28 +25,51 @@ public class NeuralNetworkTrainer {
 	public static Board board;
 
 	public static List<Game> games;
+
 	
 	public static void main(String[] args){
 		engineO = new RuleBasedEngine();
 		engineX = new RuleBasedEngine();
-				
-		games = new ArrayList<>();
 		
-		for(int i = 0; i < 10000; i++){
-			System.out.println(i);
+		
+		for(int i = 0; i < 100; i++){
+			System.out.println("Java data generation starting");
+			games = new ArrayList<>();
+			
+			for(int j = 0; j < 1000; j++){
+				System.out.println(i + "; " + j);
+				try {
+					playGame();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			try(FileWriter fw = new FileWriter("C:\\Users\\nicol\\Downloads\\training_data.csv")){
+				gson.toJson(games, fw);
+				System.out.println("generated data written to file");
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			System.out.println("calling python trainer code");
+			
+			ProcessBuilder pb = new ProcessBuilder("python", "src/main/python/nn_trainer.py");
+			pb.redirectErrorStream(true);
 			try {
-				playGame();
+				Process process = pb.start();
+				BufferedReader reader = new BufferedReader(
+				        new InputStreamReader(process.getInputStream())
+				);
+				String line;
+				while ((line = reader.readLine()) != null) {
+				    System.out.println("python " + i + ": " + line);
+				}
+				process.waitFor();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		try(FileWriter fw = new FileWriter("C:\\Users\\nicol\\Downloads\\training_data.csv")){
-			gson.toJson(games, fw);
-		}
-		catch(Exception e){
-			e.printStackTrace();
 		}
 	}
 	

@@ -47,10 +47,9 @@ with open("C:/Users/nicol/Downloads/training_data.csv", "r") as f:
     training_data = json.load(f)
 
 # Update  goal values in training data using temporal difference learning
-alpha = 0.01
 ii = int(0)
 for game in training_data:
-    print (ii)
+    print (ii, flush = True)
     ii += 1
     # Compute y_hats (evaluations) for each state
     for state in game["states"]:
@@ -58,12 +57,12 @@ for game in training_data:
         state["y_hat"] = state["a"][-1][0]
 
     # Update goal values & Costs
-    game["states"][-1]["y"] = (1 - alpha) * game["states"][-1]["y_hat"] + alpha * game["result"]
+    game["states"][-1]["y"] = game["result"]
     game["states"][-1]["C"] = 1/2 * (game["states"][-1]["y"] - game["states"][-1]["y_hat"]) ** 2
     for i in reversed(range(len(game["states"]) - 1)):
-        game["states"][i]["y"] = (1 - alpha) * game["states"][i]["y_hat"] + alpha * game["states"][i+1]["y"]
+        game["states"][i]["y"] = game["states"][i+1]["a"][-1][0]
         game["states"][i]["C"] = 1/2 * (game["states"][i]["y"] - game["states"][i]["y_hat"]) ** 2
-
+    
     w_gradients_sum = [np.zeros_like(ww) for ww in w]
     b_gradients_sum = [np.zeros_like(bb) for bb in b]
 
@@ -99,5 +98,4 @@ json_data_out = {
 
 # Save weights and biases to JSON file
 with open(json_path, "w") as f:
-#with open("C:/Users/nicol/Downloads/resulting_weights_and_biases.json", "w") as f:
     json.dump(json_data_out, f, indent=4)
