@@ -8,8 +8,8 @@ if os.path.exists(json_path):
     with open(json_path) as f:
         json_data_in = json.load(f)
 else:
-    rng = np.random.default_rng(2)
-    n_l_init = [201, 20, 20, 1] # insert desired nodes per layer here
+    rng = np.random.default_rng(0)
+    n_l_init = [203, 20, 20, 1] # insert desired nodes per layer here
     l_init = len(n_l_init) - 1
     w_init = []
     for i in range(l_init):
@@ -24,7 +24,7 @@ else:
     }
     with open(json_path, "w") as f:
         json.dump(json_data_out_init, f, indent=4)
-        json_data_in = json.load(f)
+        json_data_in = json_data_out_init
 
 n_l = json_data_in["n_l"]
 l = len(n_l) - 1
@@ -46,7 +46,8 @@ def relu(x):
 with open("C:/Users/nicol/Downloads/training_data.csv", "r") as f:
     training_data = json.load(f)
 
-alpha = 0.1
+alpha = 0.05
+td_lambda = 0.95
 
 ii = int(0)
 for game in training_data:
@@ -60,8 +61,16 @@ for game in training_data:
     # Update goal values & Costs
     game["states"][-1]["y"] = game["result"]
     game["states"][-1]["C"] = 1/2 * (game["states"][-1]["y"] - game["states"][-1]["y_hat"]) ** 2
+
+    running_total = game["states"][-1]["y_hat"]
+    counter = 1
+
+    # TD(\lambda) calculation of target
     for i in reversed(range(len(game["states"]) - 1)):
-        game["states"][i]["y"] = game["states"][i+1]["y_hat"]
+        game["states"][i]["y"] = (1-td_lambda) * running_total + td_lambda ** counter * game["result"]
+        running_total = running_total * td_lambda + game["states"][i]["y_hat"]
+        counter += 1
+
         game["states"][i]["C"] = 1/2 * (game["states"][i]["y"] - game["states"][i]["y_hat"]) ** 2
     
     w_gradients_sum = [np.zeros_like(ww) for ww in w]

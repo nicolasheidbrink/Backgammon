@@ -66,10 +66,10 @@ public class SelfPlayer {
 		double pValue = new NormalDistribution(0, 1).cumulativeProbability(t);
 		System.out.println("After "+n+" games, EngineO won "+scoreO+" points and EngineX won "+scoreX+" points"+
 				"\nThe amount of games won by O is "+numberOfOVictories+
-				"\n\nThe average score per game is "+avgPointsPerGame+
+				"\n\nThe average absolute score per game is "+avgPointsPerGame+
 				"\nThe average score per game that O won is "+(double) scoreO / numberOfOVictories+
 				"\nThe average score per game that X won is "+(double) scoreX / (n-numberOfOVictories)+
-				"\n\nThe mean score is "+X_n+
+				"\n\n*#*#*#*#*#*#*#*#*#* The mean score is "+X_n+" *#*#*#*#*#*#*#*#*#*"+ 
 				"\nThe t Value is "+t+
 				"\nThe p Value of O being better than X is "+pValue+
 				"\nThe average amount of moves per game was "+avgMovesPerGame);

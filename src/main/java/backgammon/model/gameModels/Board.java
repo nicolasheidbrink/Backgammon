@@ -150,59 +150,73 @@ public class Board {
 	}
 	
 	public double[] parametrizeWithFlags(){
-		double[] paras = new double[(24 + 1)*2*4 + 1];
+		double[] paras = new double[(24 + 1)*2*4 + 2 + 1];
 		
 		for(int i = 0; i < 24*4; i++){
-			if(points[i/4].occupiedBy == CheckerColors.O && Math.min(4, points[i/4].amtCheckers) == (i % 4) + 1) paras[i] = 1.0;
+			if(points[i/4].occupiedBy == CheckerColors.O && i % 4 == 3) paras[i] = (points[i/4].amtCheckers - 3.0) / 2.0;
+			else if(points[i/4].occupiedBy == CheckerColors.O && points[i/4].amtCheckers > (i % 4)) paras[i] = 1.0;
 			else paras[i] = 0.0;
 		}
 		for(int i = 24*4; i < 2*24*4; i++){
-			if(points[(i-24*4)/4].occupiedBy == CheckerColors.X && Math.min(4, points[(i-24*4)/4].amtCheckers) == (i % 4) + 1) paras[i] = 1.0;
+			if(points[(i-24*4)/4].occupiedBy == CheckerColors.X && i % 4 == 3) paras[i] = (points[(i-24*4)/4].amtCheckers - 3.0) / 2.0;
+			else if(points[(i-24*4)/4].occupiedBy == CheckerColors.X && points[(i-24*4)/4].amtCheckers > (i % 4)) paras[i] = 1.0;
 			else paras[i] = 0.0;
 		}
 		
 		for(int i = 2*24*4; i < 2*24*4 + 4; i++){
-			if(Math.min(4, barO) == (i % 4) + 1) paras[i] = 1.0;
+			if(i % 4 == 3) paras[i] = Math.max(0, (barO - 3.0)/2.0);
+			else if(barO > (i % 4)) paras[i] = 1.0;
 			else paras[i] = 0.0;
 		}
 
 		for(int i = 2*24*4 + 4; i < 2*24*4 + 8; i++){
-			if(Math.min(4, barX) == (i % 4) + 1) paras[i] = 1.0;
+			if(i % 4 == 3) paras[i] = Math.max(0, (barX - 3.0)/2.0);
+			else if(barX > (i % 4)) paras[i] = 1.0;
 			else paras[i] = 0.0;
 		}
+		
+		paras[200] = trayO / 15.0;
+		paras[201] = trayX / 15.0;
 
-		if(turn == CheckerColors.O) paras[200] = 1.0;
-		else if(turn == CheckerColors.X) paras[200] = 0.0;
+		if(turn == CheckerColors.O) paras[202] = 1.0;
+		else if(turn == CheckerColors.X) paras[202] = 0.0;
 		else paras[200] = 0.5;
 		
 		return paras;
 	}
 	
 	public double[] reverseParametrizeWithFlags(){
-		double[] paras = new double[(24 + 1)*2*4 + 1];
+		double[] paras = new double[(24 + 1)*2*4 + 2 + 1];
 		
 		for(int i = 0; i < 24*4; i++){
-			if(points[i/4].occupiedBy == CheckerColors.X && Math.min(4, points[i/4].amtCheckers) == (i % 4) + 1) paras[i] = 1.0;
+			if(points[i/4].occupiedBy == CheckerColors.X && i % 4 == 3) paras[i] = (points[i/4].amtCheckers - 3.0) / 2.0;
+			else if(points[i/4].occupiedBy == CheckerColors.X && points[i/4].amtCheckers > (i % 4)) paras[i] = 1.0;
 			else paras[i] = 0.0;
 		}
 		for(int i = 24*4; i < 2*24*4; i++){
-			if(points[(i-24*4)/4].occupiedBy == CheckerColors.O && Math.min(4, points[(i-24*4)/4].amtCheckers) == (i % 4) + 1) paras[i] = 1.0;
+			if(points[(i-24*4)/4].occupiedBy == CheckerColors.O && i % 4 == 3) paras[i] = (points[(i-24*4)/4].amtCheckers - 3.0) / 2.0;
+			else if(points[(i-24*4)/4].occupiedBy == CheckerColors.O && points[(i-24*4)/4].amtCheckers > (i % 4)) paras[i] = 1.0;
 			else paras[i] = 0.0;
 		}
 		
 		for(int i = 2*24*4; i < 2*24*4 + 4; i++){
-			if(Math.min(4, barX) == (i % 4) + 1) paras[i] = 1.0;
+			if(i % 4 == 3) paras[i] = Math.max(0, (barX - 3.0)/2.0);
+			else if(barX > (i % 4)) paras[i] = 1.0;
 			else paras[i] = 0.0;
 		}
 
 		for(int i = 2*24*4 + 4; i < 2*24*4 + 8; i++){
-			if(Math.min(4, barO) == (i % 4) + 1) paras[i] = 1.0;
+			if(i % 4 == 3) paras[i] = Math.max(0, (barO - 3.0)/2.0);
+			else if(barO > (i % 4)) paras[i] = 1.0;
 			else paras[i] = 0.0;
 		}
 
-		if(turn == CheckerColors.X) paras[200] = 1.0;
-		else if(turn == CheckerColors.O) paras[200] = 0.0;
+		if(turn == CheckerColors.X) paras[202] = 1.0;
+		else if(turn == CheckerColors.O) paras[202] = 0.0;
 		else paras[200] = 0.5;
+		
+		paras[200] = trayX / 15.0;
+		paras[201] = trayO / 15.0;
 		
 		return paras;
 	}

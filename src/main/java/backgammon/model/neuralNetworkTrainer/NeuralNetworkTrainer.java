@@ -32,12 +32,12 @@ public class NeuralNetworkTrainer {
 		engineO = new NeuralNetworkEngine();
 		engineX = new NeuralNetworkEngine();
 
-		for(int i = 0; i < 1000; i++){
+		for(int i = 0; i < Integer.MAX_VALUE; i++){
 
 			System.out.println("Java data generation starting");
 			games = new ArrayList<>();
 			
-			for(int j = 0; j < 5; j++){
+			for(int j = 0; j < 1; j++){
 				System.out.println(i + "; " + j);
 				try {
 					playGame();
