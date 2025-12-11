@@ -149,6 +149,65 @@ public class Board {
 		return paras;
 	}
 	
+	public double[] parametrizeWithFlags(){
+		double[] paras = new double[(24 + 1)*2*4 + 1];
+		
+		for(int i = 0; i < 24*4; i++){
+			if(points[i/4].occupiedBy == CheckerColors.O && Math.min(4, points[i/4].amtCheckers) == (i % 4) + 1) paras[i] = 1.0;
+			else paras[i] = 0.0;
+		}
+		for(int i = 24*4; i < 2*24*4; i++){
+			if(points[(i-24*4)/4].occupiedBy == CheckerColors.X && Math.min(4, points[(i-24*4)/4].amtCheckers) == (i % 4) + 1) paras[i] = 1.0;
+			else paras[i] = 0.0;
+		}
+		
+		for(int i = 2*24*4; i < 2*24*4 + 4; i++){
+			if(Math.min(4, barO) == (i % 4) + 1) paras[i] = 1.0;
+			else paras[i] = 0.0;
+		}
+
+		for(int i = 2*24*4 + 4; i < 2*24*4 + 8; i++){
+			if(Math.min(4, barX) == (i % 4) + 1) paras[i] = 1.0;
+			else paras[i] = 0.0;
+		}
+
+		if(turn == CheckerColors.O) paras[200] = 1.0;
+		else if(turn == CheckerColors.X) paras[200] = 0.0;
+		else paras[200] = 0.5;
+		
+		return paras;
+	}
+	
+	public double[] reverseParametrizeWithFlags(){
+		double[] paras = new double[(24 + 1)*2*4 + 1];
+		
+		for(int i = 0; i < 24*4; i++){
+			if(points[i/4].occupiedBy == CheckerColors.X && Math.min(4, points[i/4].amtCheckers) == (i % 4) + 1) paras[i] = 1.0;
+			else paras[i] = 0.0;
+		}
+		for(int i = 24*4; i < 2*24*4; i++){
+			if(points[(i-24*4)/4].occupiedBy == CheckerColors.O && Math.min(4, points[(i-24*4)/4].amtCheckers) == (i % 4) + 1) paras[i] = 1.0;
+			else paras[i] = 0.0;
+		}
+		
+		for(int i = 2*24*4; i < 2*24*4 + 4; i++){
+			if(Math.min(4, barX) == (i % 4) + 1) paras[i] = 1.0;
+			else paras[i] = 0.0;
+		}
+
+		for(int i = 2*24*4 + 4; i < 2*24*4 + 8; i++){
+			if(Math.min(4, barO) == (i % 4) + 1) paras[i] = 1.0;
+			else paras[i] = 0.0;
+		}
+
+		if(turn == CheckerColors.X) paras[200] = 1.0;
+		else if(turn == CheckerColors.O) paras[200] = 0.0;
+		else paras[200] = 0.5;
+		
+		return paras;
+	}
+
+	
 	@Override
 	public String toString(){
 		String output = "turn: " + turn

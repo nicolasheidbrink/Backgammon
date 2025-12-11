@@ -21,22 +21,27 @@ public class SelfPlayer {
 	int scoreO = 0;
 	int scoreX = 0;
 	
-	int n = 1000;
+	int n = 100;
 	int[] results = new int[n];
+	int[] moveCount = new int[n];
 	int i = 0;
+	
+	int movesInOneGame = 0;
 	
 	Board board;
 	CheckerColors currentTurn;
 	
 	public SelfPlayer(){
-		engineO = new RuleBasedEngine();
-		engineX = new NeuralNetworkEngine();
+		engineO = new NeuralNetworkEngine();
+		engineX = new RandomMoveEngine();
 		
 		this.board = new Board();
 		currentTurn = CheckerColors.O;
 		for(int i = 0; i < n; i++){
 			System.out.println("\n\n\n\ni: "+i+"\n");
+			movesInOneGame = 0;
 			playTurn();
+			System.out.println("That game had "+movesInOneGame+" moves\n\n");
 		}
 		double X_n = ((double) (scoreO - scoreX)) / n;
 		double s = Math.sqrt(
@@ -52,6 +57,11 @@ public class SelfPlayer {
 									.count();
  
 		double t = (X_n - 0) / (s/Math.sqrt(n));
+		
+		double avgMovesPerGame = Arrays.stream(moveCount)
+				.asDoubleStream()
+				.average()
+				.orElse(-1);
 				
 		double pValue = new NormalDistribution(0, 1).cumulativeProbability(t);
 		System.out.println("After "+n+" games, EngineO won "+scoreO+" points and EngineX won "+scoreX+" points"+
@@ -61,10 +71,12 @@ public class SelfPlayer {
 				"\nThe average score per game that X won is "+(double) scoreX / (n-numberOfOVictories)+
 				"\n\nThe mean score is "+X_n+
 				"\nThe t Value is "+t+
-				"\nThe p Value of O being better than X is "+pValue);
+				"\nThe p Value of O being better than X is "+pValue+
+				"\nThe average amount of moves per game was "+avgMovesPerGame);
 	}
 	
 	public void playTurn(){
+		movesInOneGame++;
 		int leftRoll = (int) (Math.random() * 6.0 + 1);
 		int rightRoll = (int) (Math.random() * 6.0 + 1);
 		
@@ -73,6 +85,7 @@ public class SelfPlayer {
 			if(board.getTray(currentTurn) == 15){
 				int winFactor = GameCalculation.calculateWinFactor(board, CheckerColors.O);
 				scoreO += winFactor;
+				moveCount[i] = movesInOneGame;
 				results[i++] = winFactor;
 				System.out.println("\n*****O WINS WITH "+winFactor+"*****\n");
 				System.out.println("ScoreO: "+scoreO+"\nScoreX: "+scoreX + "\n\n\n");
@@ -87,6 +100,7 @@ public class SelfPlayer {
 			if(board.getTray(currentTurn) == 15){
 				int winFactor = GameCalculation.calculateWinFactor(board, CheckerColors.X);
 				scoreX += winFactor;
+				moveCount[i] = movesInOneGame;
 				results[i++] = - winFactor;
 				System.out.println("\n*****X WINS WITH "+winFactor+"*****\n");
 				System.out.println("ScoreO: "+scoreO+"\nScoreX: "+scoreX + "\n\n\n");

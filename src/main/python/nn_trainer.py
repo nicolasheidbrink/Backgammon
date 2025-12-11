@@ -9,7 +9,7 @@ if os.path.exists(json_path):
         json_data_in = json.load(f)
 else:
     rng = np.random.default_rng(2)
-    n_l_init = [53, 16, 16, 16, 1]
+    n_l_init = [201, 20, 20, 1] # insert desired nodes per layer here
     l_init = len(n_l_init) - 1
     w_init = []
     for i in range(l_init):
@@ -46,7 +46,8 @@ def relu(x):
 with open("C:/Users/nicol/Downloads/training_data.csv", "r") as f:
     training_data = json.load(f)
 
-# Update  goal values in training data using temporal difference learning
+alpha = 0.1
+
 ii = int(0)
 for game in training_data:
     print (ii, flush = True)
@@ -60,7 +61,7 @@ for game in training_data:
     game["states"][-1]["y"] = game["result"]
     game["states"][-1]["C"] = 1/2 * (game["states"][-1]["y"] - game["states"][-1]["y_hat"]) ** 2
     for i in reversed(range(len(game["states"]) - 1)):
-        game["states"][i]["y"] = game["states"][i+1]["a"][-1][0]
+        game["states"][i]["y"] = game["states"][i+1]["y_hat"]
         game["states"][i]["C"] = 1/2 * (game["states"][i]["y"] - game["states"][i]["y_hat"]) ** 2
     
     w_gradients_sum = [np.zeros_like(ww) for ww in w]
@@ -84,8 +85,8 @@ for game in training_data:
     b_gradients_avg = [grad / len(game["states"]) for grad in b_gradients_sum]
     w_gradients_avg = [grad / len(game["states"]) for grad in w_gradients_sum]
 
-    b = [prev - grad * 0.2 for prev, grad in zip(b, b_gradients_avg)]
-    w = [prev - grad * 0.2 for prev, grad in zip(w, w_gradients_avg)]
+    b = [prev - grad * alpha for prev, grad in zip(b, b_gradients_avg)]
+    w = [prev - grad * alpha for prev, grad in zip(w, w_gradients_avg)]
 
 
 # Convert weights and biases to lists for JSON serialization

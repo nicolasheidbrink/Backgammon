@@ -25,6 +25,13 @@ public class NeuralNetworkEngine implements Engine {
 		MoveSequence tempBestMoveSeq = null;
 		double tempBestEval = Double.MAX_VALUE * color.direction;
 		double currentEval = tempBestEval;
+		if(Math.random() < 0.1){
+			if(possibleMoves.isEmpty()) return null;
+			int index = (int) (Math.random() * possibleMoves.size());
+			for(MoveSequence moveSequence : possibleMoves){
+				if(index-- == 0) return moveSequence;
+			}
+		}
 		for(MoveSequence moveSequence : possibleMoves){
 			try{
 				currentEval = getPythonEvaluation(moveSequence.board());
@@ -53,21 +60,11 @@ public class NeuralNetworkEngine implements Engine {
 	
 	public String createPythonInput(Board board){
 		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < 24; i++){
-			if(board.points[i].occupiedBy == CheckerColors.O) appendDoubleToSB(sb, board.points[i].amtCheckers / 15.0);
-			else appendDoubleToSB(sb, 0);
+		double[] inputParas = board.parametrizeWithFlags();
+		
+		for(double d : inputParas){
+			appendDoubleToSB(sb, d);
 		}
-		for(int i = 0; i < 24; i++){
-			if(board.points[i].occupiedBy == CheckerColors.X) appendDoubleToSB(sb, board.points[i].amtCheckers / 15.0);
-			else appendDoubleToSB(sb, 0);
-		}
-		appendDoubleToSB(sb, board.barO / 15.0);
-		appendDoubleToSB(sb, board.barX / 15.0);
-		appendDoubleToSB(sb, board.trayO / 15.0);
-		appendDoubleToSB(sb, board.trayX / 15.0);
-		if(board.turn == CheckerColors.O) appendDoubleToSB(sb, 1.0);
-		else if(board.turn == CheckerColors.X) appendDoubleToSB(sb, 0.0);
-		else appendDoubleToSB(sb, 0.5);
 		sb.setCharAt(sb.length() - 1, ']');
 		sb.setCharAt(0, '[');
 		return sb.toString();

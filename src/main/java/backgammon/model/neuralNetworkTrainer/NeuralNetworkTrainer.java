@@ -21,22 +21,23 @@ public class NeuralNetworkTrainer {
 
 	public static Engine engineO;
 	public static Engine engineX;
-		
+			
 	public static Board board;
 
 	public static List<Game> games;
 
 	
 	public static void main(String[] args){
-		engineO = new RuleBasedEngine();
-		engineX = new RuleBasedEngine();
 		
-		
-		for(int i = 0; i < 100; i++){
+		engineO = new NeuralNetworkEngine();
+		engineX = new NeuralNetworkEngine();
+
+		for(int i = 0; i < 1000; i++){
+
 			System.out.println("Java data generation starting");
 			games = new ArrayList<>();
 			
-			for(int j = 0; j < 1000; j++){
+			for(int j = 0; j < 5; j++){
 				System.out.println(i + "; " + j);
 				try {
 					playGame();
@@ -79,13 +80,21 @@ public class NeuralNetworkTrainer {
 		currentTurn = (Math.random() < 0.5) ? CheckerColors.O : CheckerColors.X;
 		board.turn = currentTurn;
 		List<State> positions = new ArrayList<>();
+		List<State> reversePositions = new ArrayList<>();
 		int gameScore = 0;
+		int amountOfMoves = 0;
 		while(gameScore == 0){
-			positions.add(new State(board.parametrize()));
+			positions.add(new State(board.parametrizeWithFlags()));
+			reversePositions.add(new State(board.reverseParametrizeWithFlags()));
 			gameScore = playTurn(currentTurn);
 			currentTurn = currentTurn.opposite;
+			if(amountOfMoves++ == 500) break;
 		}
-		games.add(new Game(positions, gameScore));
+		if(amountOfMoves < 500){
+			games.add(new Game(positions, gameScore));
+			games.add(new Game(reversePositions, -gameScore));
+		}
+		else System.out.println("Game had too many moves and was not recorded");
 	}
 	
 	public static int playTurn(CheckerColors currentTurn){
