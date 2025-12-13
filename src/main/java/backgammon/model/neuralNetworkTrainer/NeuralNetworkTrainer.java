@@ -37,7 +37,7 @@ public class NeuralNetworkTrainer {
 			System.out.println("Java data generation starting");
 			games = new ArrayList<>();
 			
-			for(int j = 0; j < 1; j++){
+			for(int j = 0; j < 5; j++){
 				System.out.println(i + "; " + j);
 				try {
 					playGame();

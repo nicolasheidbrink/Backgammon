@@ -21,7 +21,7 @@ public class SelfPlayer {
 	int scoreO = 0;
 	int scoreX = 0;
 	
-	int n = 100;
+	int n = 500;
 	int[] results = new int[n];
 	int[] moveCount = new int[n];
 	int i = 0;
@@ -33,7 +33,7 @@ public class SelfPlayer {
 	
 	public SelfPlayer(){
 		engineO = new NeuralNetworkEngine();
-		engineX = new RandomMoveEngine();
+		engineX = new NeuralNetworkEngine();
 		
 		this.board = new Board();
 		currentTurn = CheckerColors.O;
