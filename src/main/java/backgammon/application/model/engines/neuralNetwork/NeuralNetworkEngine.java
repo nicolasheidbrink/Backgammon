@@ -5,6 +5,9 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Set;
 
 import backgammon.application.model.engines.Engine;
@@ -18,6 +21,9 @@ public class NeuralNetworkEngine implements Engine {
 	private Process process;
 	private BufferedReader br;
 	private BufferedWriter bw;
+	
+	private Path gitRepoPathToPython = Paths.get("src", "main", "python", "neural_network.py");
+	private Path deploymentFolderPathToPython = Paths.get("python_scripts", "neural_network.py");
 
 	@Override
 	public MoveSequence calculateMove(CheckerColors color, Board board, Set<MoveSequence> possibleMoves) {
@@ -75,7 +81,12 @@ public class NeuralNetworkEngine implements Engine {
 	}
 	
 	public NeuralNetworkEngine(){
-		pb = new ProcessBuilder("python", "src/main/python/neural_network.py");
+		if(Files.exists(gitRepoPathToPython)){
+			pb = new ProcessBuilder("python", gitRepoPathToPython.toAbsolutePath().toString());
+		}
+		else{
+			pb = new ProcessBuilder("python", deploymentFolderPathToPython.toAbsolutePath().toString());
+		}
 		pb.redirectErrorStream(true);
 		try {
 			process = pb.start();
