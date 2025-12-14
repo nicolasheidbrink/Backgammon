@@ -23,10 +23,16 @@ public enum EngineTypes {
 			return new RuleBasedEngine();
 		}
 	},
-	NEURAL_NETWORK_ENGINE{
+	NEURAL_NETWORK_ENGINE_WITH_EXPLORATION{
 		@Override
 		public Engine createEngine(){
-			return new NeuralNetworkEngine();
+			return new NeuralNetworkEngine(true);
+		}
+	},
+	NEURAL_NETWORK_ENGINE_WITHOUT_EXPLORATION{
+		@Override
+		public Engine createEngine(){
+			return new NeuralNetworkEngine(false);
 		}
 	};
 

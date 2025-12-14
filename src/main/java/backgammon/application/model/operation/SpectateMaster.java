@@ -1,15 +1,12 @@
 package backgammon.application.model.operation;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import backgammon.application.controller.BoardController;
 import backgammon.application.model.engines.Engine;
-import backgammon.application.model.engines.randomMove.RandomMoveEngine;
-import backgammon.application.model.engines.ruleBased.RuleBasedEngine;
+import backgammon.application.model.engines.EngineTypes;
 import backgammon.application.model.gameCalculations.GameCalculation;
 import backgammon.application.model.gameModels.Board;
 import backgammon.application.model.gameModels.CheckerColors;
@@ -61,6 +58,7 @@ public class SpectateMaster extends GamemodeMaster{
 	@Override
 	public void diceButtonClicked() {
 		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
+		boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 		if(board.getTray(currentTurn) == 15) programMaster.gameDone(currentTurn, GameCalculation.calculateWinFactor(board, currentTurn));
 		if(currentMS == null || currentMS.size() == 0){
 			currentTurn = currentTurn.opposite;

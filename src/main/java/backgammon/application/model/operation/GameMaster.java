@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import backgammon.application.controller.BoardController;
 import backgammon.application.model.engines.Engine;
+import backgammon.application.model.engines.EngineTypes;
 import backgammon.application.model.engines.neuralNetwork.NeuralNetworkEngine;
 import backgammon.application.model.gameCalculations.GameCalculation;
 import backgammon.application.model.gameCalculations.LegalMoveCalculation;
@@ -37,6 +38,7 @@ public class GameMaster extends GamemodeMaster {
 		boardController.setDiceColorGreen(true);
 		board = new Board();
 		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
+		boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 		boardController.updateBoard(board);
 		if(programMaster.lastWinner == CheckerColors.NA) gameState = GameStates.awaitingFirstRoll;
 		else if(programMaster.lastWinner == CheckerColors.O) {
@@ -155,6 +157,7 @@ public class GameMaster extends GamemodeMaster {
 		gameState = GameStates.awaitingComputer;
 		moveWithinTurn = 0;
 		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
+		boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 		engineMove();
 	}
 	

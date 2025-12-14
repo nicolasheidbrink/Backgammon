@@ -22,16 +22,28 @@ public class NeuralNetworkEngine implements Engine {
 	private BufferedReader br;
 	private BufferedWriter bw;
 	
+	private boolean includeRandomExplorationMoves;
+	
 	private Path gitRepoPathToPython = Paths.get("src", "main", "python", "neural_network.py");
 	private Path deploymentFolderPathToPython = Paths.get("python_scripts", "neural_network.py");
 
+	@Override
+	public double calculateEval(Board board){
+		try{
+			return getPythonEvaluation(board);
+		} catch (Exception e){
+			System.out.println("python eval didnt work\nError message: "+e.getMessage());
+			return Double.MAX_VALUE;
+		}
+	}
+	
 	@Override
 	public MoveSequence calculateMove(CheckerColors color, Board board, Set<MoveSequence> possibleMoves) {
 
 		MoveSequence tempBestMoveSeq = null;
 		double tempBestEval = Double.MAX_VALUE * color.direction;
 		double currentEval = tempBestEval;
-		if(Math.random() < 0.1){
+		if(includeRandomExplorationMoves && Math.random() < 0.1){
 			if(possibleMoves.isEmpty()) return null;
 			int index = (int) (Math.random() * possibleMoves.size());
 			for(MoveSequence moveSequence : possibleMoves){
@@ -80,7 +92,7 @@ public class NeuralNetworkEngine implements Engine {
 		sb.append(' ').append(d).append(',');
 	}
 	
-	public NeuralNetworkEngine(){
+	public NeuralNetworkEngine(boolean includeRandomExplorationMoves){
 		if(Files.exists(gitRepoPathToPython)){
 			pb = new ProcessBuilder("python", gitRepoPathToPython.toAbsolutePath().toString());
 		}
@@ -98,5 +110,7 @@ public class NeuralNetworkEngine implements Engine {
 		        );
 		bw = new BufferedWriter(
 	                new OutputStreamWriter(process.getOutputStream()));
+		
+		this.includeRandomExplorationMoves = includeRandomExplorationMoves;
 	}
 }

@@ -86,12 +86,12 @@ public class ProgramMaster {
 			if(optionNr == 0) engineOType = EngineTypes.PLAYER;
 			if(optionNr == 1) engineOType = EngineTypes.RANDOM_MOVE_ENGINE;
 			if(optionNr == 2) engineOType = EngineTypes.RULE_BASED_ENGINE;
-			if(optionNr == 3) engineOType = EngineTypes.NEURAL_NETWORK_ENGINE;
+			if(optionNr == 3) engineOType = EngineTypes.NEURAL_NETWORK_ENGINE_WITHOUT_EXPLORATION;
 		}
 		if(color == CheckerColors.X){
 			if(optionNr == 1) engineXType = EngineTypes.RANDOM_MOVE_ENGINE;
 			if(optionNr == 2) engineXType = EngineTypes.RULE_BASED_ENGINE;	
-			if(optionNr == 3) engineXType = EngineTypes.NEURAL_NETWORK_ENGINE;	
+			if(optionNr == 3) engineXType = EngineTypes.NEURAL_NETWORK_ENGINE_WITHOUT_EXPLORATION;	
 		}
 	}
 	

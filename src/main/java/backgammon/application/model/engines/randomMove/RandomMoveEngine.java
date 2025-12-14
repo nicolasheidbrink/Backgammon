@@ -19,4 +19,9 @@ public class RandomMoveEngine implements Engine {
 		}
 		return null;
 	}
+	
+	@Override
+	public double calculateEval(Board board){
+		return 0;
+	}
 }

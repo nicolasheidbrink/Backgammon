@@ -17,6 +17,11 @@ public class RuleBasedEngineTester implements Engine {
 	}
 	
 	@Override
+	public double calculateEval(Board board){
+		return Double.MAX_VALUE;
+	}
+	
+	@Override
 	public MoveSequence calculateMove(CheckerColors color, Board board, Set<MoveSequence> possibleMoves) {
 		MoveSequence tempBestMoveSeq = null;
 		double tempBestEval = Double.MAX_VALUE * color.direction;

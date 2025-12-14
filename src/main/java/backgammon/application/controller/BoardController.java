@@ -46,7 +46,7 @@ public class BoardController {
 				checkerLabel7, checkerLabel8, checkerLabel9, checkerLabel10, checkerLabel11, checkerLabel12, 
 				checkerLabel13, checkerLabel14, checkerLabel15, checkerLabel16, checkerLabel17, checkerLabel18, 
 				checkerLabel19, checkerLabel20, checkerLabel21, checkerLabel22, checkerLabel23, checkerLabel24,
-				checkerLabelXBar, checkerLabelOBar, leftDie, rightDie, trayXLabel, trayOLabel, pipO, pipX, scoreO, scoreX;
+				checkerLabelXBar, checkerLabelOBar, leftDie, rightDie, trayXLabel, trayOLabel, pipO, pipX, scoreO, scoreX, evalLabel;
 	
 	@FXML
 	private Polygon point1, point2, point3, point4, point5, point6, point7, point8,
@@ -214,7 +214,10 @@ public class BoardController {
 	public void updatePips(int pipO, int pipX){
 		this.pipO.setText("PIP: " + pipO);
 		this.pipX.setText("PIP: " + pipX);
+	}
 
+	public void updateEval(String ruleBased, String neuralNetwork){
+		this.evalLabel.setText(ruleBased + "\n" + neuralNetwork);
 	}
 	
 	@FXML

@@ -11,6 +11,11 @@ import backgammon.application.model.gameModels.MoveSequence;
 public class RuleBasedEngine implements Engine {
 
 	@Override
+	public double calculateEval(Board board){
+		return recursiveEvaluation(board, 0, board.turn);
+	}
+	
+	@Override
 	public MoveSequence calculateMove(CheckerColors color, Board board, Set<MoveSequence> possibleMoves) {
 		MoveSequence tempBestMoveSeq = null;
 		double tempBestEval = Double.MAX_VALUE * color.direction;

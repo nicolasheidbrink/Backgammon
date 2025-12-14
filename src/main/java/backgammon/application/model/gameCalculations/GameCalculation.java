@@ -2,10 +2,17 @@ package backgammon.application.model.gameCalculations;
 
 import java.util.stream.Collectors;
 
+import backgammon.application.model.engines.EngineTypes;
+import backgammon.application.model.engines.neuralNetwork.NeuralNetworkEngine;
+import backgammon.application.model.engines.ruleBased.RuleBasedEngine;
 import backgammon.application.model.gameModels.Board;
 import backgammon.application.model.gameModels.CheckerColors;
 
 public class GameCalculation {
+	
+	private static RuleBasedEngine ruleBasedEngine = new RuleBasedEngine();
+	private static NeuralNetworkEngine neuralNetworkEngine = new NeuralNetworkEngine(false);
+	
 	public static boolean checkIfEndgame(Board board, CheckerColors checkerColor){
 		if(checkerColor == CheckerColors.O){
 			for(int i = 6; i < 24; i++){
@@ -52,4 +59,16 @@ public class GameCalculation {
 		}
 		return counter;
 	}
+
+	public static String calculateRuleBasedEval(Board board) {
+		double eval = ruleBasedEngine.calculateEval(board);
+		return String.format("%+.1f", eval);
+	}
+	
+	public static String calculateNeuralNetworkEval(Board board) {
+		double eval = neuralNetworkEngine.calculateEval(board);
+		return String.format("%+.2f", eval);
+	}
+	
+	
 }

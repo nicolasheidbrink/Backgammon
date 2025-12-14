@@ -46,4 +46,6 @@ public interface Engine {
 	}
 
 	public MoveSequence calculateMove(CheckerColors color, Board board, Set<MoveSequence> possibleMoves);
+	
+	public double calculateEval(Board board);
 }
