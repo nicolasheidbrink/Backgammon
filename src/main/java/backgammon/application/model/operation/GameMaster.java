@@ -40,10 +40,10 @@ public class GameMaster extends GamemodeMaster {
 		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
 		boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 		boardController.updateBoard(board);
-		if(programMaster.lastWinner == CheckerColors.NA) gameState = GameStates.awaitingFirstRoll;
+		if(programMaster.lastWinner == CheckerColors.NA) gameState = GameStates.AWAITING_FIRST_ROLL;
 		else if(programMaster.lastWinner == CheckerColors.O) {
 			board.turn = CheckerColors.O;
-			gameState = GameStates.awaitingRoll;
+			gameState = GameStates.AWAITING_ROLL;
 		}
 		else if(programMaster.lastWinner == CheckerColors.X){
 			board.turn = CheckerColors.X;
@@ -53,17 +53,17 @@ public class GameMaster extends GamemodeMaster {
 	
 	@Override
 	public void diceButtonClicked(){
-		if(gameState == GameStates.awaitingRoll) rollDice();
-		else if(gameState == GameStates.awaitingFirstRoll) rollFirstDice();
-		else if(gameState == GameStates.awaitingNext) nextClicked();
-		else if(gameState == GameStates.awaitingCheckerSelection && possibleMoves.size() == 0) turnFinished();
+		if(gameState == GameStates.AWAITING_ROLL) rollDice();
+		else if(gameState == GameStates.AWAITING_FIRST_ROLL) rollFirstDice();
+		else if(gameState == GameStates.AWAITING_NEXT) nextClicked();
+		else if(gameState == GameStates.AWAITING_CHECKER_SELECTION && possibleMoves.size() == 0) turnFinished();
 
 	}
 	
 	public void nextClicked(){
 		if(betweenBoards.isEmpty() || betweenBoards == null){
 			board.turn = CheckerColors.O;
-			gameState = GameStates.awaitingRoll;
+			gameState = GameStates.AWAITING_ROLL;
 			boardController.setDiceColorGreen(true);
 		}
 		else {
@@ -73,7 +73,7 @@ public class GameMaster extends GamemodeMaster {
 			if(checkIfWon(board)) return;
 			betweenBoards.removeFirst();
 			if(betweenBoards.isEmpty()){
-				gameState = GameStates.awaitingRoll;
+				gameState = GameStates.AWAITING_ROLL;
 			}
 		}
 	}
@@ -84,7 +84,7 @@ public class GameMaster extends GamemodeMaster {
 		board.rightDie = (int) (6*Math.random() + 1);
 		boardController.updateBoard(board);
 		possibleMoves = LegalMoveCalculation.calculateAllPossibleMoveSequences(board, CheckerColors.O, board.leftDie, board.rightDie);
-		gameState = GameStates.awaitingCheckerSelection;
+		gameState = GameStates.AWAITING_CHECKER_SELECTION;
 	}
 	
 	public void rollFirstDice(){
@@ -98,7 +98,7 @@ public class GameMaster extends GamemodeMaster {
 		if(board.leftDie > board.rightDie){
 			board.turn = CheckerColors.O;
 			possibleMoves = LegalMoveCalculation.calculateAllPossibleMoveSequences(board, CheckerColors.O, board.leftDie, board.rightDie);
-			gameState = GameStates.awaitingCheckerSelection;
+			gameState = GameStates.AWAITING_CHECKER_SELECTION;
 		}
 		else{
 			board.turn = CheckerColors.X;
@@ -110,7 +110,7 @@ public class GameMaster extends GamemodeMaster {
 	
 	@Override
 	public void checkerClicked(int i){
-		if(gameState != GameStates.awaitingCheckerSelection && gameState != GameStates.awaitingDestinationSelection) return;
+		if(gameState != GameStates.AWAITING_CHECKER_SELECTION && gameState != GameStates.AWAITING_DESTINATION_SELECTION) return;
 		if(0 <= i && i <= 24 &&
 				possibleMoves.stream()
 					.map(ms -> ms.moves().get(moveWithinTurn).from)
@@ -118,13 +118,13 @@ public class GameMaster extends GamemodeMaster {
 					.contains(Integer.valueOf(i))){
 			selectedChecker = i;
 			boardController.updateBoard(board, selectedChecker, possibleMoves, moveWithinTurn);
-			gameState = GameStates.awaitingDestinationSelection;
+			gameState = GameStates.AWAITING_DESTINATION_SELECTION;
 		}
 	}
 
 	@Override
 	public void pointClicked(int i){
-		if(gameState != GameStates.awaitingDestinationSelection) return;
+		if(gameState != GameStates.AWAITING_DESTINATION_SELECTION) return;
 		if(-1 <= i && i < 24 && 
 				possibleMoves.stream()
 					.map(ms -> ms.moves().get(moveWithinTurn))
@@ -154,7 +154,7 @@ public class GameMaster extends GamemodeMaster {
 		if(checkIfWon(board)) return;
 		board.turn = CheckerColors.X;
 		boardController.setDiceColorGreen(false);
-		gameState = GameStates.awaitingComputer;
+		gameState = GameStates.AWAITING_COMPUTER;
 		moveWithinTurn = 0;
 		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
 		boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
@@ -172,7 +172,7 @@ public class GameMaster extends GamemodeMaster {
 		board.rightDie = rightDie;
 		boardController.updateBoard(board);
 		betweenBoards = engine.doComputedMoveWithSteps(CheckerColors.X, board, leftDie, rightDie);
-		gameState = GameStates.awaitingNext;
+		gameState = GameStates.AWAITING_NEXT;
 		if(checkIfWon(board)) return;
 	}
 	

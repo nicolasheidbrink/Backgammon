@@ -16,7 +16,7 @@ public class SelfPlayer {
 	// EDIT THESE: 
 	private static int n = 500;
 	private static EngineTypes engineOType = EngineTypes.NEURAL_NETWORK_ENGINE_WITHOUT_EXPLORATION;
-	private static EngineTypes engineXType = EngineTypes.NEURAL_NETWORK_ENGINE_WITHOUT_EXPLORATION;
+	private static EngineTypes engineXType = EngineTypes.RULE_BASED_ENGINE;
 	
 	
 	private static Engine engineO;
@@ -125,6 +125,7 @@ public class SelfPlayer {
 				"\nThe average score per game that X won is "+(double) scoreX / (n-numberOfOVictories)+
 				"\n\n*#*#*#*#*#*#*#*#*#* The mean score is "+X_n+" *#*#*#*#*#*#*#*#*#*"+ 
 				"\nThe t Value is "+t+
+				"\nThe standard deviation is "+s+
 				"\nThe p Value of O being better than X is "+pValue+
 				"\nThe average amount of moves per game was "+avgMovesPerGame);
 

@@ -60,6 +60,11 @@ public class ProgramMaster {
 			gamemodeMaster.startGame();
 		}
 	}
+	
+	public void evaluatorStarted(){
+		stage.setScene(boardScene);
+		gamemodeMaster = new EvaluatorMaster(this, boardController);
+	}
 
 	public void gameDone(CheckerColors winner, int multiplier){
 		this.lastWinner = winner;

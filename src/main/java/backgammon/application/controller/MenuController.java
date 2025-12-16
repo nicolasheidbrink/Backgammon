@@ -41,8 +41,8 @@ public class MenuController {
 	}
 	
 	@FXML
-	private void tbdClicked(){
-		
+	private void evaluatorClicked(){
+		programMaster.evaluatorStarted();
 	}
 	
 	@FXML

@@ -26,8 +26,8 @@
             <Font name="AcmeFont Regular" size="36.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3e2514" height="50.0" layoutX="50.0" layoutY="475.0" onMouseClicked="#tbdClicked" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="700.0" />
-      <Label layoutX="375.0" layoutY="484.0" onMouseClicked="#tbdClicked" text="TBD" textFill="#f3e1b9">
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3e2514" height="50.0" layoutX="50.0" layoutY="475.0" onMouseClicked="#evaluatorClicked" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="700.0" />
+      <Label layoutX="290.0" layoutY="484.0" onMouseClicked="#evaluatorClicked" text="OPEN EVALUATOR" textFill="#f3e1b9">
          <font>
             <Font name="AcmeFont Regular" size="24.0" />
          </font>

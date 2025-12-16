@@ -6,7 +6,6 @@ import java.util.Map;
 
 import backgammon.application.controller.BoardController;
 import backgammon.application.model.engines.Engine;
-import backgammon.application.model.engines.EngineTypes;
 import backgammon.application.model.gameCalculations.GameCalculation;
 import backgammon.application.model.gameModels.Board;
 import backgammon.application.model.gameModels.CheckerColors;

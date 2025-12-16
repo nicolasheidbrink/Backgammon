@@ -2,7 +2,6 @@ package backgammon.application.model.gameCalculations;
 
 import java.util.stream.Collectors;
 
-import backgammon.application.model.engines.EngineTypes;
 import backgammon.application.model.engines.neuralNetwork.NeuralNetworkEngine;
 import backgammon.application.model.engines.ruleBased.RuleBasedEngine;
 import backgammon.application.model.gameModels.Board;

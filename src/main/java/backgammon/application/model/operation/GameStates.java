@@ -2,5 +2,5 @@ package backgammon.application.model.operation;
 
 public enum GameStates {
 
-	awaitingFirstRoll, awaitingRoll, awaitingCheckerSelection, awaitingDestinationSelection, awaitingComputer, awaitingNext;
+	AWAITING_FIRST_ROLL, AWAITING_ROLL, AWAITING_CHECKER_SELECTION, AWAITING_DESTINATION_SELECTION, AWAITING_COMPUTER, AWAITING_NEXT;
 }

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import backgammon.application.model.gameModels.Board;
 import backgammon.application.model.gameModels.CheckerColors;
 import backgammon.application.model.gameModels.MoveSequence;
+import backgammon.application.model.operation.GameMaster;
 import backgammon.application.model.operation.GamemodeMaster;
 import backgammon.application.model.operation.ProgramMaster;
 import javafx.fxml.FXML;
@@ -155,23 +156,32 @@ public class BoardController {
 				checkerLabels[i].setTextFill(Color.BLACK);
 			}
 		}
-		if(board.barO == 0){
-			checkerLabelOBar.setVisible(false);
-			checkerOBar.setVisible(false);
-		}
-		else{
-			checkerLabelOBar.setVisible(true);
+		if(GameMaster.alwaysShowBarCheckers){
 			checkerOBar.setVisible(true);
 			checkerLabelOBar.setText("" + board.barO);
-		}
-		if(board.barX == 0){
-			checkerLabelXBar.setVisible(false);
-			checkerXBar.setVisible(false);
-		}
-		else{
-			checkerLabelXBar.setVisible(true);
+			checkerLabelOBar.setVisible(true);
 			checkerXBar.setVisible(true);
 			checkerLabelXBar.setText("" + board.barX);
+			checkerLabelXBar.setVisible(true);
+		} else{
+			if(board.barO == 0){
+				checkerLabelOBar.setVisible(false);
+				checkerOBar.setVisible(false);
+			}
+			else{
+				checkerLabelOBar.setVisible(true);
+				checkerOBar.setVisible(true);
+				checkerLabelOBar.setText("" + board.barO);
+			}
+			if(board.barX == 0){
+				checkerLabelXBar.setVisible(false);
+				checkerXBar.setVisible(false);
+			}
+			else{
+				checkerLabelXBar.setVisible(true);
+				checkerXBar.setVisible(true);
+				checkerLabelXBar.setText("" + board.barX);
+			}
 		}
 		
 		trayOLabel.setText("" + board.trayO);
@@ -481,6 +491,7 @@ public class BoardController {
 
 	@FXML
 	private void checkerXBarClicked(MouseEvent e){
+		gamemodeMaster.checkerClicked(-1);
 	}
 	
 	@FXML
@@ -490,5 +501,6 @@ public class BoardController {
 
 	@FXML
 	private void trayXClicked(MouseEvent e){
+		gamemodeMaster.pointClicked(24);
 	}
 }
