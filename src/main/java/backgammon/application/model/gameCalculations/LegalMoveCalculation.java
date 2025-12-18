@@ -81,10 +81,10 @@ public class LegalMoveCalculation {
 		else if(GameCalculation.checkIfEndgame(moveSequence.board(), color)){
 			for(Integer roll : moveSequence.remainingRolls().stream().distinct().collect(Collectors.toList())){
 				boolean moveAlreadyUsed = false;
-				for(int i = color.trayInt - color.direction * 6; -color.direction * i > -color.direction * color.trayInt; i += color.direction){
-					boolean rollTooBig = (-color.direction * i - roll < -color.direction * color.trayInt);
+				for(int i = color.opposite.barInt - color.direction * 6; -color.direction * i > -color.direction * color.opposite.barInt; i += color.direction){
+					boolean rollTooBig = (-color.direction * i - roll < -color.direction * color.opposite.barInt);
 					if(moveSequence.board().points[i].occupiedBy == color){
-						if(-color.direction * i - roll > -color.direction * color.trayInt && 
+						if(-color.direction * i - roll > -color.direction * color.opposite.barInt && 
 								(moveSequence.board().points[i + color.direction * roll].occupiedBy != color.opposite 
 									|| moveSequence.board().points[i + color.direction * roll].amtCheckers == 1)){
 							List<Move> tempMoves = new ArrayList<>();
@@ -96,7 +96,7 @@ public class LegalMoveCalculation {
 							possibleNextMove.add(new MoveSequence(tempMoves, moveSequence.board().doMove(color, i, i + color.direction * roll), remainingRolls));
 							moveAlreadyUsed = true;
 						}
-						if(i + color.direction * roll == color.trayInt || (rollTooBig && !moveAlreadyUsed)){
+						if(i + color.direction * roll == color.opposite.barInt || (rollTooBig && !moveAlreadyUsed)){
 							List<Move> tempMoves = new ArrayList<>();
 							tempMoves.addAll(moveSequence.moves());
 							tempMoves.add(new Move(color, roll, i, color.trayInt));
@@ -106,7 +106,7 @@ public class LegalMoveCalculation {
 							possibleNextMove.add(new MoveSequence(tempMoves, moveSequence.board().doMove(color, i, color.trayInt), remainingRolls));
 							moveAlreadyUsed = true;
 						}
-						if(-color.direction * i - roll > -color.direction * color.trayInt 
+						if(-color.direction * i - roll > -color.direction * color.opposite.barInt 
 								&& moveSequence.board().points[i + color.direction * roll].occupiedBy == color.opposite 
 								&& moveSequence.board().points[i + color.direction * roll].amtCheckers > 1) 
 							moveAlreadyUsed = true;
@@ -118,7 +118,7 @@ public class LegalMoveCalculation {
 			for(Integer roll : moveSequence.remainingRolls().stream().distinct().collect(Collectors.toList())){
 				for(int i = 0; i < 24; i++){
 					if(moveSequence.board().points[i].occupiedBy == color){
-						if(-color.direction * i - roll > -color.direction * color.trayInt 
+						if(-color.direction * i - roll > -color.direction * color.opposite.barInt 
 								&& (moveSequence.board().points[i + color.direction * roll].occupiedBy != color.opposite 
 									|| moveSequence.board().points[i + color.direction * roll].amtCheckers == 1)){
 							List<Move> tempMoves = new ArrayList<>();

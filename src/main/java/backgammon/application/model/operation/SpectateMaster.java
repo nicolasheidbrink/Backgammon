@@ -56,14 +56,14 @@ public class SpectateMaster extends GamemodeMaster{
 
 	@Override
 	public void diceButtonClicked() {
-		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
-		boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 		if(board.getTray(currentTurn) == 15) programMaster.gameDone(currentTurn, GameCalculation.calculateWinFactor(board, currentTurn));
 		if(currentMS == null || currentMS.size() == 0){
 			currentTurn = currentTurn.opposite;
 			calculateTurn();
 		}
 		else showMove();
+		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
+		boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 	}
 	
 	public void startGame(){

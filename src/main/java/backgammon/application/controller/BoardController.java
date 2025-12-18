@@ -120,7 +120,7 @@ public class BoardController {
 		showDiceRoll(board.leftDie, board.rightDie);
 		for(int i = 0; i < 24; i++){
 			if(board.points[i].occupiedBy == CheckerColors.NA){
-				for(int j = 0; j < 4; j++){
+				for(int j = 0; j < 5; j++){
 					checkers[i][j].setVisible(false);
 				}
 				checkerLabels[i].setVisible(false);
@@ -188,12 +188,19 @@ public class BoardController {
 		trayXLabel.setText("" + board.trayX);
 		
 		checkerOBar.setStroke(Color.BLACK);
+		checkerXBar.setStroke(Color.WHITE);
+		
 		trayO.setStroke(trayO.getFill());
+		trayX.setStroke(trayX.getFill());
+		
 		for(int i = 0; i < 24; i++){
 			points[i].setStroke(points[i].getFill());
 		}
 		
-		if(selectedChecker == 24) checkerOBar.setStroke(Color.GREEN);
+		if(selectedChecker == CheckerColors.O.barInt) checkerOBar.setStroke(Color.GREEN);
+		else if(selectedChecker == CheckerColors.X.barInt) checkerXBar.setStroke(Color.GREEN);
+		else if(selectedChecker == CheckerColors.O.trayInt) trayO.setStroke(Color.GREEN);
+		else if(selectedChecker == CheckerColors.X.trayInt) trayX.setStroke(Color.GREEN);
 		else try{
 			for(int j = 0; j < 5; j++){
 				checkers[selectedChecker][j].setStroke(Color.GREEN);
@@ -205,7 +212,8 @@ public class BoardController {
 				.map(ms -> ms.moves().get(moveWithinTurn).to)
 				.collect(Collectors.toSet());
 		for(int to : toBeHighlighted){
-			if(to == -1) trayO.setStroke(Color.GREEN);
+			if(to == CheckerColors.O.trayInt) trayO.setStroke(Color.GREEN);
+			else if(to == CheckerColors.X.trayInt) trayX.setStroke(Color.GREEN);
 			else points[to].setStroke(Color.GREEN);
 		}
 		leftDie.setText(""+board.leftDie);
@@ -213,7 +221,7 @@ public class BoardController {
 	}
 	
 	public void updateBoard(Board board){
-		updateBoard(board, Integer.MIN_VALUE, new HashSet<MoveSequence>(), Integer.MIN_VALUE);
+		updateBoard(board, 67, new HashSet<MoveSequence>(), Integer.MIN_VALUE);
 	}
 	
 	public void updateScore(int scoreO, int scoreX){
@@ -486,21 +494,21 @@ public class BoardController {
 	
 	@FXML
 	private void checkerOBarClicked(MouseEvent e){
-		gamemodeMaster.checkerClicked(24);
+		gamemodeMaster.checkerClicked(CheckerColors.O.barInt);
 	}
 
 	@FXML
 	private void checkerXBarClicked(MouseEvent e){
-		gamemodeMaster.checkerClicked(-1);
+		gamemodeMaster.checkerClicked(CheckerColors.X.barInt);
 	}
 	
 	@FXML
 	private void trayOClicked(MouseEvent e){
-		gamemodeMaster.pointClicked(-1);
+		gamemodeMaster.pointClicked(CheckerColors.O.trayInt);
 	}
 
 	@FXML
 	private void trayXClicked(MouseEvent e){
-		gamemodeMaster.pointClicked(24);
+		gamemodeMaster.pointClicked(CheckerColors.X.trayInt);
 	}
 }

@@ -44,16 +44,15 @@ public class GameCalculation {
 	public static int calculatePips(Board board, CheckerColors color){
 		int runningTotal = 0;
 		for(int i = 0; i < 24; i++){
-			if(board.points[i].occupiedBy == color) runningTotal += board.points[i].amtCheckers * Math.abs(i - color.trayInt);
+			if(board.points[i].occupiedBy == color) runningTotal += board.points[i].amtCheckers * Math.abs(i - color.opposite.barInt);
 		}
-		if(color == CheckerColors.O) runningTotal += 25 * board.barO;
-		if(color == CheckerColors.X) runningTotal += 25 * board.barX;
+		runningTotal += 25 * board.getBar(color);
 		return runningTotal;
 	}
 	
 	public static int calculateAmountOfTowersInHome(Board board, CheckerColors color){
 		int counter = 0;
-		for(int i = color.trayInt - color.direction; i != color.trayInt - 7*color.direction; i -= color.direction){
+		for(int i = color.opposite.barInt - color.direction; i != color.opposite.barInt - 7*color.direction; i -= color.direction){
 			if(board.points[i].occupiedBy == color && board.points[i].amtCheckers > 1) counter++;
 		}
 		return counter;

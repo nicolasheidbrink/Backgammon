@@ -44,7 +44,7 @@ public class PositionEvaluator {
 		double rewardTowers = 0.0;
 		for(int i = 0; i < 24; i++){
 			if(board.points[i].amtCheckers > 1){
-				rewardTowers -= board.points[i].occupiedBy.direction * towerValues[Math.abs(board.points[i].occupiedBy.trayInt - i) - 1];
+				rewardTowers -= board.points[i].occupiedBy.direction * towerValues[Math.abs(board.points[i].occupiedBy.opposite.barInt - i) - 1];
 			}
 		}
 		runningTotal += rewardTowers;

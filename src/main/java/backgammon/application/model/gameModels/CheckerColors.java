@@ -4,8 +4,8 @@ import java.util.Set;
 
 public enum CheckerColors {
 
-	O(24, -1, -1, Set.of(0,1,2,3,4,5)),
-	X(-1, 24, 1, Set.of(18,19,20,21,22,23)),
+	O(24, Integer.MIN_VALUE, -1, Set.of(0,1,2,3,4,5)),
+	X(-1, Integer.MAX_VALUE, 1, Set.of(18,19,20,21,22,23)),
     NA(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Set.of());
 
     public CheckerColors opposite;

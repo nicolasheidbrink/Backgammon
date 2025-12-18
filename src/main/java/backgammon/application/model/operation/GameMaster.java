@@ -74,6 +74,7 @@ public class GameMaster extends GamemodeMaster {
 			betweenBoards.removeFirst();
 			if(betweenBoards.isEmpty()){
 				gameState = GameStates.AWAITING_ROLL;
+				boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 			}
 		}
 	}
@@ -125,7 +126,7 @@ public class GameMaster extends GamemodeMaster {
 	@Override
 	public void pointClicked(int i){
 		if(gameState != GameStates.AWAITING_DESTINATION_SELECTION) return;
-		if(-1 <= i && i < 24 && 
+		if((i == CheckerColors.O.trayInt || (0 <= i && i < 24)) && 
 				possibleMoves.stream()
 					.map(ms -> ms.moves().get(moveWithinTurn))
 					.filter(move -> move.from == selectedChecker)
@@ -137,7 +138,7 @@ public class GameMaster extends GamemodeMaster {
 				.filter(ms -> ms.moves().get(moveWithinTurn).from == selectedChecker)
 				.filter(ms -> ms.moves().get(moveWithinTurn).to == i)
 				.collect(Collectors.toSet());
-			selectedChecker = Integer.MIN_VALUE;
+			selectedChecker = 67;
 			boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
 			boardController.updateBoard(board, selectedChecker, possibleMoves, moveWithinTurn);
 			moveWithinTurn++;
