@@ -15,8 +15,8 @@ public class SelfPlayer {
 
 	// EDIT THESE: 
 	private static int n = 500;
-	private static EngineTypes engineOType = EngineTypes.NEURAL_NETWORK_ENGINE_WITHOUT_EXPLORATION;
-	private static EngineTypes engineXType = EngineTypes.RULE_BASED_ENGINE;
+	private static EngineTypes engineOType = EngineTypes.RULE_BASED_ENGINE;
+	private static EngineTypes engineXType = EngineTypes.NEURAL_NETWORK_ENGINE_WITHOUT_EXPLORATION;
 	
 	
 	private static Engine engineO;

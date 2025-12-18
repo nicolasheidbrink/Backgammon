@@ -66,42 +66,99 @@ public class Board {
 		}
 		clone.leftDie = leftDie;
 		clone.rightDie = rightDie;
+		clone.turn = this.turn;
 		return clone;
 	}
 	
 	public Board doMove(CheckerColors color, int from, int to){
 		Board after = this.clone();
-		if(from == color.barInt && after.getBar(color) > 0 && after.points[to].occupiedBy != color.opposite){
-			after.setBar(color, after.getBar(color) - 1);
-			after.points[to].amtCheckers++;
-			after.points[to].occupiedBy = color;
-			return after;
+		
+		if(from == color.trayInt){
+			if(getTray(color) == 0) return null;
+			if(to == color.trayInt){
+				return after;
+			}
+			if(to == color.barInt){
+				after.setTray(color, getTray(color) - 1);
+				after.setBar(color, getBar(color) + 1);
+				return after;
+			}
+			if(to >= 0 && to < 24){
+				if(points[to].occupiedBy == color.opposite && points[to].amtCheckers > 1) return null;
+				if(points[to].occupiedBy == color.opposite){
+					after.setTray(color, getTray(color) - 1);
+					after.points[to].occupiedBy = color;
+					after.setBar(color.opposite, getBar(color.opposite) + 1);
+					return after;
+				}
+				else{
+					after.setTray(color, getTray(color) - 1);
+					after.points[to].occupiedBy = color;
+					after.points[to].amtCheckers++;
+					return after;
+				}
+			}
+			else return null;
 		}
-		if(from == color.barInt && after.getBar(color) > 0 && after.points[to].occupiedBy == color.opposite){
-			if(after.points[to].amtCheckers > 1) return null;
-			after.setBar(color, after.getBar(color) - 1);
-			after.points[to].occupiedBy = color;
-			after.setBar(color.opposite, after.getBar(color.opposite) + 1);
-			return after;
+		
+		if(from == color.barInt){
+			if(getBar(color) == 0) return null;
+			if(to == color.trayInt){
+				after.setBar(color, getBar(color) - 1);
+				after.setTray(color, getTray(color) + 1);
+				return after;
+			}
+			if(to == color.barInt){
+				return after;
+			}
+			if(to >= 0 && to < 24){
+				if(points[to].occupiedBy == color.opposite && points[to].amtCheckers > 1) return null;
+				if(points[to].occupiedBy == color.opposite){
+					after.setBar(color, getBar(color) - 1);
+					after.points[to].occupiedBy = color;
+					after.setBar(color.opposite, getBar(color.opposite) + 1);
+					return after;
+				}
+				else{
+					after.setBar(color, getBar(color) - 1);
+					after.points[to].occupiedBy = color;
+					after.points[to].amtCheckers++;
+					return after;
+				}
+			}
+			else return null;
 		}
-		if(after.points[from].occupiedBy != color || after.points[from].amtCheckers == 0) return null;
-		if(to == color.trayInt){
-			if(--(after.points[from].amtCheckers) == 0) after.points[from].occupiedBy = CheckerColors.NA;
-			after.setTray(color, after.getTray(color) + 1);
-			return after;
+		
+		if(from >= 0 && from < 24){
+			if(points[from].occupiedBy != color) return null;
+			if(to == color.trayInt){
+				if(--(after.points[from].amtCheckers) == 0) after.points[from].occupiedBy = CheckerColors.NA;
+				after.setTray(color, getTray(color) + 1);
+				return after;
+			}
+			if(to == color.barInt){
+				if(--(after.points[from].amtCheckers) == 0) after.points[from].occupiedBy = CheckerColors.NA;
+				after.setBar(color, getBar(color) + 1);
+				return after;
+			}
+			if(to >= 0 && to < 24){
+				if(points[to].occupiedBy == color.opposite && points[to].amtCheckers > 1) return null;
+				if(points[to].occupiedBy == color.opposite){
+					if(--(after.points[from].amtCheckers) == 0) after.points[from].occupiedBy = CheckerColors.NA;
+					after.points[to].occupiedBy = color;
+					after.setBar(color.opposite, getBar(color.opposite) + 1);
+					return after;
+				}
+				else{
+					if(--(after.points[from].amtCheckers) == 0) after.points[from].occupiedBy = CheckerColors.NA;
+					after.points[to].occupiedBy = color;
+					after.points[to].amtCheckers++;
+					return after;
+				}
+			}
+			else return null;
 		}
-		if(after.points[to].occupiedBy == color.opposite && after.points[to].amtCheckers > 1) return null;
-		if(--(after.points[from].amtCheckers) == 0) after.points[from].occupiedBy = CheckerColors.NA;
-		if(after.points[to].occupiedBy == color.opposite){
-			after.points[to].occupiedBy = color;
-			after.setBar(color.opposite, after.getBar(color.opposite) + 1);
-			return after;
-		}
-		else{
-			after.points[to].occupiedBy = color;
-			after.points[to].amtCheckers++;
-			return after;
-		}
+		else return null;
 	}
 
 	
