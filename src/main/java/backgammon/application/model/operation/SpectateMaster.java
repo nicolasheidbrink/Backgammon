@@ -42,10 +42,12 @@ public class SpectateMaster extends GamemodeMaster{
 	}
 	
 	private void calculateTurn(int leftRoll, int rightRoll){
+		board.turn = currentTurn;
+		boardController.showDiceRoll(leftRoll, rightRoll);
+		boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 		currentMS = engines.get(currentTurn).doComputedMoveWithSteps(currentTurn, board, leftRoll, rightRoll);
 		if(currentTurn == CheckerColors.O) boardController.setDiceColorGreen(true);
 		else boardController.setDiceColorGreen(false);
-		boardController.showDiceRoll(leftRoll, rightRoll);
 	}
 
 	private void showMove(){
@@ -63,7 +65,6 @@ public class SpectateMaster extends GamemodeMaster{
 		}
 		else showMove();
 		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
-		boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 	}
 	
 	public void startGame(){

@@ -14,7 +14,7 @@ import backgammon.application.model.gameModels.CheckerColors;
 public class SelfPlayer {
 
 	// EDIT THESE: 
-	private static int n = 500;
+	private static int n = 5000;
 	private static EngineTypes engineOType = EngineTypes.RULE_BASED_ENGINE;
 	private static EngineTypes engineXType = EngineTypes.NEURAL_NETWORK_ENGINE_WITHOUT_EXPLORATION;
 	

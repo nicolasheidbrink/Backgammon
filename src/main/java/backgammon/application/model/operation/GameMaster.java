@@ -38,12 +38,12 @@ public class GameMaster extends GamemodeMaster {
 		boardController.setDiceColorGreen(true);
 		board = new Board();
 		boardController.updatePips(GameCalculation.calculatePips(board, CheckerColors.O), GameCalculation.calculatePips(board, CheckerColors.X));
-		boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 		boardController.updateBoard(board);
 		if(programMaster.lastWinner == CheckerColors.NA) gameState = GameStates.AWAITING_FIRST_ROLL;
 		else if(programMaster.lastWinner == CheckerColors.O) {
 			board.turn = CheckerColors.O;
 			gameState = GameStates.AWAITING_ROLL;
+			boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 		}
 		else if(programMaster.lastWinner == CheckerColors.X){
 			board.turn = CheckerColors.X;
@@ -65,6 +65,7 @@ public class GameMaster extends GamemodeMaster {
 			board.turn = CheckerColors.O;
 			gameState = GameStates.AWAITING_ROLL;
 			boardController.setDiceColorGreen(true);
+			boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 		}
 		else {
 			board = betweenBoards.getFirst();
@@ -74,12 +75,12 @@ public class GameMaster extends GamemodeMaster {
 			betweenBoards.removeFirst();
 			if(betweenBoards.isEmpty()){
 				gameState = GameStates.AWAITING_ROLL;
-				boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 			}
 		}
 	}
 	
 	public void rollDice(){
+		boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 		boardController.setDiceColorGreen(true);
 		board.leftDie = (int) (6*Math.random() + 1);
 		board.rightDie = (int) (6*Math.random() + 1);
@@ -98,15 +99,16 @@ public class GameMaster extends GamemodeMaster {
 		boardController.updateBoard(board);
 		if(board.leftDie > board.rightDie){
 			board.turn = CheckerColors.O;
+			boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 			possibleMoves = LegalMoveCalculation.calculateAllPossibleMoveSequences(board, CheckerColors.O, board.leftDie, board.rightDie);
 			gameState = GameStates.AWAITING_CHECKER_SELECTION;
 		}
 		else{
 			board.turn = CheckerColors.X;
 			boardController.setDiceColorGreen(false);
+			boardController.updateEval(GameCalculation.calculateRuleBasedEval(board), GameCalculation.calculateNeuralNetworkEval(board));
 			engineMove(board.leftDie, board.rightDie);
 		}
-
 	}
 	
 	@Override
