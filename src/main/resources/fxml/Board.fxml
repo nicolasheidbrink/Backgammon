@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Polygon?>
@@ -13,42 +15,47 @@
       <Rectangle fill="#86471d" height="500.0" layoutX="700.0" layoutY="50.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="100.0" />
       <Rectangle fill="#86471d" height="50.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
       <Rectangle fill="#86471d" height="101.0" layoutY="550.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" />
-      <Rectangle fill="#c08552" height="500.0" layoutX="50.0" layoutY="50.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="650.0" />
+      <ImageView fitHeight="718.0" fitWidth="800.0" pickOnBounds="true">
+         <image>
+            <Image url="@../images/Gemini_Generated_Image_3bivjl3bivjl3biv.png" />
+         </image>
+      </ImageView>
+      <Rectangle fill="#c08552" height="500.0" layoutX="50.0" layoutY="50.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
+      <Rectangle fill="#c08552" height="500.0" layoutX="400.0" layoutY="50.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
       <Circle fx:id="diceCircle" fill="RED" layoutX="750.0" layoutY="600.0" onMouseClicked="#diceRolled" radius="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#f3e1b9" height="50.0" layoutX="50.0" layoutY="575.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
-      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3e2514" height="50.0" layoutX="400.0" layoutY="575.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
-      <Rectangle fill="#86471d" height="500.0" layoutX="350.0" layoutY="50.0" onMouseClicked="#barClicked" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
+      <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#003000" height="50.0" layoutX="400.0" layoutY="575.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
       <Polygon fx:id="point1" fill="#f3e1b9" layoutX="650.0" layoutY="550.0" onMouseClicked="#point1Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point2" fill="#3e2514" layoutX="600.0" layoutY="550.0" onMouseClicked="#point2Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point2" fill="#003000" layoutX="600.0" layoutY="550.0" onMouseClicked="#point2Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point3" fill="#f3e1b9" layoutX="550.0" layoutY="550.0" onMouseClicked="#point3Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point4" fill="#3e2514" layoutX="500.0" layoutY="550.0" onMouseClicked="#point4Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point4" fill="#003000" layoutX="500.0" layoutY="550.0" onMouseClicked="#point4Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point5" fill="#f3e1b9" layoutX="450.0" layoutY="550.0" onMouseClicked="#point5Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point6" fill="#3e2514" layoutX="400.0" layoutY="550.0" onMouseClicked="#point6Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point6" fill="#003000" layoutX="400.0" layoutY="550.0" onMouseClicked="#point6Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point7" fill="#f3e1b9" layoutX="300.0" layoutY="550.0" onMouseClicked="#point7Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point8" fill="#3e2514" layoutX="250.0" layoutY="550.0" onMouseClicked="#point8Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point8" fill="#003000" layoutX="250.0" layoutY="550.0" onMouseClicked="#point8Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point9" fill="#f3e1b9" layoutX="200.0" layoutY="550.0" onMouseClicked="#point9Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point10" fill="#3e2514" layoutX="150.0" layoutY="550.0" onMouseClicked="#point10Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point10" fill="#003000" layoutX="150.0" layoutY="550.0" onMouseClicked="#point10Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point11" fill="#f3e1b9" layoutX="100.0" layoutY="550.0" onMouseClicked="#point11Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point12" fill="#3e2514" layoutX="50.0" layoutY="550.0" onMouseClicked="#point12Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point12" fill="#003000" layoutX="50.0" layoutY="550.0" onMouseClicked="#point12Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, -215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point13" fill="#f3e1b9" layoutX="50.0" layoutY="50.0" onMouseClicked="#point13Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point14" fill="#3e2514" layoutX="100.0" layoutY="50.0" onMouseClicked="#point14Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point14" fill="#003000" layoutX="100.0" layoutY="50.0" onMouseClicked="#point14Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point15" fill="#f3e1b9" layoutX="150.0" layoutY="50.0" onMouseClicked="#point15Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point16" fill="#3e2514" layoutX="200.0" layoutY="50.0" onMouseClicked="#point16Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point16" fill="#003000" layoutX="200.0" layoutY="50.0" onMouseClicked="#point16Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point17" fill="#f3e1b9" layoutX="250.0" layoutY="50.0" onMouseClicked="#point17Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point18" fill="#3e2514" layoutX="300.0" layoutY="50.0" onMouseClicked="#point18Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point18" fill="#003000" layoutX="300.0" layoutY="50.0" onMouseClicked="#point18Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point19" fill="#f3e1b9" layoutX="400.0" layoutY="50.0" onMouseClicked="#point19Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point20" fill="#3e2514" layoutX="450.0" layoutY="50.0" onMouseClicked="#point20Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point20" fill="#003000" layoutX="450.0" layoutY="50.0" onMouseClicked="#point20Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point21" fill="#f3e1b9" layoutX="500.0" layoutY="50.0" onMouseClicked="#point21Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point22" fill="#3e2514" layoutX="550.0" layoutY="50.0" onMouseClicked="#point22Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point22" fill="#003000" layoutX="550.0" layoutY="50.0" onMouseClicked="#point22Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Polygon fx:id="point23" fill="#f3e1b9" layoutX="600.0" layoutY="50.0" onMouseClicked="#point23Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" />
-      <Polygon fx:id="point24" fill="#3e2514" layoutX="650.0" layoutY="50.0" onMouseClicked="#point24Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" />
+      <Polygon fx:id="point24" fill="#003000" layoutX="650.0" layoutY="50.0" onMouseClicked="#point24Clicked" points="0.0, 0.0, 50.0, 0.0, 25.0, 215.0" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" />
       <Rectangle fx:id="trayO" arcHeight="10.0" arcWidth="10.0" fill="#f3e1b9" height="215.0" layoutX="725.0" layoutY="335.0" onMouseClicked="#trayOClicked" stroke="#f3e1b9" strokeType="INSIDE" strokeWidth="2.0" width="50.0" />
       <Label fx:id="trayOLabel" alignment="CENTER" layoutX="725.0" layoutY="335.0" onMouseClicked="#trayOClicked" prefHeight="215.0" prefWidth="50.0" text="0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Rectangle fx:id="trayX" arcHeight="10.0" arcWidth="10.0" fill="#3e2514" height="215.0" layoutX="725.0" layoutY="50.0" onMouseClicked="#trayXClicked" stroke="#3e2514" strokeType="INSIDE" strokeWidth="2.0" width="50.0" />
+      <Rectangle fx:id="trayX" arcHeight="10.0" arcWidth="10.0" fill="#003000" height="215.0" layoutX="725.0" layoutY="50.0" onMouseClicked="#trayXClicked" stroke="#003000" strokeType="INSIDE" strokeWidth="2.0" width="50.0" />
       <Label fx:id="trayXLabel" alignment="CENTER" layoutX="725.0" layoutY="50.0" onMouseClicked="#trayXClicked" prefHeight="215.0" prefWidth="50.0" text="0" textFill="WHITE">
          <font>
             <Font size="18.0" />
@@ -355,12 +362,12 @@
       </Label>
       <Label layoutX="65.0" layoutY="575.0" prefHeight="50.0" text="YOU">
          <font>
-            <Font name="AcmeFont Regular" size="26.0" />
+            <Font name="Flubber" size="26.0" />
          </font>
       </Label>
       <Label layoutX="415.0" layoutY="575.0" prefHeight="50.0" prefWidth="144.0" text="COMPUTER" textFill="WHITE">
          <font>
-            <Font name="AcmeFont Regular" size="26.0" />
+            <Font name="Flubber" size="26.0" />
          </font>
       </Label>
       <Label fx:id="scoreO" layoutX="250.0" layoutY="575.0" prefHeight="25.0" text="Score: 0">
@@ -383,6 +390,11 @@
             <Font size="16.0" />
          </font>
       </Label>
+      <ImageView fitHeight="40.0" fitWidth="79.0" layoutX="171.0" layoutY="581.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/poodle_silhouette.png" />
+         </image>
+      </ImageView>
        
    </children>
 </Pane>
