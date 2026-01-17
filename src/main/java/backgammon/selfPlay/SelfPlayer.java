@@ -15,7 +15,7 @@ public class SelfPlayer {
 
 	// EDIT THESE: 
 	private static int n = 5000;
-	private static EngineTypes engineOType = EngineTypes.RULE_BASED_ENGINE;
+	private static EngineTypes engineOType = EngineTypes.RANDOM_MOVE_ENGINE;
 	private static EngineTypes engineXType = EngineTypes.NEURAL_NETWORK_ENGINE_WITHOUT_EXPLORATION;
 	
 	
@@ -31,7 +31,6 @@ public class SelfPlayer {
 	private static int movesInOneGame = 0;
 	
 	private static Board board;
-	private static CheckerColors currentTurn;
 	
 	public static void main(String[] args){
 		initialize();
@@ -48,7 +47,7 @@ public class SelfPlayer {
 		engineX = engineXType.createEngine();
 		
 		board = new Board();
-		currentTurn = CheckerColors.O;
+		board.turn = CheckerColors.O;
 	}
 
 	
@@ -65,9 +64,9 @@ public class SelfPlayer {
 		int leftRoll = (int) (Math.random() * 6.0 + 1);
 		int rightRoll = (int) (Math.random() * 6.0 + 1);
 		
-		if(currentTurn == CheckerColors.O){
+		if(board.turn == CheckerColors.O){
 			board = engineO.doComputedMove(CheckerColors.O, board, leftRoll, rightRoll);
-			if(board.getTray(currentTurn) == 15){
+			if(board.getTray(CheckerColors.O) == 15){
 				int winFactor = GameCalculation.calculateWinFactor(board, CheckerColors.O);
 				scoreO += winFactor;
 				moveCount.add(movesInOneGame);
@@ -75,14 +74,15 @@ public class SelfPlayer {
 				System.out.println("\n*****O WINS WITH "+winFactor+"*****\n");
 				System.out.println("ScoreO: "+scoreO+"\nScoreX: "+scoreX + "\n\n\n");
 				board = new Board();
+				board.turn = CheckerColors.O;
 				return;
 			}
-			currentTurn = CheckerColors.X;
 			playTurn();
 		}
 		else{
+			if(board.turn != CheckerColors.X) System.out.println("alarm SelfPlayer line 84");
 			board = engineX.doComputedMove(CheckerColors.X, board, leftRoll, rightRoll);
-			if(board.getTray(currentTurn) == 15){
+			if(board.getTray(CheckerColors.X) == 15){
 				int winFactor = GameCalculation.calculateWinFactor(board, CheckerColors.X);
 				scoreX += winFactor;
 				moveCount.add(movesInOneGame);
@@ -90,9 +90,9 @@ public class SelfPlayer {
 				System.out.println("\n*****X WINS WITH "+winFactor+"*****\n");
 				System.out.println("ScoreO: "+scoreO+"\nScoreX: "+scoreX + "\n\n\n");
 				board = new Board();
+				board.turn = CheckerColors.X;
 				return;
 			}
-			currentTurn = CheckerColors.O;
 			playTurn();
 		}
 	}

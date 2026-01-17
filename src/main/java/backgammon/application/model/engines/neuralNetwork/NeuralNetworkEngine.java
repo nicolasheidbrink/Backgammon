@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Set;
 
 import backgammon.application.model.engines.Engine;
@@ -40,9 +41,6 @@ public class NeuralNetworkEngine implements Engine {
 	@Override
 	public MoveSequence calculateMove(CheckerColors color, Board board, Set<MoveSequence> possibleMoves) {
 
-		MoveSequence tempBestMoveSeq = null;
-		double tempBestEval = Double.MAX_VALUE * color.direction;
-		double currentEval = tempBestEval;
 		if(includeRandomExplorationMoves && Math.random() < 0.1){
 			if(possibleMoves.isEmpty()) return null;
 			int index = (int) (Math.random() * possibleMoves.size());
@@ -50,14 +48,23 @@ public class NeuralNetworkEngine implements Engine {
 				if(index-- == 0) return moveSequence;
 			}
 		}
+		
+		MoveSequence tempBestMoveSeq = null;
+		double tempBestEval = Double.MIN_VALUE;
+		double currentEval = tempBestEval;
 		for(MoveSequence moveSequence : possibleMoves){
 			try{
-				currentEval = getPythonEvaluation(moveSequence.board());
+				if(board.turn == null){
+					System.out.println(board);
+					for(MoveSequence ms : possibleMoves) System.out.println(ms.board());
+					System.out.println("done\n\n\n\n\n");
+				}
+				if(board.turn == CheckerColors.O) currentEval = getPythonEvaluation(moveSequence.board());
+				else currentEval = getPythonEvaluation(moveSequence.board().mirror());
 			} catch(Exception e){
 				System.out.println("python eval didnt work\nError message: "+e.getMessage());
 			}
-			if((color == CheckerColors.O && currentEval > tempBestEval)
-					|| (color == CheckerColors.X && currentEval < tempBestEval)){
+			if(currentEval > tempBestEval){
 				tempBestEval = currentEval;
 				tempBestMoveSeq = moveSequence;
 			}
@@ -72,7 +79,10 @@ public class NeuralNetworkEngine implements Engine {
 		bw.flush();
 
         String line = br.readLine();
-        return Double.parseDouble(line);
+        double[] probabilities = Arrays.stream(line.replace("[", "").replace("]", "").trim().split("\\s+"))
+                .mapToDouble(Double::parseDouble)
+                .toArray();
+        return probabilities[0] * 3 + probabilities[1] * 2 + probabilities[2] * 1 - probabilities[3] * 1 - probabilities[4] * 2 - probabilities[5] * 2;
   
 	}
 	
@@ -97,7 +107,15 @@ public class NeuralNetworkEngine implements Engine {
 			pb = new ProcessBuilder("python", gitRepoPathToPython.toAbsolutePath().toString());
 		}
 		else{
-			pb = new ProcessBuilder("python", deploymentFolderPathToPython.toAbsolutePath().toString());
+			String os = System.getProperty("os.name").toLowerCase();
+			String pythonCommand;
+
+			if (os.contains("win")) {
+			    pythonCommand = "python"; // Windows
+			} else {
+			    pythonCommand = "python3"; // Mac and Linux
+			}
+			pb = new ProcessBuilder(pythonCommand, deploymentFolderPathToPython.toAbsolutePath().toString());
 		}
 		pb.redirectErrorStream(true);
 		try {
