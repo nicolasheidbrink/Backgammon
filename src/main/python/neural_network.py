@@ -3,6 +3,8 @@ import sys
 import json
 import os
 
+np.set_printoptions(suppress=True, linewidth=200)
+
 # Load weights and biases from JSON
 base = os.path.dirname(os.path.abspath(__file__))
 json_path_git_repo = os.path.join(base, "..", "resources", "parameters", "nn_weights.json")

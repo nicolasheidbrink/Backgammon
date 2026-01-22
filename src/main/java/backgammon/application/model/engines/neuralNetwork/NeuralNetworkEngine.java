@@ -50,39 +50,58 @@ public class NeuralNetworkEngine implements Engine {
 		}
 		
 		MoveSequence tempBestMoveSeq = null;
-		double tempBestEval = Double.MIN_VALUE;
+//		double tempBestEval = -Double.MAX_VALUE;
+		double tempBestEval = Double.MAX_VALUE * board.turn.direction;
 		double currentEval = tempBestEval;
 		for(MoveSequence moveSequence : possibleMoves){
+//			try{
+//				if(board.turn == null){
+//					System.out.println(board);
+//					for(MoveSequence ms : possibleMoves) System.out.println(ms.board());
+//					System.out.println("done\n\n\n\n\n");
+//				}
+//				if(board.turn == CheckerColors.O) currentEval = getPythonEvaluation(moveSequence.board());
+//				else currentEval = getPythonEvaluation(moveSequence.board().mirror());
+//			} catch(IOException e){
+//				System.out.println("python eval didnt work\nError message: "+e.getMessage());
+//			}
+//			if(currentEval > tempBestEval){
+//				tempBestEval = currentEval;
+//				tempBestMoveSeq = moveSequence;
+//			}
+			
 			try{
-				if(board.turn == null){
-					System.out.println(board);
-					for(MoveSequence ms : possibleMoves) System.out.println(ms.board());
-					System.out.println("done\n\n\n\n\n");
+				if(board.turn == null) System.out.println("board.turn is null" + board);
+				currentEval = getPythonEvaluation(moveSequence.board());
+				if(board.turn == CheckerColors.O && currentEval > tempBestEval){
+					tempBestEval = currentEval;
+					tempBestMoveSeq = moveSequence;
 				}
-				if(board.turn == CheckerColors.O) currentEval = getPythonEvaluation(moveSequence.board());
-				else currentEval = getPythonEvaluation(moveSequence.board().mirror());
-			} catch(Exception e){
-				System.out.println("python eval didnt work\nError message: "+e.getMessage());
-			}
-			if(currentEval > tempBestEval){
-				tempBestEval = currentEval;
-				tempBestMoveSeq = moveSequence;
+				if(board.turn == CheckerColors.X && currentEval < tempBestEval){
+					tempBestEval = currentEval;
+					tempBestMoveSeq = moveSequence;
+				}
+			} catch(IOException e){
+				System.out.println("reeeeee");
 			}
 		}
 		return tempBestMoveSeq;
 	}
 	
-	public double getPythonEvaluation(Board board) throws Exception{
+	public double getPythonEvaluation(Board board) throws IOException {
 		String pythonInput = createPythonInput(board);
 		bw.write(pythonInput);
 		bw.newLine();
 		bw.flush();
 
         String line = br.readLine();
+        line = line.substring(1, line.length() - 1);
+                
         double[] probabilities = Arrays.stream(line.replace("[", "").replace("]", "").trim().split("\\s+"))
                 .mapToDouble(Double::parseDouble)
                 .toArray();
-        return probabilities[0] * 3 + probabilities[1] * 2 + probabilities[2] * 1 - probabilities[3] * 1 - probabilities[4] * 2 - probabilities[5] * 2;
+        //System.out.println(board.turn + "\n" + probabilities[0] + "; " + probabilities[1] + "; " + probabilities[2] + "; " + probabilities[3] + "; " + probabilities[4] + "; " + probabilities[5] + "; " + "\n\n");
+        return probabilities[0] + probabilities[1] + probabilities[2] - probabilities[3] - probabilities[4] - probabilities[5];
   
 	}
 	

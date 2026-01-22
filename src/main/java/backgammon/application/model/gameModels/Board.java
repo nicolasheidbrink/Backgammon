@@ -211,7 +211,7 @@ public class Board {
 	}
 	
 	public Board mirror(){
-		Board mirror = this.clone();
+		Board mirror = new Board();
 		for(int i = 0; i < 24; i++){
 			mirror.points[i].occupiedBy = this.points[23-i].occupiedBy.opposite;
 			mirror.points[i].amtCheckers = this.points[23-i].amtCheckers;

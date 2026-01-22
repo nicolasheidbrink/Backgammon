@@ -1,5 +1,5 @@
 package backgammon.neuralNetworkTrainer;
 
-public record State(double[] x) {
+public record State(double[] x, boolean reversed) {
 
 }

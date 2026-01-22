@@ -2,9 +2,6 @@ import json
 import numpy as np
 import os
 
-np.set_printoptions(suppress=True, linewidth=200)
-
-
 base = os.path.dirname(os.path.abspath(__file__))
 json_path = os.path.join(base, "..", "resources", "parameters", "nn_weights.json")
 if os.path.exists(json_path):
@@ -12,7 +9,7 @@ if os.path.exists(json_path):
         json_data_in = json.load(f)
 else:
     rng = np.random.default_rng(0)
-    n_l_init = [203, 20, 20, 6] # insert desired nodes per layer here
+    n_l_init = [203, 20, 20, 1] # insert desired nodes per layer here
     l_init = len(n_l_init) - 1
     w_init = []
     for i in range(l_init):
@@ -40,68 +37,60 @@ def calcEval(x):
     a.append(np.array(x))
     for i in range(l):
         z = w[i] @ a[-1] + b[i]
-        a.append(relu(z) if i < l - 1 else sigmoid(z))
+        a.append(relu(z) if i < l - 1 else z)
     return a
-
 def relu(x):
     return np.maximum(0, x)
-
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
 
 # Load training data from JSON file
 with open("C:/Users/nicol/Downloads/training_data.csv", "r") as f:
     training_data = json.load(f)
 
-alpha = 0.08
-td_lambda = 0.92
+alpha = 0.01
+td_lambda = 0.95
 
 ii = int(0)
 for game in training_data:
+    game["result"] = game["result"][0] ###############################################################
     print (ii, flush = True)
     ii += 1
-
-    game["result"] = np.array(game["result"])
-
     # Compute y_hats (evaluations) for each state
     for state in game["states"]:
         state["a"] = calcEval(state["x"])
-        state["y_hat"] = state["a"][-1]                      #if not state["reversed"] else state["a"][-1][::-1]
+        state["y_hat"] = state["a"][-1][0]
 
     # Update goal values & Costs
     game["states"][-1]["y"] = game["result"]
+    game["states"][-1]["C"] = 1/2 * (game["states"][-1]["y"] - game["states"][-1]["y_hat"]) ** 2
 
     running_total = game["states"][-1]["y_hat"]
     counter = 1
 
-    # TD(\lambda) calculation of target; see Samsung Notes for explanation
+    # TD(\lambda) calculation of target
     for i in reversed(range(len(game["states"]) - 1)):
         game["states"][i]["y"] = (1-td_lambda) * running_total + td_lambda ** counter * game["result"]
         running_total = running_total * td_lambda + game["states"][i]["y_hat"]
         counter += 1
 
-    for state in game["states"]:
-        #print(f"y: {state["y"]}\ny_hat: {state["y_hat"]}\n")
-        #######################################################if state["reversed"]:
-       #######################################################     state["y"] = state["y"][::-1]
-       #######################################################     state["y_hat"] = state["y_hat"][::-1]
-        state["C"] = np.sum(  1/2 * (state["y"] - state["y_hat"]) ** 2  )
+        game["states"][i]["C"] = 1/2 * (game["states"][i]["y"] - game["states"][i]["y_hat"]) ** 2
     
     w_gradients_sum = [np.zeros_like(ww) for ww in w]
     b_gradients_sum = [np.zeros_like(bb) for bb in b]
 
     for state in game["states"]:
 
-        dC_dZ = [np.zeros_like(a) for a in state["a"]]
-        dC_dZ[-1] = -state["y_hat"] * (1 - state["y_hat"]) * (state["y"] - state["y_hat"])
+        dC_dA = [np.zeros_like(a) for a in state["a"]]
+        dC_dA[-1][0] = state["y_hat"] - state["y"]
+        b_gradients_sum[-1][0] += dC_dA[-1][0]
+        for k in range(n_l[-2]):
+            w_gradients_sum[-1][0][k] += dC_dA[-1][0] * state["a"][-2][k]
 
-        for i in reversed(range(1, l+1)):
+        for i in reversed(range(1, l)):
             for j in range(n_l[i]):
-                if i < l:
-                    dC_dZ[i][j] = dC_dZ[i+1] @ w[i][:,j] if state["a"][i][j] > 0 else 0
-                b_gradients_sum[i-1][j] += dC_dZ[i][j]
+                dC_dA[i][j] = dC_dA[i+1] @ w[i][:,j] if state["a"][i][j] > 0 else 0
+                b_gradients_sum[i-1][j] += dC_dA[i][j]
                 for k in range(n_l[i-1]):
-                    w_gradients_sum[i-1][j][k] += dC_dZ[i][j] * state["a"][i-1][k]
+                    w_gradients_sum[i-1][j][k] += dC_dA[i][j] * state["a"][i-1][k]
 
     b_gradients_avg = [grad / len(game["states"]) for grad in b_gradients_sum]
     w_gradients_avg = [grad / len(game["states"]) for grad in w_gradients_sum]
@@ -116,6 +105,7 @@ json_data_out = {
     "weights_list" : [weight.tolist() for weight in w],
     "biases_list" : [bias.tolist() for bias in b]
 }
+
 
 # Save weights and biases to JSON file
 with open(json_path, "w") as f:

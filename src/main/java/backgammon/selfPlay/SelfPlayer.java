@@ -14,19 +14,19 @@ import backgammon.application.model.gameModels.CheckerColors;
 public class SelfPlayer {
 
 	// EDIT THESE: 
-	private static int n = 5000;
-	private static EngineTypes engineOType = EngineTypes.RANDOM_MOVE_ENGINE;
-	private static EngineTypes engineXType = EngineTypes.NEURAL_NETWORK_ENGINE_WITHOUT_EXPLORATION;
+	private static int n = 100;
+	private static EngineTypes engineOType = EngineTypes.NEURAL_NETWORK_ENGINE_WITHOUT_EXPLORATION;
+	private static EngineTypes engineXType = EngineTypes.RANDOM_MOVE_ENGINE;
 	
 	
 	private static Engine engineO;
 	private static Engine engineX;
 	
-	private static int scoreO = 0;
-	private static int scoreX = 0;
+	private static int scoreO;
+	private static int scoreX;
 	
-	private static List<Integer> results = new ArrayList<>();
-	private static List<Integer> moveCount = new ArrayList<>();
+	private static List<Integer> results;
+	private static List<Integer> moveCount;
 	
 	private static int movesInOneGame = 0;
 	
@@ -45,6 +45,10 @@ public class SelfPlayer {
 	private static void initialize(){
 		engineO = engineOType.createEngine();
 		engineX = engineXType.createEngine();
+		results = new ArrayList<>();
+		moveCount = new ArrayList<>();
+		scoreO = 0;
+		scoreX = 0;
 		
 		board = new Board();
 		board.turn = CheckerColors.O;
@@ -52,7 +56,7 @@ public class SelfPlayer {
 
 	
 	private static void playGame(int i){
-		System.out.println("\n\n\n\ni: "+i+"\n");
+		System.out.println("\n\n\ni: "+i+"\n");
 		movesInOneGame = 0;
 		playTurn();
 		System.out.println("That game had "+movesInOneGame+" moves\n\n");
@@ -72,7 +76,7 @@ public class SelfPlayer {
 				moveCount.add(movesInOneGame);
 				results.add(winFactor);
 				System.out.println("\n*****O WINS WITH "+winFactor+"*****\n");
-				System.out.println("ScoreO: "+scoreO+"\nScoreX: "+scoreX + "\n\n\n");
+				System.out.println("ScoreO: "+scoreO+"\nScoreX: "+scoreX + "\n");
 				board = new Board();
 				board.turn = CheckerColors.O;
 				return;
@@ -88,7 +92,7 @@ public class SelfPlayer {
 				moveCount.add(movesInOneGame);
 				results.add(-winFactor);
 				System.out.println("\n*****X WINS WITH "+winFactor+"*****\n");
-				System.out.println("ScoreO: "+scoreO+"\nScoreX: "+scoreX + "\n\n\n");
+				System.out.println("ScoreO: "+scoreO+"\nScoreX: "+scoreX + "\n");
 				board = new Board();
 				board.turn = CheckerColors.X;
 				return;
@@ -124,6 +128,7 @@ public class SelfPlayer {
 				"\nThe average score per game that O won is "+(double) scoreO / numberOfOVictories+
 				"\nThe average score per game that X won is "+(double) scoreX / (n-numberOfOVictories)+
 				"\n\n*#*#*#*#*#*#*#*#*#* The mean score is "+X_n+" *#*#*#*#*#*#*#*#*#*"+ 
+				"\nThe p=0.95 confidence interval for the mean score is ["+(X_n - s*1.96/Math.sqrt(n))+", "+(X_n + s*1.96/Math.sqrt(n))+"]"+ 
 				"\nThe t Value is "+t+
 				"\nThe standard deviation is "+s+
 				"\nThe p Value of O being better than X is "+pValue+
