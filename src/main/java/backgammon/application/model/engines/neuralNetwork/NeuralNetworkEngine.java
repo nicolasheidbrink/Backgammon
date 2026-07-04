@@ -82,7 +82,7 @@ public class NeuralNetworkEngine implements Engine {
 					tempBestMoveSeq = moveSequence;
 				}
 			} catch(IOException e){
-				System.out.println("reeeeee");
+				//System.out.print("NNE.java IO Excptn");
 			}
 		}
 		return tempBestMoveSeq;
@@ -95,13 +95,14 @@ public class NeuralNetworkEngine implements Engine {
 		bw.flush();
 
         String line = br.readLine();
+        if (line.length() < 60) System.out.println("python output line: "+line);
         line = line.substring(1, line.length() - 1);
                 
         double[] probabilities = Arrays.stream(line.replace("[", "").replace("]", "").trim().split("\\s+"))
                 .mapToDouble(Double::parseDouble)
                 .toArray();
         //System.out.println(board.turn + "\n" + probabilities[0] + "; " + probabilities[1] + "; " + probabilities[2] + "; " + probabilities[3] + "; " + probabilities[4] + "; " + probabilities[5] + "; " + "\n\n");
-        return probabilities[0] + probabilities[1] + probabilities[2] - probabilities[3] - probabilities[4] - probabilities[5];
+        return 3*probabilities[0] + 2*probabilities[1] + probabilities[2] - probabilities[3] - 2*probabilities[4] - 3*probabilities[5];
   
 	}
 	
