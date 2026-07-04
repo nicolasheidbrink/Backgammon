@@ -53,7 +53,7 @@ def sigmoid(x):
 with open("C:/Users/nicol/Downloads/training_data.csv", "r") as f:
     training_data = json.load(f)
 
-alpha = 0.08
+alpha = 0.01
 td_lambda = 0.92
 
 ii = int(0)
